@@ -1,9 +1,11 @@
 import 'package:elter/entity/models/ads.dart';
 import 'package:elter/entity/models/super_category.dart';
-import 'package:elter/presenter/bloc.dart';
+import 'package:elter/presenter/cubit.dart';
 
 import 'package:elter/view/pages.dart';
+import 'package:elter/view/pages/catalog/catalog_screen.dart';
 import 'package:elter/view/styles.dart';
+import 'package:elter/view/widgets/app_bar_with_search.dart';
 import 'package:elter/view/widgets/app_bar_with_tab_bar.dart';
 import 'package:elter/view/widgets/loading_indicator.dart';
 
@@ -31,7 +33,7 @@ class _BottomNavScreensState extends State<BottomNavigationScreens>
       const HomeScreen(),
       const NewProducts(),
       const CartScreen(),
-      const CategoryListView(),
+      const CatalogScreen(),
       const MyProfile()
     ];
 
@@ -81,13 +83,16 @@ class _BottomNavScreensState extends State<BottomNavigationScreens>
                               : bottomIndex == 0 && homeScreenIndex == 1
                                   ? AppBar(
                                       leading: IconButton(
-                                          onPressed: () {
-                                            context
-                                                .read<ChangeHomeScreensCubit>()
-                                                .changeHomeScreen(0);
-                                                context.read<ChangeBottomNavCubit>().changeIndex(0);
-                                          },
-                                          icon: Icon(Icons.arrow_back)),
+                                        onPressed: () {
+                                          context
+                                              .read<ChangeHomeScreensCubit>()
+                                              .changeHomeScreen(0);
+                                          context
+                                              .read<ChangeBottomNavCubit>()
+                                              .changeIndex(0);
+                                        },
+                                        icon: const Icon(Icons.arrow_back),
+                                      ),
                                       title: Text(adsObject.description),
                                     )
                                   : bottomIndex == 1
@@ -95,7 +100,7 @@ class _BottomNavScreensState extends State<BottomNavigationScreens>
                                       : bottomIndex == 2
                                           ? AppBar()
                                           : bottomIndex == 3
-                                              ? AppBar()
+                                              ? appBarWithSearch(context)
                                               : bottomIndex == 4
                                                   ? AppBar()
                                                   : AppBar(),

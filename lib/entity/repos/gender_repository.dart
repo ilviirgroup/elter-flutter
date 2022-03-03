@@ -8,7 +8,7 @@ class GenderRepository {
 
   Future<List> fetchData() async {
     final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.genderApiRoute);
+        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.genderApiRoute);
     return rawData.map((json) => Gender.fromJson(json)).toList();
   }
 }

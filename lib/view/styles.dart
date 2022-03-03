@@ -11,6 +11,10 @@ const kBlack = Color(0xFF000000);
 const kGrey = Color(0xFF6e6c6c);
 const whiteGrey = Color.fromARGB(28, 122, 120, 120);
 
+Color textGreyColor = const Color(0xFF6E6C6C);
+Color textRedColor = const Color(0xFFE21010);
+Color newProductLabelColor = const Color(0xFF2E7D32);
+
 var ulgamaGirmekTextStyle =
     const TextStyle(fontSize: 14, fontWeight: FontWeight.w700);
 double ulgamaGirmekTextMarginHorizontal = 10.0;

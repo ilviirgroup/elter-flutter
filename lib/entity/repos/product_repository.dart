@@ -8,7 +8,7 @@ class ProductRepository {
 
   Future<List<Product>> fetchData() async {
     final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.productApiRoute);
+        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.productApiRoute);
     return rawData.map((json) => Product.fromJson(json)).toList();
   }
 }

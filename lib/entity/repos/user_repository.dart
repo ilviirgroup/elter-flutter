@@ -10,7 +10,7 @@ class UserRepository {
 
   Future<List> fetchData() async {
     final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.userApiRoute);
+        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.userApiRoute);
     return rawData.map((json) => User.fromJson(json)).toList();
   }
 

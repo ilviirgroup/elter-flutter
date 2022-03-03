@@ -6,6 +6,8 @@ import 'data/network_service.dart';
 import 'entity/export_repos.dart';
 import 'entity/models/ads.dart';
 import 'presenter/bloc.dart';
+import 'presenter/cubit.dart';
+import 'presenter/provider.dart';
 import 'router/app_on_generate_route.dart';
 import 'utils/app_bloc_observer.dart';
 import 'utils/app_theme.dart';
@@ -47,10 +49,14 @@ class MyApp extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          create: (context) => ChangeBottomNavCubit()..changeIndex(0),
+          create: (context) => ChangeCatalogScreensCubit(),
         ),
         BlocProvider(
-            create: (context) => ChangeHomeScreensCubit()..changeHomeScreen(0)),
+          create: (context) => ChangeHomeScreensCubit()..changeHomeScreen(0),
+        ),
+        BlocProvider(
+          create: (context) => ChangeBottomNavCubit()..changeIndex(0),
+        ),
         BlocProvider(
           create: (context) => LoginBloc(),
         ),
@@ -66,7 +72,12 @@ class MyApp extends StatelessWidget {
             ProductRepository(
               NetworkService(),
             ),
-          ),
+          )..add(
+              ProductFetchedEvent(),
+            ),
+        ),
+        BlocProvider(
+          create: (context) => SearchTappedCubit(),
         ),
         BlocProvider(
           create: (context) => SubCategoryCubit(

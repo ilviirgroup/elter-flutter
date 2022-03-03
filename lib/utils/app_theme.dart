@@ -31,4 +31,5 @@ final ThemeData myTheme = ThemeData(
         selectedItemColor: kPrimaryColor,
         unselectedItemColor: kBlack,
         type: BottomNavigationBarType.fixed,
-        backgroundColor: kWhite));
+        backgroundColor: kWhite),
+    textSelectionTheme: TextSelectionThemeData(cursorColor: kPrimaryColor));

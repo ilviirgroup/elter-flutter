@@ -2,7 +2,7 @@ import 'package:elter/main.dart';
 import 'package:elter/view/pages/base/page_base.dart';
 import 'package:elter/view/pages/category/category_list_view.dart';
 import 'package:elter/view/pages/welcome_screen.dart';
-import 'package:elter/view/widgets/search_app_bar.dart';
+import 'package:elter/view/widgets/app_bar_with_search.dart';
 import 'package:flutter/material.dart';
 
 class PageContainer extends PageContainerBase {
@@ -30,16 +30,16 @@ class PageContainer extends PageContainerBase {
   AppBar get appBar {
     switch (pageType) {
       case PageType.home:
-        return searchAppBar();
+        return AppBar();
       case PageType.categories:
-        return searchAppBar();
+        return AppBar();
       case PageType.shoppingCart:
-        return searchAppBar();
+        return AppBar();
       case PageType.profile:
-        return searchAppBar();
+        return AppBar();
       case PageType.season:
       default:
-        return searchAppBar();
+        return AppBar();
     }
   }
 
@@ -75,7 +75,7 @@ class PageContainer extends PageContainerBase {
       default:
         return Container();
       // case PageType.home:
-        // return const MyHomePage();
+      // return const MyHomePage();
     }
   }
 }

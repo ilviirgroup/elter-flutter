@@ -8,7 +8,7 @@ class SellerRepository {
 
   Future<List<Seller>> fetchData() async {
     final List rawData = await networkService.getRequest
-        .fetchData(ApiRoutes.vendorApiRoute);
+        .fetchData(BaseUrl.baseUrl + ApiRoutes.vendorApiRoute);
     return rawData.map((json) => Seller.fromJson(json)).toList();
   }
 }

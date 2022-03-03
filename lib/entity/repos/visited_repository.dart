@@ -7,8 +7,8 @@ class VisitedRepository {
   VisitedRepository(this.networkService);
 
   Future<Visited> fetchData() async {
-    final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.visitedApiRoute);
+    final List rawData = await networkService.getRequest
+        .fetchData(BaseUrl.baseUrl + ApiRoutes.visitedApiRoute);
     return Visited.fromJson(rawData.first);
   }
 }

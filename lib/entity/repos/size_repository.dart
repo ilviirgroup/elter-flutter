@@ -7,8 +7,8 @@ class SizeRepository {
   SizeRepository(this.networkService);
 
   Future<List> fetchData() async {
-    final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.sizeApiRoute);
+    final List rawData = await networkService.getRequest
+        .fetchData(BaseUrl.baseUrl + ApiRoutes.sizeApiRoute);
     return rawData.map((json) => Size.fromJson(json)).toList();
   }
 }

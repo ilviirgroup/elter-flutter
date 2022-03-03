@@ -8,7 +8,7 @@ class AboutUsRepository {
 
   Future<List> fetchData() async {
     final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.aboutUsApiRoute);
+        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.aboutUsApiRoute);
     return rawData.map((json) => AboutUs.fromJson(json)).toList();
   }
 }

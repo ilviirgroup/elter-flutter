@@ -8,7 +8,7 @@ class OrderRepository {
 
   Future<List<Order>> fetchData() async {
     final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.orderApiRoute);
+        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.orderApiRoute);
     return rawData.map((json) => Order.fromJson(json)).toList();
   }
 

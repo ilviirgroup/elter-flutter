@@ -8,7 +8,7 @@ class UpdateRepository {
 
   Future fetchData() async {
     final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.updateApiRoute);
+        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.updateApiRoute);
     return Update.fromJson(rawData.first);
   }
 }

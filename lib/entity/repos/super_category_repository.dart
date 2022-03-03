@@ -8,7 +8,7 @@ class SuperCategoryRepository {
 
   Future<List<SuperCategory>> fetchData() async {
     final List rawData = await networkService.getRequest
-        .fetchData(ApiRoutes.superCategoryApiRoute);
+        .fetchData(BaseUrl.baseUrl + ApiRoutes.superCategoryApiRoute);
     return rawData.map((json) => SuperCategory.fromJson(json)).toList();
   }
 }

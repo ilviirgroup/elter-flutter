@@ -1,5 +1,5 @@
 import 'package:elter/presenter/cubit/change_home_screens/change_home_screens_cubit.dart';
-import 'package:elter/view/pages/product/product_grid_view.dart';
+import 'package:elter/view/pages/product/products_grid_view.dart';
 import 'package:elter/view/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class _HomeTabScreenState extends State<HomeScreen> {
     super.initState();
     homeScreens = [
       const AdsPage(),
-      const ProductGridView(),
+      const ProductsGridView(),
     ];
   }
 

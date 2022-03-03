@@ -1,3 +1,4 @@
+import 'package:elter/presenter/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -5,7 +6,6 @@ import 'package:elter/entity/models/super_category.dart';
 import 'package:elter/view/pages/ads/components/ads_list_view.dart';
 import 'package:elter/view/widgets/loading_indicator.dart';
 
-import '../../../presenter/bloc.dart';
 
 class AdsPage extends StatefulWidget {
   const AdsPage({Key? key}) : super(key: key);

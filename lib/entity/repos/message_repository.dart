@@ -8,7 +8,7 @@ class MessageRepository {
 
   Future<List> fetchData() async {
     final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.messageApiRoute);
+        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.messageApiRoute);
     return rawData.map((json) => Message.fromJson(json)).toList();
   }
 }

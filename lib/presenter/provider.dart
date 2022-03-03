@@ -1,0 +1,1 @@
+export 'package:elter/presenter/provider/ads_provider.dart';

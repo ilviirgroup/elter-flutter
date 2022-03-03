@@ -8,7 +8,7 @@ class ColorRepository {
 
   Future<List> fetchData() async {
     final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.colorAPiRoute);
+        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.colorAPiRoute);
     return rawData.map((json) => Color.fromJson(json)).toList();
   }
 }

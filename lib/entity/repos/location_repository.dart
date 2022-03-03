@@ -8,7 +8,7 @@ class LocationRepository {
 
   Future<List<Location>> fetchData() async {
     final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.locationApiRoute);
+        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.locationApiRoute);
     return rawData.map((json) => Location.fromJson(json)).toList();
   }
 }

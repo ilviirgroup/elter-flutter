@@ -8,7 +8,7 @@ class AdsRepository {
 
   Future<List<Ads>> fetchData() async {
     final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.adsApiRoute);
+        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.adsApiRoute);
     return rawData.map((json) => Ads.fromJson(json)).toList();
   }
 }

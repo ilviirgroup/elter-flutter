@@ -8,7 +8,7 @@ class BrandRepository {
 
   Future<List> fetchData() async {
     final List rawData =
-        await networkService.getRequest.fetchData(ApiRoutes.brandApiRoute);
+        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.brandApiRoute);
     return rawData.map((json) => Brand.fromJson(json)).toList();
   }
 }
