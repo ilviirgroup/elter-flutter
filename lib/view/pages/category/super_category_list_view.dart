@@ -1,9 +1,8 @@
-import 'package:elter/presenter/cubit/super_category_cubit/super_category_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
 
-import '../../../entity/models/super_category.dart';
+import 'package:elter/presenter/cubit.dart';
+import '../../../entity/models.dart';
 
 class SuperCategoryPage extends StatefulWidget {
   const SuperCategoryPage({Key? key}) : super(key: key);

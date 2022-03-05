@@ -1,6 +1,6 @@
 import 'package:elter/data/api_routes.dart';
 import 'package:elter/data/network_service.dart';
-import 'package:elter/entity/models/size.dart';
+import 'package:elter/entity/models.dart';
 
 class SizeRepository {
   final NetworkService networkService;
@@ -9,6 +9,6 @@ class SizeRepository {
   Future<List> fetchData() async {
     final List rawData = await networkService.getRequest
         .fetchData(BaseUrl.baseUrl + ApiRoutes.sizeApiRoute);
-    return rawData.map((json) => Size.fromJson(json)).toList();
+    return rawData.map((json) => MySize.fromJson(json)).toList();
   }
 }

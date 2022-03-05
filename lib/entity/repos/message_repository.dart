@@ -1,6 +1,6 @@
 import 'package:elter/data/api_routes.dart';
 import 'package:elter/data/network_service.dart';
-import 'package:elter/entity/models/message.dart';
+import 'package:elter/entity/models.dart';
 
 class MessageRepository {
   final NetworkService networkService;

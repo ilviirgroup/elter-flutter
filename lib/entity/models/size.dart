@@ -1,17 +1,17 @@
-class Size {
+class MySize {
   String name;
   int pk;
   List? products;
   String? url;
 
-  Size({
+  MySize({
     required this.name,
     required this.pk,
     this.products,
     this.url,
   });
 
-  factory Size.fromJson(Map<String, dynamic> json) => Size(
+  factory MySize.fromJson(Map<String, dynamic> json) => MySize(
         name: json[SizeApiFields.name],
         pk: json[SizeApiFields.pk],
         url: json[SizeApiFields.url],

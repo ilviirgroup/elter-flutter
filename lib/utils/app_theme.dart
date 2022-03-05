@@ -20,16 +20,20 @@ final ThemeData myTheme = ThemeData(
       ),
     ),
     appBarTheme: const AppBarTheme(
-        backgroundColor: kWhite, foregroundColor: kBlack, elevation: 0),
+      elevation: 0.0,
+      backgroundColor: kWhite,
+      foregroundColor: kBlack,
+    ),
     tabBarTheme: const TabBarTheme(
       labelStyle:
           TextStyle(color: kBlack, fontSize: 16.0, fontWeight: FontWeight.w600),
-      unselectedLabelStyle:
-          TextStyle(color: kGrey, fontSize: 16.0, fontWeight: FontWeight.w600),
+      unselectedLabelStyle: TextStyle(
+          color: textGreyColor, fontSize: 16.0, fontWeight: FontWeight.w600),
     ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: kPrimaryColor,
         unselectedItemColor: kBlack,
         type: BottomNavigationBarType.fixed,
         backgroundColor: kWhite),
-    textSelectionTheme: TextSelectionThemeData(cursorColor: kPrimaryColor));
+    textSelectionTheme:
+        const TextSelectionThemeData(cursorColor: kPrimaryColor));

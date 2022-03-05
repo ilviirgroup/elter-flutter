@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:elter/utils/app_route_names.dart';
+import 'package:elter/router/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {

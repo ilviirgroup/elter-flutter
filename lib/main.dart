@@ -1,16 +1,21 @@
+import 'package:elter/entity/repos/visited_repository.dart';
+import 'package:elter/presenter/cubit/visited/visited_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'data/network_service.dart';
-import 'entity/export_repos.dart';
+import 'entity/repos.dart';
 import 'entity/models/ads.dart';
 import 'presenter/bloc.dart';
 import 'presenter/cubit.dart';
+
 import 'presenter/provider.dart';
 import 'router/app_on_generate_route.dart';
 import 'utils/app_bloc_observer.dart';
 import 'utils/app_theme.dart';
+
+final NetworkService networkservice = NetworkService();
 
 void main() {
   BlocOverrides.runZoned(
@@ -30,32 +35,42 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AdsBloc(
             AdsRepository(
-              NetworkService(),
+              networkservice,
             ),
-          )..add(AdsFetchEvent()),
+          )
+          ..add(AdsFetchEvent()),
+        ),
+        BlocProvider(
+          create: (context) => AdsProductCubit(
+            ProductRepository(
+              networkservice,
+            ),
+          ),
         ),
         BlocProvider(
           create: (context) => AuthenticationBloc(
             userRepository: UserRepository(
-              NetworkService(),
+              networkservice,
             ),
           ),
         ),
         BlocProvider(
-          create: (context) => CategoryCubit(
-            CategoryRepository(
-              NetworkService(),
-            ),
-          ),
+            create: (context) => CategoryCubit(
+                  CategoryRepository(
+                    networkservice,
+                  ),
+                )),
+        BlocProvider(
+          create: (context) => ChangeBottomNavCubit(),
         ),
         BlocProvider(
           create: (context) => ChangeCatalogScreensCubit(),
         ),
         BlocProvider(
-          create: (context) => ChangeHomeScreensCubit()..changeHomeScreen(0),
+          create: (context) => ChangeHomeScreensCubit(),
         ),
         BlocProvider(
-          create: (context) => ChangeBottomNavCubit()..changeIndex(0),
+          create: (context) => ChangeTabsLengthCubit(),
         ),
         BlocProvider(
           create: (context) => LoginBloc(),
@@ -63,16 +78,17 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => MyOrdersBloc(
             OrderRepository(
-              NetworkService(),
+              networkservice,
             ),
           ),
         ),
         BlocProvider(
           create: (context) => ProductBloc(
             ProductRepository(
-              NetworkService(),
+              networkservice,
             ),
-          )..add(
+          )
+          ..add(
               ProductFetchedEvent(),
             ),
         ),
@@ -82,16 +98,18 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SubCategoryCubit(
             SubCategoryRepository(
-              NetworkService(),
+              networkservice,
             ),
-          )..fetchSubCategories(),
+          )
+          ..fetchSubCategories(),
         ),
         BlocProvider(
           create: (context) => SuperCategoryCubit(
             SuperCategoryRepository(
-              NetworkService(),
+              networkservice,
             ),
-          )..fetchSuperCategories(),
+          )
+          ..fetchSuperCategories(),
         ),
         BlocProvider(
           create: (context) => TemporaryAdsObjectCubit()
@@ -100,15 +118,23 @@ class MyApp extends StatelessWidget {
                 description: '',
                 name: '',
                 photo: '',
-                superCategory: '')),
+                superCategory: '')
+                ),
         ),
         BlocProvider(
           create: (context) => TogglePasswordCubit(),
         ),
         BlocProvider(
+          create: (context) => VisitedCubit(
+            VisitedRepository(
+              networkservice,
+            ),
+          ),
+        ),
+        BlocProvider(
           create: (context) => UpdateAvailableCubit(
             UpdateRepository(
-              NetworkService(),
+              networkservice,
             ),
           ),
         ),

@@ -1,5 +1,6 @@
-import 'package:elter/entity/models/product.dart';
+import 'package:elter/entity/models.dart';
 import 'package:elter/presenter/bloc.dart';
+import 'package:elter/view/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,55 +18,21 @@ AppBar appBarWithTabBar(BuildContext context, List tabItems) {
           child: BlocBuilder<ProductBloc, ProductState>(
             builder: (context, state) {
               if (state is! ProductsLoadedState) {
-                return const IgnorePointer(
-                  child: TextField(
-                    textAlignVertical: TextAlignVertical.bottom,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: whiteGrey,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      hintText: """Elterde gözle""",
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: kBlack,
-                      ),
-                    ),
-                  ),
-                );
+                return searchBar();
               }
               final List<Product> productList = state.products;
               return InkWell(
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                splashColor: Colors.transparent,
+                focusColor: kTransparent,
+                hoverColor: kTransparent,
+                highlightColor: kTransparent,
+                splashColor: kTransparent,
                 onTap: () {
                   showSearch(
                     context: context,
                     delegate: CustomSearchDelegate(productList),
                   );
                 },
-                child: const IgnorePointer(
-                  child: TextField(
-                    textAlignVertical: TextAlignVertical.bottom,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: whiteGrey,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                      ),
-                      hintText: """Elterde gözle""",
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: kBlack,
-                      ),
-                    ),
-                  ),
-                ),
+                child: searchBar(),
               );
             },
           ),
@@ -73,7 +40,8 @@ AppBar appBarWithTabBar(BuildContext context, List tabItems) {
       ),
     ],
     bottom: TabBar(
-      labelColor: Colors.black,
+      // indicator: const BoxDecoration(color: kScaffoldBackgroundColor),
+      labelColor: kBlack,
       indicatorColor: kPrimaryColor,
       isScrollable: true,
       tabs: [

@@ -1,8 +1,8 @@
-import 'package:elter/entity/models/product.dart';
+import 'package:elter/entity/models.dart';
 import 'package:elter/view/styles.dart';
 import 'package:flutter/material.dart';
 
-import 'new_product_label.dart';
+import '../label_new_product.dart';
 
 class ProductGridViewItem extends StatelessWidget {
   const ProductGridViewItem({
@@ -64,24 +64,42 @@ class ProductGridViewItem extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text(
-                          product.newPrice.toString(),
-                          style:
-                              Theme.of(context).textTheme.subtitle2!.copyWith(
-                                    color: textRedColor,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                        ),
+                        product.newPrice != null
+                            ? Text(
+                                product.newPrice.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2!
+                                    .copyWith(
+                                      color: textRedColor,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                              )
+                            : Text(
+                                product.price.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2!
+                                    .copyWith(
+                                      color: kPrimaryColor,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                              ),
                         const SizedBox(
                           width: 10,
                         ),
-                        Text(
-                          product.price.toString(),
-                          style: Theme.of(context).textTheme.caption!.copyWith(
-                                color: textGreyColor,
-                                decoration: TextDecoration.lineThrough,
-                              ),
-                        ),
+                        product.newPrice != null
+                            ? Text(
+                                product.price.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption!
+                                    .copyWith(
+                                      color: textGreyColor,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                              )
+                            : const SizedBox(),
                       ],
                     )
                   ],
@@ -90,7 +108,11 @@ class ProductGridViewItem extends StatelessWidget {
             ],
           ),
         ),
-        product.isNew! ? const NewProductLabel() : const SizedBox(),
+        Positioned(
+          top: 12,
+          left: 1,
+          child: product.isNew! ? const NewProductLabel() : const SizedBox(),
+        )
       ],
     );
   }

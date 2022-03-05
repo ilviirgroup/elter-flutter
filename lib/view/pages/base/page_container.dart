@@ -1,8 +1,6 @@
-import 'package:elter/main.dart';
 import 'package:elter/view/pages/base/page_base.dart';
 import 'package:elter/view/pages/category/category_list_view.dart';
-import 'package:elter/view/pages/welcome_screen.dart';
-import 'package:elter/view/widgets/app_bar_with_search.dart';
+import 'package:elter/view/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 class PageContainer extends PageContainerBase {

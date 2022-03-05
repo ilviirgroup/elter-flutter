@@ -1,6 +1,6 @@
 import 'package:elter/data/api_routes.dart';
 import 'package:elter/data/network_service.dart';
-import 'package:elter/entity/models/verification_code.dart';
+import 'package:elter/entity/models.dart';
 
 class VerificationCodeRepository {
   final NetworkService networkService;

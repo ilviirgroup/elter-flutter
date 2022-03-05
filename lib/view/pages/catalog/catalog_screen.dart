@@ -1,6 +1,5 @@
 import 'package:elter/presenter/cubit.dart';
 import 'package:elter/view/pages/super_category/super_category_list_view.dart';
-import 'package:elter/view/widgets/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,10 +17,8 @@ class _CatalogScreenState extends State<CatalogScreen> {
   void initState() {
     catalogScreens = [
       const SuperCategoryListView(),
-      const SearchScreen(),
     ];
     context.read<SearchTappedCubit>().toogleSearchEvent(false);
-    context.read<ChangeCatalogScreensCubit>().changeCatalogScreen(0);
 
     super.initState();
   }

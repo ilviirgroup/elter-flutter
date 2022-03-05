@@ -1,5 +1,4 @@
-import 'package:elter/presenter/cubit/change_bottom_nav/change_bottom_nav_cubit.dart';
-import 'package:elter/presenter/cubit/change_home_screens/change_home_screens_cubit.dart';
+import 'package:elter/presenter/cubit.dart';
 import 'package:elter/view/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +22,7 @@ class BottomNavItem extends StatelessWidget {
     return Expanded(
       child: GestureDetector(
         onTap: () {
-          changeBottomNavCubit.changeIndex(index);
+          changeBottomNavCubit.changeBottomNavIndex(index);
           context.read<ChangeHomeScreensCubit>().changeHomeScreen(index);
         },
         child: Column(
@@ -31,12 +30,12 @@ class BottomNavItem extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: currentIndex == index ? kPrimaryColor : Colors.grey,
+              color: currentIndex == index ? kPrimaryColor : unselectedIconColor,
             ),
             Text(
               label,
               style: Theme.of(context).textTheme.button!.copyWith(
-                    color: currentIndex == index ? kPrimaryColor : Colors.grey,
+                    color: currentIndex == index ? kPrimaryColor : unselectedIconColor,
                   ),
             ),
           ],

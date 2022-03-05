@@ -1,11 +1,14 @@
-import 'package:elter/entity/models/ads.dart';
-import 'package:elter/entity/models/super_category.dart';
+import 'package:elter/entity/models.dart';
 import 'package:elter/presenter/cubit.dart';
+import 'package:elter/presenter/cubit/visited/visited_cubit.dart';
 
-import 'package:elter/view/pages.dart';
+import 'package:elter/view/pages/cart/cart_screen.dart';
 import 'package:elter/view/pages/catalog/catalog_screen.dart';
+import 'package:elter/view/pages/home/home_screen.dart';
+import 'package:elter/view/pages/profile/my_profile.dart';
+import 'package:elter/view/pages/season/new_products.dart';
 import 'package:elter/view/styles.dart';
-import 'package:elter/view/widgets/app_bar_with_search.dart';
+import 'package:elter/view/widgets/app_bar_with_filter.dart';
 import 'package:elter/view/widgets/app_bar_with_tab_bar.dart';
 import 'package:elter/view/widgets/loading_indicator.dart';
 
@@ -14,8 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/bottom_nav_item.dart';
 
-class BottomNavigationScreens extends StatefulWidget {
-  const BottomNavigationScreens({
+class BottomNavigationPage extends StatefulWidget {
+  const BottomNavigationPage({
     Key? key,
   }) : super(key: key);
 
@@ -23,8 +26,8 @@ class BottomNavigationScreens extends StatefulWidget {
   _BottomNavScreensState createState() => _BottomNavScreensState();
 }
 
-class _BottomNavScreensState extends State<BottomNavigationScreens>
-    with SingleTickerProviderStateMixin {
+class _BottomNavScreensState extends State<BottomNavigationPage>
+    with AutomaticKeepAliveClientMixin<BottomNavigationPage> {
   List<Widget> screens = [];
 
   @override
@@ -36,7 +39,7 @@ class _BottomNavScreensState extends State<BottomNavigationScreens>
       const CatalogScreen(),
       const MyProfile()
     ];
-
+    context.read<VisitedCubit>().getVisited();
     super.initState();
   }
 
@@ -45,19 +48,13 @@ class _BottomNavScreensState extends State<BottomNavigationScreens>
     final screenSize = MediaQuery.of(context).size;
     final changeBottomNavCubit = context.read<ChangeBottomNavCubit>();
     return SafeArea(
-      child: BlocBuilder<ChangeBottomNavCubit, ChangeBottomNavState>(
+      child: BlocBuilder<ChangeBottomNavCubit, int>(
         builder: (context, state) {
-          if (state is! ChangeBottomNavChanged) {
-            return const LoadingIndicator();
-          }
-          final int bottomIndex = state.index;
+          final int bottomIndex = state;
 
-          return BlocBuilder<ChangeHomeScreensCubit, ChangeHomeScreensState>(
+          return BlocBuilder<ChangeHomeScreensCubit, int>(
             builder: (context, state) {
-              if (state is! HomeScreenChanged) {
-                return const LoadingIndicator();
-              }
-              final int homeScreenIndex = state.screenIndex;
+              final int homeScreenIndex = state;
 
               return BlocBuilder<SuperCategoryCubit, SuperCategoryState>(
                 builder: (context, state) {
@@ -81,33 +78,23 @@ class _BottomNavScreensState extends State<BottomNavigationScreens>
                           appBar: bottomIndex == 0 && homeScreenIndex == 0
                               ? appBarWithTabBar(context, superCategoryList)
                               : bottomIndex == 0 && homeScreenIndex == 1
-                                  ? AppBar(
-                                      leading: IconButton(
-                                        onPressed: () {
-                                          context
-                                              .read<ChangeHomeScreensCubit>()
-                                              .changeHomeScreen(0);
-                                          context
-                                              .read<ChangeBottomNavCubit>()
-                                              .changeIndex(0);
-                                        },
-                                        icon: const Icon(Icons.arrow_back),
-                                      ),
-                                      title: Text(adsObject.description),
-                                    )
+                                  ? appBarWithFilter(context, adsObject)
                                   : bottomIndex == 1
                                       ? AppBar()
                                       : bottomIndex == 2
                                           ? AppBar()
                                           : bottomIndex == 3
-                                              ? appBarWithSearch(context)
+                                              ? appBarWithTabBar(
+                                                  context, superCategoryList)
                                               : bottomIndex == 4
                                                   ? AppBar()
                                                   : AppBar(),
                           body: screens[bottomIndex],
                           floatingActionButton: FloatingActionButton(
-                            foregroundColor:
-                                bottomIndex == 2 ? Colors.white : Colors.grey,
+                            elevation: 0,
+                            foregroundColor: bottomIndex == 2
+                                ? Colors.white
+                                : unselectedIconColor,
                             backgroundColor:
                                 bottomIndex == 2 ? kPrimaryColor : Colors.white,
                             child: const Icon(
@@ -115,7 +102,7 @@ class _BottomNavScreensState extends State<BottomNavigationScreens>
                               size: 24,
                             ),
                             onPressed: () =>
-                                changeBottomNavCubit.changeIndex(2),
+                                changeBottomNavCubit.changeBottomNavIndex(2),
                           ),
                           floatingActionButtonLocation:
                               FloatingActionButtonLocation.centerDocked,
@@ -169,4 +156,7 @@ class _BottomNavScreensState extends State<BottomNavigationScreens>
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -1,5 +1,5 @@
-import 'package:elter/entity/models/product.dart';
-import 'package:elter/presenter/provider/ads_provider.dart';
+import 'package:elter/entity/models.dart';
+import 'package:elter/presenter/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

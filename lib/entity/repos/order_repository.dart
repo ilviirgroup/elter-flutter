@@ -1,6 +1,6 @@
 import 'package:elter/data/api_routes.dart';
 import 'package:elter/data/network_service.dart';
-import 'package:elter/entity/models/order.dart';
+import 'package:elter/entity/models.dart';
 
 class OrderRepository {
   final NetworkService networkService;

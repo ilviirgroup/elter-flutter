@@ -15,20 +15,16 @@ class UpScrollButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return showButton
-        ? Positioned(
-            bottom: 20,
-            right: 20,
-            child: GestureDetector(
-              onTap: () {
-                scrollUp();
-                toggleButton();
-              },
-              child: const CircleAvatar(
-                backgroundColor: kBlack,
-                foregroundColor: kWhite,
-                radius: 20,
-                child: Icon(Icons.keyboard_arrow_up),
-              ),
+        ? GestureDetector(
+            onTap: () {
+              scrollUp();
+              toggleButton();
+            },
+            child: const CircleAvatar(
+              backgroundColor: kBlack,
+              foregroundColor: kWhite,
+              radius: 20,
+              child: Icon(Icons.keyboard_arrow_up),
             ),
           )
         : const SizedBox();

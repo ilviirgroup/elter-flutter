@@ -1,5 +1,6 @@
-import 'package:elter/entity/models/product.dart';
-import 'package:elter/view/pages/product/products_grid_view.dart';
+import 'package:elter/entity/models.dart';
+import 'package:elter/view/screens/product/products_grid_view.dart';
+import 'package:elter/view/styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
@@ -7,25 +8,43 @@ class CustomSearchDelegate extends SearchDelegate {
   CustomSearchDelegate(this.productList);
 
   @override
+  ThemeData appBarTheme(BuildContext context) {
+    return Theme.of(context).copyWith(
+      appBarTheme: const AppBarTheme(
+        elevation: 0.0,
+        backgroundColor: kWhite,
+        foregroundColor: kBlack,
+      ),
+      inputDecorationTheme:
+          const InputDecorationTheme(border: InputBorder.none),
+    );
+  }
+
+  @override
   String get searchFieldLabel => '';
 
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
-      IconButton(
-          onPressed: () {
-            query = '';
-          },
-          icon: const Icon(Icons.clear),
-          splashRadius: 15,
-          hoverColor: Colors.transparent,
-          focusColor: Colors.transparent),
+      query.isNotEmpty
+          ? IconButton(
+              onPressed: () {
+                query = '';
+              },
+              icon: const Icon(Icons.clear),
+              splashRadius: 15,
+              hoverColor: Colors.transparent,
+              focusColor: Colors.transparent)
+          : const SizedBox(),
       IconButton(
           onPressed: () {},
           icon: const Icon(Icons.qr_code),
           splashRadius: 15,
           hoverColor: Colors.transparent,
           focusColor: Colors.transparent),
+      const SizedBox(
+        width: 10,
+      )
     ];
   }
 
@@ -42,9 +61,15 @@ class CustomSearchDelegate extends SearchDelegate {
         matchQuery.add(product);
       }
     }
-    return ProductsGridView(
-      products: matchQuery,
-    );
+    return matchQuery.isEmpty
+        ? Center(
+            child: Text(
+            'Bagyşlaň! Siziň gözleýän zadyňyz tapylmady.',
+            style: Theme.of(context).textTheme.titleMedium,
+          ))
+        : ProductsGridView(
+            products: matchQuery,
+          );
   }
 
   @override
@@ -62,8 +87,14 @@ class CustomSearchDelegate extends SearchDelegate {
             'Gözleg sözüni ýazyň',
             style: Theme.of(context).textTheme.titleMedium,
           ))
-        : ProductsGridView(
-            products: matchQuery,
-          );
+        : matchQuery.isEmpty
+            ? Center(
+                child: Text(
+                'Bagyşlaň! Siziň gözleýän sadyňyz tapylmady.',
+                style: Theme.of(context).textTheme.titleMedium,
+              ))
+            : ProductsGridView(
+                products: matchQuery,
+              );
   }
 }

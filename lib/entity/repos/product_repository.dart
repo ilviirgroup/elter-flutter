@@ -1,6 +1,6 @@
 import 'package:elter/data/api_routes.dart';
 import 'package:elter/data/network_service.dart';
-import 'package:elter/entity/models/product.dart';
+import 'package:elter/entity/models.dart';
 
 class ProductRepository {
   final NetworkService networkService;
@@ -11,4 +11,11 @@ class ProductRepository {
         await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.productApiRoute);
     return rawData.map((json) => Product.fromJson(json)).toList();
   }
+
+  Future<List<Product>> fetchAdsProducts(String url) async {
+    final List rawData =
+        await networkService.getRequest.fetchData(url);
+    return rawData.map((json) => Product.fromJson(json)).toList();
+  }
+
 }

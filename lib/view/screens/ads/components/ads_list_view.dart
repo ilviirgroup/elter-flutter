@@ -1,10 +1,11 @@
-import 'package:elter/entity/models/ads.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/view/widgets.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:elter/entity/models.dart';
+import 'package:elter/presenter/bloc.dart';
+import 'package:elter/view/widgets/loading_indicator.dart';
+import 'package:elter/view/widgets/up_scroll_button.dart';
 
 import 'ads_list_item.dart';
 
@@ -17,7 +18,7 @@ class AdsListView extends StatefulWidget {
 }
 
 class _AdsListViewState extends State<AdsListView>
-    with SingleTickerProviderStateMixin {
+    with AutomaticKeepAliveClientMixin<AdsListView> {
   bool showButton = false;
 
   void toggleButton() {
@@ -90,15 +91,23 @@ class _AdsListViewState extends State<AdsListView>
                   )),
                 ],
               ),
+              Positioned(
+                bottom: 20,
+                right: 20,
+                child: 
               UpScrollButton(
                 scrollUp: scrollUp,
                 toggleButton: toggleButton,
                 showButton: showButton,
-              ),
+              ),)
+              
             ],
           ),
         );
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -1,8 +1,8 @@
-import 'package:elter/entity/models/ads.dart';
-import 'package:elter/presenter/cubit/change_home_screens/change_home_screens_cubit.dart';
-import 'package:elter/presenter/cubit/temporary_ads_object/temporary_ads_object_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:elter/entity/models.dart';
+import 'package:elter/presenter/cubit.dart';
 
 class AdsListItem extends StatelessWidget {
   const AdsListItem({
@@ -18,6 +18,7 @@ class AdsListItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.read<TemporaryAdsObjectCubit>().temporaryAdsObject(adsItem);
+        context.read<AdsProductCubit>().fetchAdsProduct(adsItem);
         context.read<ChangeHomeScreensCubit>().changeHomeScreen(1);
       },
       child: Container(
