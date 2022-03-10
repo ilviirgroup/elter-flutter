@@ -16,8 +16,8 @@ class Patch {
     try {
       FormData formData = FormData.fromMap(patchObj);
       final response =
-          await dio.patch('${BaseUrl.baseUrl}$apiRoute$id', data: formData);
-      print((response.data).runtimeType);
+          await dio.patch('${BaseUrl.baseUrl}$apiRoute$id/', data: formData);
+      print((response.statusCode));
       return jsonDecode('${response.data}') as Map<String, dynamic>;
     } catch (e) {
       throw Exception(e.toString());

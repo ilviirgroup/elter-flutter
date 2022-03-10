@@ -1,7 +1,6 @@
 part of 'authentication_bloc.dart';
 
-@immutable
-abstract class AuthenticationEvent {
+abstract class AuthenticationEvent extends Equatable {
   const AuthenticationEvent([List props = const []]);
 }
 

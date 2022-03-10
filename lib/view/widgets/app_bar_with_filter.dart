@@ -1,21 +1,28 @@
-import 'package:elter/entity/models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:elter/presenter/cubit.dart';
+import 'package:elter/entity/models.dart';
 
-AppBar appBarWithFilter(BuildContext context, Ads adsObject) {
+AppBar appBarWithFilter(
+    BuildContext context, Ads adsObject, int productsLength) {
   final screenSize = MediaQuery.of(context).size;
   return AppBar(
-    leading: IconButton(
-      onPressed: () {
-        context.read<ChangeHomeScreensCubit>().changeHomeScreen(0);
-        context.read<ChangeBottomNavCubit>().changeBottomNavIndex(0);
-        context.read<AdsProductCubit>().initializeAdsProductCubit();
-      },
-      icon: const Icon(Icons.arrow_back),
+    title: RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: adsObject.description,
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(fontWeight: FontWeight.bold),
+          ),
+          TextSpan(
+            text: ' ($productsLength)',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+        ],
+      ),
     ),
-    title: Text(adsObject.description),
     bottom: PreferredSize(
       preferredSize: Size.fromHeight(screenSize.height / 18),
       child: SizedBox(

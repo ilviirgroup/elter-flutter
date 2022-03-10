@@ -21,7 +21,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       const Duration(seconds: 1),
       () => Navigator.popAndPushNamed(
         context,
-        AppRouteNames.home,
+        AppRouteNames.main,
       ),
     );
   }

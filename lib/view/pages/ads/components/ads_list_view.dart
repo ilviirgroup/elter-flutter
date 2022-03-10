@@ -10,8 +10,8 @@ import 'package:elter/view/widgets/up_scroll_button.dart';
 import 'ads_list_item.dart';
 
 class AdsListView extends StatefulWidget {
-  final String? superCatName;
-  const AdsListView({Key? key, this.superCatName}) : super(key: key);
+  final String? superCategoryName;
+  const AdsListView({Key? key, this.superCategoryName}) : super(key: key);
 
   @override
   State<AdsListView> createState() => _AdsListViewState();
@@ -45,13 +45,14 @@ class _AdsListViewState extends State<AdsListView>
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
+    super.build(context);
     return BlocBuilder<AdsBloc, AdsState>(
       builder: (context, state) {
         if (state is! AdsLoadedState) {
           return const LoadingIndicator();
         }
         final List<Ads> adsList = state.ads;
+
         return NotificationListener<UserScrollNotification>(
           onNotification: (notification) {
             setState(() {
@@ -73,10 +74,10 @@ class _AdsListViewState extends State<AdsListView>
                     removeLeft: true,
                     child: ListView(
                       controller: _scrollController,
-                      children: widget.superCatName != null
+                      children: widget.superCategoryName != null
                           ? adsList
                               .where((ads) =>
-                                  ads.superCategory == widget.superCatName)
+                                  ads.superCategory == widget.superCategoryName)
                               .toList()
                               .map(
                                 (adsItem) => AdsListItem(adsItem: adsItem),
@@ -94,13 +95,12 @@ class _AdsListViewState extends State<AdsListView>
               Positioned(
                 bottom: 20,
                 right: 20,
-                child: 
-              UpScrollButton(
-                scrollUp: scrollUp,
-                toggleButton: toggleButton,
-                showButton: showButton,
-              ),)
-              
+                child: UpScrollButton(
+                  scrollUp: scrollUp,
+                  toggleButton: toggleButton,
+                  showButton: showButton,
+                ),
+              )
             ],
           ),
         );

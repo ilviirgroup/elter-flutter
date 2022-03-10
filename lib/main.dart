@@ -1,8 +1,10 @@
 import 'package:elter/entity/repos/visited_repository.dart';
 import 'package:elter/presenter/cubit/visited/visited_cubit.dart';
+import 'package:elter/router/app_routes.dart';
+import 'package:elter/utils/enums.dart';
+import 'package:elter/view/pages/main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 import 'data/network_service.dart';
 import 'entity/repos.dart';
@@ -10,7 +12,6 @@ import 'entity/models/ads.dart';
 import 'presenter/bloc.dart';
 import 'presenter/cubit.dart';
 
-import 'presenter/provider.dart';
 import 'router/app_on_generate_route.dart';
 import 'utils/app_bloc_observer.dart';
 import 'utils/app_theme.dart';
@@ -37,8 +38,7 @@ class MyApp extends StatelessWidget {
             AdsRepository(
               networkservice,
             ),
-          )
-          ..add(AdsFetchEvent()),
+          )..add(AdsFetchEvent()),
         ),
         BlocProvider(
           create: (context) => AdsProductCubit(
@@ -55,19 +55,22 @@ class MyApp extends StatelessWidget {
           ),
         ),
         BlocProvider(
-            create: (context) => CategoryCubit(
-                  CategoryRepository(
-                    networkservice,
-                  ),
-                )),
+          create: (context) => CategoryCubit(
+            CategoryRepository(
+              networkservice,
+            ),
+          )..fetchCategories(),
+        ),
         BlocProvider(
-          create: (context) => ChangeBottomNavCubit(),
+          create: (context) => ChangeBottomNavCubit()
+            ..changeBottomNavIndex(BottomNavScreen.home),
         ),
         BlocProvider(
           create: (context) => ChangeCatalogScreensCubit(),
         ),
         BlocProvider(
-          create: (context) => ChangeHomeScreensCubit(),
+          create: (context) =>
+              ChangeHomeScreensCubit()..changeHomeScreen(HomeScreens.adsList),
         ),
         BlocProvider(
           create: (context) => ChangeTabsLengthCubit(),
@@ -87,8 +90,7 @@ class MyApp extends StatelessWidget {
             ProductRepository(
               networkservice,
             ),
-          )
-          ..add(
+          )..add(
               ProductFetchedEvent(),
             ),
         ),
@@ -100,16 +102,14 @@ class MyApp extends StatelessWidget {
             SubCategoryRepository(
               networkservice,
             ),
-          )
-          ..fetchSubCategories(),
+          )..fetchSubCategories(),
         ),
         BlocProvider(
           create: (context) => SuperCategoryCubit(
             SuperCategoryRepository(
               networkservice,
             ),
-          )
-          ..fetchSuperCategories(),
+          )..fetchSuperCategories(),
         ),
         BlocProvider(
           create: (context) => TemporaryAdsObjectCubit()
@@ -118,8 +118,7 @@ class MyApp extends StatelessWidget {
                 description: '',
                 name: '',
                 photo: '',
-                superCategory: '')
-                ),
+                superCategory: '')),
         ),
         BlocProvider(
           create: (context) => TogglePasswordCubit(),
@@ -139,17 +138,12 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ],
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider.value(
-            value: DataProvider(),
-          ),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: myTheme,
-          onGenerateRoute: onGenerateRoute,
-        ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: myTheme,
+        initialRoute: AppRouteNames.welcome,
+        home: const MainScreen(),
+        onGenerateRoute: onGenerateRoute,
       ),
     );
   }

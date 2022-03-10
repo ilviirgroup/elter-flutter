@@ -23,8 +23,6 @@ subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
     project.evaluationDependsOn(':app')
-subprojects {
-}
 
 task clean(type: Delete) {
     delete rootProject.buildDir

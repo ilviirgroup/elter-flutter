@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:elter/entity/models/user.dart';
 import 'package:elter/entity/repos/user_repository.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 part 'authentication_event.dart';

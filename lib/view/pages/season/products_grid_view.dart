@@ -1,5 +1,4 @@
 import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,12 +13,10 @@ class AdsProductGridView extends StatefulWidget {
 class _AdsProductGridViewState extends State<AdsProductGridView> {
   @override
   Widget build(BuildContext context) {
-    final dataProvider = Provider.of<DataProvider>(context);
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(),
       body: FutureBuilder(
-        future: dataProvider.adsProducts(widget.adsUrl),
         builder: (BuildContext ctx, AsyncSnapshot<List<Product>> snapshot) {
           if (!snapshot.hasData) {
             return const Center(

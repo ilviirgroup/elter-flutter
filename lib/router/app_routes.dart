@@ -1,5 +1,5 @@
 class AppRouteNames {
-  static const welcome = '/';
-  static const home = '/home';
+  static const welcome = '/welcome';
+  static const main = '/main';
   static const search = '/search';
 }

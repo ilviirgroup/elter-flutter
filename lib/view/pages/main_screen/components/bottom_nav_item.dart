@@ -1,11 +1,12 @@
 import 'package:elter/presenter/cubit.dart';
+import 'package:elter/utils/enums.dart';
 import 'package:elter/view/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BottomNavItem extends StatelessWidget {
-  final int index;
-  final int currentIndex;
+  final BottomNavScreen index;
+  final BottomNavScreen currentIndex;
   final String label;
   final IconData icon;
   const BottomNavItem({
@@ -23,7 +24,6 @@ class BottomNavItem extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           changeBottomNavCubit.changeBottomNavIndex(index);
-          context.read<ChangeHomeScreensCubit>().changeHomeScreen(index);
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

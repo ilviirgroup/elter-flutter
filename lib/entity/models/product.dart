@@ -1,5 +1,6 @@
 class Product {
   int pk;
+  String? barcode;
   String? brand;
   String category;
   String? color;
@@ -26,6 +27,7 @@ class Product {
   int visited;
 
   Product({
+    this.barcode,
     this.brand,
     required this.category,
     this.color,
@@ -54,6 +56,7 @@ class Product {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
+        barcode: json[ApiFields.barcode] ?? '',
         brand: json[ApiFields.brand],
         category: json[ApiFields.category],
         color: json[ApiFields.color],
@@ -83,6 +86,7 @@ class Product {
 }
 
 class ApiFields {
+  static const barcode = "barcode";
   static const brand = "brand";
   static const category = "category";
   static const color = "color";

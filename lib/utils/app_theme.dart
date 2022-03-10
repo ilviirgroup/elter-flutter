@@ -5,6 +5,9 @@ final ThemeData myTheme = ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,
     primaryColor: kPrimaryColor,
     scaffoldBackgroundColor: kScaffoldBackgroundColor,
+    highlightColor: Colors.transparent,
+    hoverColor: Colors.transparent,
+    focusColor: Colors.transparent,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         primary: kPrimaryColor,

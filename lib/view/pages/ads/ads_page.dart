@@ -1,4 +1,6 @@
-import 'package:elter/view/screens/ads/components/ads_list_view.dart';
+import 'package:elter/utils/enums.dart';
+import 'package:elter/view/pages/ads/components/ads_list_view.dart';
+import 'package:elter/view/widgets/app_bar_with_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,8 +15,7 @@ class AdsPage extends StatefulWidget {
   State<AdsPage> createState() => _AdsPageState();
 }
 
-class _AdsPageState extends State<AdsPage>
-    with AutomaticKeepAliveClientMixin<AdsPage> {
+class _AdsPageState extends State<AdsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SuperCategoryCubit, SuperCategoryState>(
@@ -24,18 +25,22 @@ class _AdsPageState extends State<AdsPage>
         }
         final List<SuperCategory> superCategoryList = state.superCategories;
 
-        return TabBarView(children: [
-          const AdsListView(),
-          ...superCategoryList.map(
-            (e) {
-              return AdsListView(superCatName: e.name);
-            },
-          )
-        ]);
+        return DefaultTabController(
+          length: superCategoryList.length + 1,
+          child: Scaffold(
+            appBar: appBarWithTabBar(
+                context, superCategoryList, BottomNavScreen.home),
+            body: TabBarView(children: [
+              const AdsListView(),
+              ...superCategoryList.map(
+                (e) {
+                  return AdsListView(superCategoryName: e.name);
+                },
+              )
+            ]),
+          ),
+        );
       },
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
