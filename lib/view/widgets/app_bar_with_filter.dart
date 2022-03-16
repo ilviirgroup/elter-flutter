@@ -1,16 +1,19 @@
+import 'package:elter/view/styles.dart';
 import 'package:flutter/material.dart';
 
 import 'package:elter/entity/models.dart';
 
-AppBar appBarWithFilter(
-    BuildContext context, Ads adsObject, int productsLength) {
+AppBar appBarWithFilter(BuildContext context, int productsLength,
+    {Ads? adsObject, SubCategory? subCategoryObject}) {
   final screenSize = MediaQuery.of(context).size;
   return AppBar(
     title: RichText(
       text: TextSpan(
         children: [
           TextSpan(
-            text: adsObject.description,
+            text: subCategoryObject == null
+                ? adsObject!.description
+                : subCategoryObject.name,
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
@@ -47,9 +50,13 @@ Expanded filterContainer(String text) {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey),
+      decoration: const BoxDecoration(
+        color: kWhite,
+        border: Border(
+          left: BorderSide(width: 1, color: kScaffoldBackgroundColor),
+          top: BorderSide(width: 2, color: kScaffoldBackgroundColor),
+          right: BorderSide(width: 1, color: kScaffoldBackgroundColor),
+        ),
       ),
     ),
   );

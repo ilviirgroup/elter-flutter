@@ -33,7 +33,7 @@ class Category {
 
 class CategoryApiFields {
   static const pk = "pk";
-  static const categoryId = "ai";
+  // static const categoryId = "ai";
   static const name = "name";
   static const photo = "photo";
   static const products = "products";

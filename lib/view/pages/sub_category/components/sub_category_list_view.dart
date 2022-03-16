@@ -1,36 +1,37 @@
 import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/cubit/category_cubit/category_cubit.dart';
-import 'package:elter/view/pages/category/components/category_list_item.dart';
+import 'package:elter/presenter/cubit.dart';
 import 'package:elter/view/styles.dart';
 import 'package:elter/view/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CategoryListView extends StatelessWidget {
-  final String superCategoryName;
-  
-  const CategoryListView({Key? key, required this.superCategoryName})
+import 'sub_category_list_item.dart';
+
+class SubCategoryListView extends StatelessWidget {
+  final String categoryName;
+
+  const SubCategoryListView({Key? key, required this.categoryName})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoryCubit, CategoryState>(
+    return BlocBuilder<SubCategoryCubit, SubCategoryState>(
       builder: (context, state) {
-        if (state is! CategoryLoaded) {
+         if (state is! SubCategoryLoaded) {
           return const LoadingIndicator();
         }
-        final List<Category> categoryList = state.categories;
+        final List<SubCategory>? subCategoryList = state.subCategories;
         return Container(
           margin: const EdgeInsets.fromLTRB(10, 8, 10, 2),
           color: kWhite,
           height: MediaQuery.of(context).size.height,
           child: ListView(
-            children: categoryList
+            children: subCategoryList!
                 .where(
-                    (category) => category.superCategory == superCategoryName)
+                    (subCategory) => subCategory.category == categoryName)
                 .toList()
                 .map(
-                  (categoryItem) => CategoryListItem(item: categoryItem),
+                  (subCategoryItem) => SubCategoryListItem(item: subCategoryItem),
                 )
                 .toList(),
           ),

@@ -1,12 +1,12 @@
 class User {
-  final int pk;
+  final int? pk;
   final String? address;
   final String? name;
   final String phoneNumber;
   final String? url;
 
   User({
-    required this.pk,
+    this.pk,
     this.address,
     this.name,
     required this.phoneNumber,
@@ -20,6 +20,12 @@ class User {
         pk: json[UserApiFields.pk],
         url: json[UserApiFields.url],
       );
+
+  Map<String, dynamic> toJson() => {
+        UserApiFields.address: address,
+        UserApiFields.name: name,
+        UserApiFields.phoneNumber: phoneNumber,
+      };
 }
 
 class UserApiFields {

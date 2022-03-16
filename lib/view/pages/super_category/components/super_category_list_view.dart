@@ -27,6 +27,7 @@ class SuperCategoryListView extends StatelessWidget {
             return const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Divider(
+                thickness: 2.0,
                 color: whiteGrey,
               ),
             );

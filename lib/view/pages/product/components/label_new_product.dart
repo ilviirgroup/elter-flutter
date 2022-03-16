@@ -11,9 +11,9 @@ class NewProductLabel extends StatelessWidget {
     return Container(
       height: 30,
       width: 50,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: newProductLabelColor,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           topRight: Radius.circular(5),
           bottomRight: Radius.circular(5),
         ),

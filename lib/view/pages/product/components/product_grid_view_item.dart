@@ -1,6 +1,6 @@
-import 'package:elter/data/api_routes.dart';
 import 'package:elter/data/network_service.dart';
 import 'package:elter/entity/models.dart';
+import 'package:elter/view/pages/product/components/product_detail_page.dart';
 import 'package:elter/view/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +29,16 @@ class ProductGridViewItem extends StatelessWidget {
             color: kWhite,
           ),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductDetailPage(
+                    product: product,
+                  ),
+                ),
+              );
+            },
             child: Column(
               children: [
                 Expanded(

@@ -1,6 +1,6 @@
+import 'package:elter/entity/models/sub_category.dart';
 import 'package:elter/entity/repos/visited_repository.dart';
 import 'package:elter/presenter/cubit/visited/visited_cubit.dart';
-import 'package:elter/router/app_routes.dart';
 import 'package:elter/utils/enums.dart';
 import 'package:elter/view/pages/main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,6 @@ import 'entity/models/ads.dart';
 import 'presenter/bloc.dart';
 import 'presenter/cubit.dart';
 
-import 'router/app_on_generate_route.dart';
 import 'utils/app_bloc_observer.dart';
 import 'utils/app_theme.dart';
 
@@ -69,10 +68,6 @@ class MyApp extends StatelessWidget {
           create: (context) => ChangeCatalogScreensCubit(),
         ),
         BlocProvider(
-          create: (context) =>
-              ChangeHomeScreensCubit()..changeHomeScreen(HomeScreens.adsList),
-        ),
-        BlocProvider(
           create: (context) => ChangeTabsLengthCubit(),
         ),
         BlocProvider(
@@ -113,12 +108,20 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => TemporaryAdsObjectCubit()
-            ..temporaryAdsObject(Ads(
-                pk: 0,
-                description: '',
-                name: '',
-                photo: '',
-                superCategory: '')),
+            ..temporaryAdsObject(
+              Ads(
+                  pk: 0,
+                  description: '',
+                  name: '',
+                  photo: '',
+                  superCategory: ''),
+            ),
+        ),
+        BlocProvider(
+          create: (context) => TemporarySubcategoryObjectCubit()
+            ..temporarySubCategoryObject(
+              SubCategory(category: '', name: '', pk: 0),
+            ),
         ),
         BlocProvider(
           create: (context) => TogglePasswordCubit(),
@@ -141,9 +144,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: myTheme,
-        initialRoute: AppRouteNames.welcome,
+        // initialRoute: AppRouteNames.welcome,
         home: const MainScreen(),
-        onGenerateRoute: onGenerateRoute,
+        // onGenerateRoute: onGenerateRoute,
       ),
     );
   }

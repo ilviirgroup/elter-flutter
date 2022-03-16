@@ -1,3 +1,4 @@
+import 'package:elter/entity/models.dart';
 import 'package:elter/presenter/cubit.dart';
 import 'package:elter/presenter/cubit/visited/visited_cubit.dart';
 import 'package:elter/utils/enums.dart';
@@ -50,6 +51,8 @@ class _MainScreenState extends State<MainScreen>
     super.initState();
   }
 
+  DateTime? currentBackPressTime;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -62,9 +65,28 @@ class _MainScreenState extends State<MainScreen>
 
         return WillPopScope(
           onWillPop: () async {
-            DateTime now = DateTime.now();
             final isFirstRouteInCurrentTab =
                 !await _navigatorKeys[selectedIndex].currentState!.maybePop();
+            if (isFirstRouteInCurrentTab) {
+              if (selectedIndex != 0) {
+                changeBottomNavCubit.changeBottomNavIndex(BottomNavScreen.home);
+                return false;
+              } else {
+                DateTime now = DateTime.now();
+                if (currentBackPressTime == null ||
+                    now.difference(currentBackPressTime!) >
+                        const Duration(seconds: 3)) {
+                  currentBackPressTime = now;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Çykmak üçin ýene bir gezek basyň'),
+                    ),
+                  );
+                  return Future.value(false);
+                }
+                return Future.value(true);
+              }
+            }
             return isFirstRouteInCurrentTab;
           },
           child: Scaffold(
@@ -163,23 +185,6 @@ class _MainScreenState extends State<MainScreen>
             }
           }),
     );
-  }
-
-  DateTime? currentBackPressTime;
-
-  Future<bool> onWillPop() {
-    DateTime now = DateTime.now();
-    if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime!) > const Duration(seconds: 2)) {
-      currentBackPressTime = now;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Çykmak üçin ýene bir gezek basyň'),
-        ),
-      );
-      return Future.value(false);
-    }
-    return Future.value(true);
   }
 
   @override

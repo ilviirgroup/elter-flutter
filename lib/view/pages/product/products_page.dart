@@ -11,9 +11,11 @@ import 'package:elter/view/widgets/loading_indicator.dart';
 import 'components/products_grid_view.dart';
 
 class ProductsPage extends StatefulWidget {
-  const ProductsPage({Key? key, this.products}) : super(key: key);
+  const ProductsPage({Key? key, this.productsList, this.adsProductList})
+      : super(key: key);
 
-  final List<Product>? products;
+  final List<Product>? adsProductList;
+  final List<Product>? productsList;
 
   @override
   State<ProductsPage> createState() => _ProductsPageState();
@@ -50,65 +52,85 @@ class _ProductsPageState extends State<ProductsPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocBuilder<AdsProductCubit, AdsProductState>(
-      builder: (context, state) {
-        if (state is! AdsProductLoaded) {
-          return const LoadingIndicator();
-        }
-        final List<Product>? productsList = state.products;
-
-        return BlocBuilder<TemporaryAdsObjectCubit, TemporaryAdsObjectState>(
+    return 
+    // BlocBuilder<AdsProductCubit, AdsProductState>(
+    //   builder: (context, state) {
+        // List<Product>? adsProductList;
+        // if (state is AdsProductLoaded) {
+        //   adsProductList = state.products;
+        // }
+        // return 
+        BlocBuilder<TemporarySubcategoryObjectCubit,
+            TemporarySubcategoryObjectState>(
           builder: (context, state) {
-            if (state is! TemporaryAdsObjectLoaded) {
+            if (state is! TemporarySubcategoryObjectLoaded) {
               return const LoadingIndicator();
             }
-            final Ads adsObject = state.adsObject;
-            return Scaffold(
-              appBar:
-                  appBarWithFilter(context, adsObject, productsList!.length),
-              body: NotificationListener<UserScrollNotification>(
-                onNotification: (notification) {
-                  setState(() {
-                    if (notification.direction == ScrollDirection.forward) {
-                      showButton = false;
-                    } else if (notification.direction ==
-                        ScrollDirection.reverse) {
-                      showButton = true;
-                    }
-                  });
-                  return true;
-                },
-                child: Stack(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+            final SubCategory subCategoryObject = state.subCategory;
+            return BlocBuilder<TemporaryAdsObjectCubit,
+                TemporaryAdsObjectState>(
+              builder: (context, state) {
+                if (state is! TemporaryAdsObjectLoaded) {
+                  return const LoadingIndicator();
+                }
+                final Ads adsObject = state.adsObject;
+                return Scaffold(
+                  appBar: widget.adsProductList == null
+                      ? appBarWithFilter(
+                          context,
+                          widget.productsList!.length,
+                          subCategoryObject: subCategoryObject
+                          
+                        )
+                      : appBarWithFilter(context, widget.adsProductList!.length,
+                          adsObject: adsObject,),
+                  body: NotificationListener<UserScrollNotification>(
+                    onNotification: (notification) {
+                      setState(() {
+                        if (notification.direction == ScrollDirection.forward) {
+                          showButton = false;
+                        } else if (notification.direction ==
+                            ScrollDirection.reverse) {
+                          showButton = true;
+                        }
+                      });
+                      return true;
+                    },
+                    child: Stack(
                       children: [
-                        widget.products != null
-                            ? Expanded(
-                                child: ProductsGridView(products: widget.products!),
-                              )
-                            : Expanded(
-                                child: ProductsGridView(products: productsList),
-                              )
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            widget.productsList != null
+                                ? Expanded(
+                                    child: ProductsGridView(
+                                        products: widget.productsList!),
+                                  )
+                                : Expanded(
+                                    child: ProductsGridView(
+                                        products: widget.adsProductList),
+                                  )
+                          ],
+                        ),
+                        Positioned(
+                          bottom: 20,
+                          right: 20,
+                          child: UpScrollButton(
+                            scrollUp: scrollUp,
+                            toggleButton: toggleButton,
+                            showButton: showButton,
+                          ),
+                        ),
                       ],
                     ),
-                    Positioned(
-                      bottom: 20,
-                      right: 20,
-                      child: UpScrollButton(
-                        scrollUp: scrollUp,
-                        toggleButton: toggleButton,
-                        showButton: showButton,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             );
           },
         );
-      },
-    );
+    //   },
+    // );
   }
 
   @override

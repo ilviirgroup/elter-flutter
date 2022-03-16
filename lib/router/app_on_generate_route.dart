@@ -1,6 +1,6 @@
 import 'package:elter/router/app_routes.dart';
 import 'package:elter/view/pages/main_screen/main_screen.dart';
-import 'package:elter/view/screens/welcome_screen.dart';
+import 'package:elter/view/pages/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings routeSettings) {

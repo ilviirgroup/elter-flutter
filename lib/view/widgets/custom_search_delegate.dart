@@ -37,7 +37,6 @@ class CustomSearchDelegate extends SearchDelegate {
               splashRadius: 15,
             )
           : const SizedBox(),
-
       InkWell(
         onTap: () async {
           String barcodeScanResult = await FlutterBarcodeScanner.scanBarcode(
@@ -74,7 +73,7 @@ class CustomSearchDelegate extends SearchDelegate {
     return matchQuery.isEmpty
         ? Center(
             child: Text(
-            'Bagyşlaň! Siziň gözleýän zadyňyz tapylmady.',
+            'Bagyşlaň! Siziň gözleýän harydyňyz tapylmady.',
             style: Theme.of(context).textTheme.titleMedium,
           ))
         : ProductsGridView(
@@ -101,7 +100,7 @@ class CustomSearchDelegate extends SearchDelegate {
         : matchQuery.isEmpty
             ? Center(
                 child: Text(
-                'Bagyşlaň! Siziň gözleýän sadyňyz tapylmady.',
+                'Bagyşlaň! Siziň gözleýän harydyňyz tapylmady.',
                 style: Theme.of(context).textTheme.titleMedium,
               ))
             : ProductsGridView(
