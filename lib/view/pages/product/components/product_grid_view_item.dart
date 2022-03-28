@@ -1,5 +1,6 @@
 import 'package:elter/data/network_service.dart';
 import 'package:elter/entity/models.dart';
+import 'package:elter/view/pages/main_screen/main_screen.dart';
 import 'package:elter/view/pages/product/components/product_detail_page.dart';
 import 'package:elter/view/styles.dart';
 import 'package:flutter/material.dart';
@@ -30,13 +31,10 @@ class ProductGridViewItem extends StatelessWidget {
           ),
           child: GestureDetector(
             onTap: () {
-              Navigator.push(
+              Navigator.pushNamed(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => ProductDetailPage(
-                    product: product,
-                  ),
-                ),
+                '/product-detail',
+                arguments: ProductDetailPageArgument(product),
               );
             },
             child: Column(

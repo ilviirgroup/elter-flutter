@@ -25,15 +25,17 @@ class SubCategoryListView extends StatelessWidget {
           margin: const EdgeInsets.fromLTRB(10, 8, 10, 2),
           color: kWhite,
           height: MediaQuery.of(context).size.height,
-          child: ListView(
-            children: subCategoryList!
-                .where(
-                    (subCategory) => subCategory.category == categoryName)
-                .toList()
-                .map(
-                  (subCategoryItem) => SubCategoryListItem(item: subCategoryItem),
-                )
-                .toList(),
+          child: Scrollbar(
+            child: ListView(
+              children: subCategoryList!
+                  .where(
+                      (subCategory) => subCategory.category == categoryName)
+                  .toList()
+                  .map(
+                    (subCategoryItem) => SubCategoryListItem(item: subCategoryItem),
+                  )
+                  .toList(),
+            ),
           ),
         );
       },

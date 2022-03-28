@@ -5,8 +5,8 @@ import 'package:elter/view/styles.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailPage extends StatefulWidget {
-  final Product product;
-  const ProductDetailPage({Key? key, required this.product}) : super(key: key);
+  final Product? product;
+  const ProductDetailPage({Key? key, this.product}) : super(key: key);
 
   @override
   _ProductDetailPageState createState() => _ProductDetailPageState();
@@ -40,13 +40,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(
-                          widget.product.photo1!,
+                          widget.product!.photo1!,
                         ),
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                  widget.product.isNew!
+                  widget.product!.isNew!
                       ? const Positioned(
                           top: 12, right: 1, child: NewProductLabel())
                       : const SizedBox(),
@@ -65,14 +65,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        widget.product.brand!,
+                        widget.product!.brand!,
                         style: productDetail,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Text(
-                        widget.product.name,
+                        widget.product!.name,
                         style: Theme.of(context)
                             .textTheme
                             .titleSmall!
@@ -140,7 +140,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Image.network(
-                                          widget.product.photo1!,
+                                          widget.product!.photo1!,
                                           height: 100,
                                           width: 100,
                                         ),
@@ -152,11 +152,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              widget.product.brand!,
+                                              widget.product!.brand!,
                                               style: productDetail,
                                             ),
                                             Text(
-                                              widget.product.name,
+                                              widget.product!.name,
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
                                             ),
@@ -184,7 +184,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        widget.product
+                                                        widget.product!
                                                             .discountPercentage!
                                                             .toString(),
                                                         style: Theme.of(context)
@@ -202,7 +202,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      widget.product.price
+                                                      widget.product!.price
                                                           .toString(),
                                                       style: Theme.of(context)
                                                           .textTheme
@@ -216,7 +216,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                                           ),
                                                     ),
                                                     Text(
-                                                      widget.product.newPrice!
+                                                      widget.product!.newPrice!
                                                           .toString(),
                                                       style: Theme.of(context)
                                                           .textTheme
@@ -330,7 +330,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         style: productDetail.copyWith(fontSize: 17),
                       ),
                       Text(
-                        widget.product.vendorName,
+                        widget.product!.vendorName,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
@@ -424,7 +424,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
                 child: Center(
                   child: Text(
-                    widget.product.discountPercentage!.toString(),
+                    widget.product!.discountPercentage!.toString(),
                     style: Theme.of(context).textTheme.subtitle2!.copyWith(
                           color: kWhite,
                         ),
@@ -435,14 +435,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    widget.product.price.toString(),
+                    widget.product!.price.toString(),
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           color: textGreyColor,
                           decoration: TextDecoration.lineThrough,
                         ),
                   ),
                   Text(
-                    widget.product.price.toString(),
+                    widget.product!.price.toString(),
                     style: Theme.of(context).textTheme.subtitle2!.copyWith(
                           color: kBlack,
                           fontSize: 17,

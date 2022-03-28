@@ -6,6 +6,7 @@ import 'package:elter/utils/enums.dart';
 import 'package:elter/view/pages/cart/cart_screen.dart';
 import 'package:elter/view/pages/catalog/catalog_page.dart';
 import 'package:elter/view/pages/home/home_page.dart';
+import 'package:elter/view/pages/product/components/product_detail_page.dart';
 import 'package:elter/view/pages/profile/my_profile.dart';
 import 'package:elter/view/pages/season/new_products.dart';
 import 'package:elter/view/styles.dart';
@@ -31,6 +32,7 @@ class _MainScreenState extends State<MainScreen>
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>()
   ];
 
@@ -45,7 +47,7 @@ class _MainScreenState extends State<MainScreen>
       const NewProducts(),
       const CartScreen(),
       const CatalogPage(),
-      const MyProfile()
+      const MyProfile(),
     ];
     context.read<VisitedCubit>().getVisited();
     super.initState();
@@ -176,6 +178,12 @@ class _MainScreenState extends State<MainScreen>
           key: _navigatorKeys[index],
           onGenerateRoute: (routeSettings) {
             switch (routeSettings.name) {
+              case '/product-detail':
+                final args =
+                    routeSettings.arguments as ProductDetailPageArgument;
+                return MaterialPageRoute(
+                    builder: (context) =>
+                        ProductDetailPage(product: args.product));
               case '/':
               default:
                 return MaterialPageRoute(
@@ -189,4 +197,9 @@ class _MainScreenState extends State<MainScreen>
 
   @override
   bool get wantKeepAlive => true;
+}
+
+class ProductDetailPageArgument {
+  final Product product;
+  ProductDetailPageArgument(this.product);
 }

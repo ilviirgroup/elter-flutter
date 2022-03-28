@@ -18,21 +18,23 @@ class SuperCategoryListView extends StatelessWidget {
           return const LoadingIndicator();
         }
         final List<SuperCategory> superCategoryList = state.superCategories;
-        return ListView.separated(
-          itemBuilder: (context, index) {
-            final superCat = superCategoryList[index];
-            return SuperCategoryListItem(superCat: superCat);
-          },
-          separatorBuilder: (context, index) {
-            return const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Divider(
-                thickness: 2.0,
-                color: whiteGrey,
-              ),
-            );
-          },
-          itemCount: superCategoryList.length,
+        return Scrollbar(
+          child: ListView.separated(
+            itemBuilder: (context, index) {
+              final superCat = superCategoryList[index];
+              return SuperCategoryListItem(superCat: superCat);
+            },
+            separatorBuilder: (context, index) {
+              return const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Divider(
+                  thickness: 2.0,
+                  color: whiteGrey,
+                ),
+              );
+            },
+            itemCount: superCategoryList.length,
+          ),
         );
       },
     );
