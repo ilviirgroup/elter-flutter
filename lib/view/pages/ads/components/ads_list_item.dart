@@ -32,7 +32,9 @@ class AdsListItem extends StatelessWidget {
                   return const LoadingIndicator();
                 }
                 final List<Product> adsProductList = state.products;
-                return ProductsPage(adsProductList: adsProductList,);
+                return ProductsPage(
+                  adsProductList: adsProductList,
+                );
               },
             ),
           ),

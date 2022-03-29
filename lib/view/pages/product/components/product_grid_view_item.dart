@@ -1,9 +1,9 @@
 import 'package:elter/data/network_service.dart';
 import 'package:elter/entity/models.dart';
-import 'package:elter/view/pages/main_screen/main_screen.dart';
-import 'package:elter/view/pages/product/components/product_detail_page.dart';
+import 'package:elter/presenter/cubit/on_product_detail_page/on_product_detail_page_cubit.dart';
 import 'package:elter/view/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'label_new_product.dart';
 
@@ -29,97 +29,103 @@ class ProductGridViewItem extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(8)),
             color: kWhite,
           ),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                '/product-detail',
-                arguments: ProductDetailPageArgument(product),
-              );
-            },
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                          product.photo1!,
+          child: BlocBuilder<OnProductDetailPageCubit, OnProductDetailPageState>(
+            builder: (context, state) {
+              final Function onNext = (state as OnProductDetailPageLoaded).onNext;
+              return GestureDetector(
+                onTap: () {
+                  onNext(product);
+                },
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              product.photo1!,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2.0),
-                        child: Text(
-                          product.brand!,
-                          style: Theme.of(context).textTheme.caption!.copyWith(
-                              fontWeight: FontWeight.w700, color: kBlack),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 7),
-                        child: Text(
-                          product.name,
-                          style: Theme.of(context)
-                              .textTheme
-                              .caption!
-                              .copyWith(color: textGreyColor),
-                        ),
-                      ),
-                      Row(
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          product.newPrice != null
-                              ? Text(
-                                  product.newPrice.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                        color: textRedColor,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                )
-                              : Text(
-                                  product.price.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(
-                                        color: kPrimaryColor,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                ),
-                          const SizedBox(
-                            width: 10,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 2.0),
+                            child: Text(
+                              product.brand!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption!
+                                  .copyWith(
+                                      fontWeight: FontWeight.w700,
+                                      color: kBlack),
+                            ),
                           ),
-                          product.newPrice != null
-                              ? Text(
-                                  product.price.toString(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .caption!
-                                      .copyWith(
-                                        color: textGreyColor,
-                                        decoration: TextDecoration.lineThrough,
-                                      ),
-                                )
-                              : const SizedBox(),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 7),
+                            child: Text(
+                              product.name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption!
+                                  .copyWith(color: textGreyColor),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              product.newPrice != null
+                                  ? Text(
+                                      product.newPrice.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle2!
+                                          .copyWith(
+                                            color: textRedColor,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                    )
+                                  : Text(
+                                      product.price.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle2!
+                                          .copyWith(
+                                            color: kPrimaryColor,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                    ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              product.newPrice != null
+                                  ? Text(
+                                      product.price.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .caption!
+                                          .copyWith(
+                                            color: textGreyColor,
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                          ),
+                                    )
+                                  : const SizedBox(),
+                            ],
+                          )
                         ],
-                      )
-                    ],
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              );
+            },
           ),
         ),
         Positioned(

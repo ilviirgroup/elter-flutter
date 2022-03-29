@@ -12,6 +12,7 @@ import 'entity/models/ads.dart';
 import 'presenter/bloc.dart';
 import 'presenter/cubit.dart';
 
+import 'presenter/cubit/on_product_detail_page/on_product_detail_page_cubit.dart';
 import 'utils/app_bloc_observer.dart';
 import 'utils/app_theme.dart';
 
@@ -139,6 +140,9 @@ class MyApp extends StatelessWidget {
               networkservice,
             ),
           ),
+        ),
+        BlocProvider(
+          create: (context) => OnProductDetailPageCubit()..onNextPage(() {}),
         ),
       ],
       child: MaterialApp(

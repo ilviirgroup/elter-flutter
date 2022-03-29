@@ -11,7 +11,11 @@ import 'ads_list_item.dart';
 
 class AdsListView extends StatefulWidget {
   final String? superCategoryName;
-  const AdsListView({Key? key, this.superCategoryName}) : super(key: key);
+
+  const AdsListView({
+    Key? key,
+    this.superCategoryName,
+  }) : super(key: key);
 
   @override
   State<AdsListView> createState() => _AdsListViewState();
@@ -80,12 +84,16 @@ class _AdsListViewState extends State<AdsListView>
                                   ads.superCategory == widget.superCategoryName)
                               .toList()
                               .map(
-                                (adsItem) => AdsListItem(adsItem: adsItem),
+                                (adsItem) => AdsListItem(
+                                  adsItem: adsItem,
+                                ),
                               )
                               .toList()
                           : adsList
                               .map(
-                                (adsItem) => AdsListItem(adsItem: adsItem),
+                                (adsItem) => AdsListItem(
+                                  adsItem: adsItem,
+                                ),
                               )
                               .toList(),
                     ),

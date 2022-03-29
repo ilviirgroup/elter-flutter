@@ -9,7 +9,9 @@ import 'package:elter/presenter/cubit.dart';
 import 'package:elter/view/widgets/loading_indicator.dart';
 
 class AdsPage extends StatefulWidget {
-  const AdsPage({Key? key}) : super(key: key);
+  const AdsPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AdsPage> createState() => _AdsPageState();
@@ -34,7 +36,9 @@ class _AdsPageState extends State<AdsPage> {
               const AdsListView(),
               ...superCategoryList.map(
                 (e) {
-                  return AdsListView(superCategoryName: e.name);
+                  return AdsListView(
+                    superCategoryName: e.name,
+                  );
                 },
               )
             ]),

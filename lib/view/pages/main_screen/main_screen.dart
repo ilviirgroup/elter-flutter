@@ -1,5 +1,6 @@
 import 'package:elter/entity/models.dart';
 import 'package:elter/presenter/cubit.dart';
+import 'package:elter/presenter/cubit/on_product_detail_page/on_product_detail_page_cubit.dart';
 import 'package:elter/presenter/cubit/visited/visited_cubit.dart';
 import 'package:elter/utils/enums.dart';
 
@@ -27,28 +28,20 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen>
     with AutomaticKeepAliveClientMixin<MainScreen> {
+  int selectedIndex = 0;
+
   final List<GlobalKey<NavigatorState>> _navigatorKeys = [
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>()
   ];
 
-  int selectedIndex = 0;
-
-  List<Widget> screens = [];
+  // List<Widget> screens = [];
 
   @override
   void initState() {
-    screens = [
-      const HomePage(),
-      const NewProducts(),
-      const CartScreen(),
-      const CatalogPage(),
-      const MyProfile(),
-    ];
     context.read<VisitedCubit>().getVisited();
     super.initState();
   }
@@ -58,6 +51,16 @@ class _MainScreenState extends State<MainScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    context.read<OnProductDetailPageCubit>().onNextPage((Product product) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProductDetailPage(
+            product: product,
+          ),
+        ),
+      );
+    });
     final screenSize = MediaQuery.of(context).size;
     final changeBottomNavCubit = context.read<ChangeBottomNavCubit>();
     return BlocBuilder<ChangeBottomNavCubit, BottomNavScreen>(
@@ -165,7 +168,13 @@ class _MainScreenState extends State<MainScreen>
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
     return {
       '/': (context) {
-        return screens.elementAt(index);
+        return [
+          const HomePage(),
+          const NewProducts(),
+          const CartScreen(),
+          const CatalogPage(),
+          const MyProfile(),
+        ].elementAt(index);
       }
     };
   }
@@ -177,20 +186,9 @@ class _MainScreenState extends State<MainScreen>
       child: Navigator(
           key: _navigatorKeys[index],
           onGenerateRoute: (routeSettings) {
-            switch (routeSettings.name) {
-              case '/product-detail':
-                final args =
-                    routeSettings.arguments as ProductDetailPageArgument;
-                return MaterialPageRoute(
-                    builder: (context) =>
-                        ProductDetailPage(product: args.product));
-              case '/':
-              default:
-                return MaterialPageRoute(
-                  builder: (context) =>
-                      routeBuilders[routeSettings.name]!(context),
-                );
-            }
+            return MaterialPageRoute(
+              builder: (context) => routeBuilders[routeSettings.name]!(context),
+            );
           }),
     );
   }
