@@ -42,7 +42,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       image: NetworkImage(
                         widget.product.photo1!,
                       ),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
@@ -56,8 +56,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ],
             ),
             Container(
-              width: _size.width / 1.05,
-              // height: _size.height / 12,
+              margin: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 color: kWhite,
                 borderRadius: BorderRadius.circular(5),
@@ -73,7 +72,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
                     child: Text(
                       widget.product.name,
                       style: Theme.of(context)
@@ -100,7 +99,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               height: 5,
             ),
             Container(
-              width: _size.width / 1.05,
+              margin: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 color: kWhite,
@@ -178,7 +177,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         const Padding(
                           padding: EdgeInsets.all(2.0),
                           child: Text(
-                              """•Eltip bermek hyzmatynyň tölegi harydyňyza görä. Häzirlikçe sagatda 40 km tizlik bilen hereket edýän elektro skooterimiz bar şonuň nesip bolsa halkymyza hezil bereris!!!"""),
+                              """•Eltip bermek hyzmatynyň tölegi harydyňyza görä. Häzirlikçe sagatda 40 km tizlik bilen hereket edýän elektro skooterimiz bar şonuň bilen nesip bolsa halkymyza hezil bereris!!!"""),
                         )
                       ],
                     ),
@@ -192,63 +191,75 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           ],
         ),
       ),
+
+      // bottomsheet
+
       bottomSheet: Container(
+        padding: const EdgeInsets.all(10),
         color: kWhite,
-        height: _size.height / 9,
+        height: 70.0,
         width: double.infinity,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              height: _size.height / 16,
-              width: _size.width / 10,
-              decoration: BoxDecoration(
-                color: textRedColor,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Center(
-                child: Text(
-                  widget.product.discountPercentage!.toString(),
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                        color: kWhite,
-                      ),
-                ),
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  widget.product.price.toString(),
-                  style: Theme.of(context).textTheme.caption!.copyWith(
-                        color: textGreyColor,
-                        decoration: TextDecoration.lineThrough,
-                      ),
-                ),
-                Text(
-                  widget.product.price.toString(),
-                  style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                        color: kBlack,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                      ),
-                ),
-              ],
-            ),
-            Container(
-              height: _size.height / 12,
-              width: _size.width / 2.5,
-              decoration: BoxDecoration(
-                color: kPrimaryColor,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Center(
-                child: Text(
-                  "Sebede goş",
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        color: kWhite,
-                      ),
-                ),
+            widget.product.newPrice != null
+                ? Container(
+                    padding: const EdgeInsets.all(7.0),
+                    decoration: BoxDecoration(
+                      color: textRedColor,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Text(
+                      '%${widget.product.discountPercentage!.ceil().toString()}',
+                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                            color: kWhite,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                : const SizedBox(),
+            widget.product.newPrice != null
+                ? Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          widget.product.price.toString() + ' TMT',
+                          style: Theme.of(context).textTheme.caption!.copyWith(
+                                color: textGreyColor,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                        ),
+                        Text(
+                          widget.product.newPrice.toString() + ' TMT',
+                          style:
+                              Theme.of(context).textTheme.subtitle2!.copyWith(
+                                    color: kBlack,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text(
+                      widget.product.price.toString() + ' TMT',
+                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                            color: kBlack,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(minimumSize: const Size(0, 50)),
+                child: const Text('Sebede goş'),
               ),
             ),
           ],

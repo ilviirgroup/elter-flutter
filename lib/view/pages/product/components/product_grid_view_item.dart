@@ -29,9 +29,11 @@ class ProductGridViewItem extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(8)),
             color: kWhite,
           ),
-          child: BlocBuilder<OnProductDetailPageCubit, OnProductDetailPageState>(
+          child:
+              BlocBuilder<OnProductDetailPageCubit, OnProductDetailPageState>(
             builder: (context, state) {
-              final Function onNext = (state as OnProductDetailPageLoaded).onNext;
+              final Function onNext =
+                  (state as OnProductDetailPageLoaded).onNext;
               return GestureDetector(
                 onTap: () {
                   onNext(product);
@@ -43,7 +45,7 @@ class ProductGridViewItem extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                             image: NetworkImage(
                               product.photo1!,
                             ),
@@ -53,73 +55,77 @@ class ProductGridViewItem extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 2.0),
-                            child: Text(
-                              product.brand!,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .caption!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      color: kBlack),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 7),
-                            child: Text(
-                              product.name,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .caption!
-                                  .copyWith(color: textGreyColor),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              product.newPrice != null
-                                  ? Text(
-                                      product.newPrice.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle2!
-                                          .copyWith(
-                                            color: textRedColor,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                    )
-                                  : Text(
-                                      product.price.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle2!
-                                          .copyWith(
-                                            color: kPrimaryColor,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                    ),
-                              const SizedBox(
-                                width: 10,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 2.0),
+                              child: Text(
+                                product.brand!,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w700,
+                                        color: kBlack),
                               ),
-                              product.newPrice != null
-                                  ? Text(
-                                      product.price.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .caption!
-                                          .copyWith(
-                                            color: textGreyColor,
-                                            decoration:
-                                                TextDecoration.lineThrough,
-                                          ),
-                                    )
-                                  : const SizedBox(),
-                            ],
-                          )
-                        ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 7),
+                              child: Text(
+                                product.name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption!
+                                    .copyWith(color: textGreyColor),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                product.newPrice != null
+                                    ? Text(
+                                        product.newPrice.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                              color: textRedColor,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                      )
+                                    : Text(
+                                        product.price.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle2!
+                                            .copyWith(
+                                              color: kPrimaryColor,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                      ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                product.newPrice != null
+                                    ? Text(
+                                        product.price.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .caption!
+                                            .copyWith(
+                                              color: textGreyColor,
+                                              decoration:
+                                                  TextDecoration.lineThrough,
+                                            ),
+                                      )
+                                    : const SizedBox(),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],

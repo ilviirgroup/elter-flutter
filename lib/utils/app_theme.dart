@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 final ThemeData myTheme = ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    scrollbarTheme: const ScrollbarThemeData(),
     primaryColor: kPrimaryColor,
     scaffoldBackgroundColor: kScaffoldBackgroundColor,
     highlightColor: Colors.transparent,
