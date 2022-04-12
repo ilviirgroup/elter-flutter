@@ -1,4 +1,4 @@
-import 'package:elter/utils/enums.dart';
+import 'package:elter/view/constants/enums.dart';
 import 'package:elter/view/pages/ads/components/ads_list_view.dart';
 import 'package:elter/view/widgets/app_bar_with_tab_bar.dart';
 import 'package:flutter/material.dart';

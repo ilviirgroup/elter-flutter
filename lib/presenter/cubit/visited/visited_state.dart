@@ -11,7 +11,7 @@ class VisitedInitial extends VisitedState {}
 
 class VisitedLoaded extends VisitedState {
   final Visited visited;
-  VisitedLoaded(this.visited);
+ const VisitedLoaded(this.visited);
 
     @override
   List<Object> get props => [];

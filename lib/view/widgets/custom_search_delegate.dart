@@ -1,6 +1,9 @@
 import 'package:elter/entity/models.dart';
+import 'package:elter/view/constants/colors.dart';
+import 'package:elter/view/constants/enums.dart';
+import 'package:elter/view/constants/constant_words.dart';
 import 'package:elter/view/pages/product/components/products_grid_view.dart';
-import 'package:elter/view/styles.dart';
+import 'package:elter/view/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -73,7 +76,7 @@ class CustomSearchDelegate extends SearchDelegate {
     return matchQuery.isEmpty
         ? Center(
             child: Text(
-            'Bagyşlaň! Siziň gözleýän harydyňyz tapylmady.',
+            searchBarWords[SearchBarWords.searchNotFound]!,
             style: Theme.of(context).textTheme.titleMedium,
           ))
         : ProductsGridView(
@@ -94,13 +97,13 @@ class CustomSearchDelegate extends SearchDelegate {
     return query.isEmpty
         ? Center(
             child: Text(
-            'Gözleg sözüni ýazyň',
+            searchBarWords[SearchBarWords.searchBy]!,
             style: Theme.of(context).textTheme.titleMedium,
           ))
         : matchQuery.isEmpty
             ? Center(
                 child: Text(
-                'Bagyşlaň! Siziň gözleýän harydyňyz tapylmady.',
+                searchBarWords[SearchBarWords.searchNotFound]!,
                 style: Theme.of(context).textTheme.titleMedium,
               ))
             : ProductsGridView(

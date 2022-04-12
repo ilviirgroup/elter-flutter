@@ -1,6 +1,6 @@
 import 'package:elter/entity/models/category.dart';
 import 'package:elter/presenter/cubit.dart';
-import 'package:elter/utils/enums.dart';
+import 'package:elter/view/constants/enums.dart';
 import 'package:elter/view/pages/sub_category/components/sub_category_list_view.dart';
 import 'package:elter/view/widgets/app_bar_with_tab_bar.dart';
 import 'package:elter/view/widgets/loading_indicator.dart';
@@ -21,14 +21,17 @@ class SubCategoryPage extends StatelessWidget {
           return const LoadingIndicator();
         }
         final List<Category> categoryList = state.categories;
+        List<Category> catList = categoryList
+            .where((category) =>
+                category.superCategory == categoryObject.superCategory)
+            .toList();
         return DefaultTabController(
-          initialIndex: categoryList.indexOf(categoryObject),
-          length: categoryList.length,
+          initialIndex: catList.indexOf(categoryObject),
+          length: catList.length,
           child: Scaffold(
-            appBar: appBarWithTabBar(
-                context, categoryList, BottomNavScreen.catalog),
+            appBar: appBarWithTabBar(context, catList, BottomNavScreen.catalog),
             body: TabBarView(
-                children: categoryList
+                children: catList
                     .map((e) => SubCategoryListView(categoryName: e.name))
                     .toList()),
           ),

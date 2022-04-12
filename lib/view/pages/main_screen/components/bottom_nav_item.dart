@@ -1,6 +1,6 @@
 import 'package:elter/presenter/cubit.dart';
-import 'package:elter/utils/enums.dart';
-import 'package:elter/view/styles.dart';
+import 'package:elter/view/constants/colors.dart';
+import 'package:elter/view/constants/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,12 +30,15 @@ class BottomNavItem extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: currentIndex == index ? kPrimaryColor : unselectedIconColor,
+              color:
+                  currentIndex == index ? kPrimaryColor : unselectedIconColor,
             ),
             Text(
               label,
               style: Theme.of(context).textTheme.button!.copyWith(
-                    color: currentIndex == index ? kPrimaryColor : unselectedIconColor,
+                    color: currentIndex == index
+                        ? kPrimaryColor
+                        : unselectedIconColor,
                   ),
             ),
           ],

@@ -1,7 +1,7 @@
 import 'package:elter/entity/models/product.dart';
 import 'package:elter/presenter/bloc.dart';
+import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/pages/super_category/components/super_category_list_view.dart';
-import 'package:elter/view/styles.dart';
 import 'package:elter/view/widgets/custom_search_delegate.dart';
 import 'package:elter/view/widgets/search_bar.dart';
 import 'package:flutter/material.dart';

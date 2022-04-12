@@ -1,5 +1,6 @@
 import 'package:elter/entity/models/product.dart';
-import 'package:elter/view/styles.dart';
+import 'package:elter/view/constants/colors.dart';
+import 'package:elter/view/constants/styles.dart';
 import 'package:flutter/material.dart';
 
 class ColorContainer extends StatelessWidget {
@@ -18,9 +19,9 @@ class ColorContainer extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Text(
+             const Text(
                 "Reňk: ",
-                style: productDetail,
+                style: boldTextStyle,
               ),
               Text(
                 product.color!,

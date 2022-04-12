@@ -1,8 +1,11 @@
 import 'package:elter/entity/models/sub_category.dart';
 import 'package:elter/entity/repos/visited_repository.dart';
+import 'package:elter/presenter/cubit/on_cart_page/on_cart_page_cubit.dart';
+import 'package:elter/presenter/cubit/sort_by/sort_by_cubit.dart';
 import 'package:elter/presenter/cubit/visited/visited_cubit.dart';
-import 'package:elter/utils/enums.dart';
+import 'package:elter/view/constants/enums.dart';
 import 'package:elter/view/pages/main_screen/main_screen.dart';
+import 'package:elter/view/pages/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -82,6 +85,12 @@ class MyApp extends StatelessWidget {
           ),
         ),
         BlocProvider(
+          create: (context) => OnProductDetailPageCubit()..onNextPage(() {}),
+        ),
+        BlocProvider(
+          create: (context) => OnCartPageCubit()..toCartPage(() {}),
+        ),
+        BlocProvider(
           create: (context) => ProductBloc(
             ProductRepository(
               networkservice,
@@ -92,6 +101,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SearchTappedCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SortByCubit()..sortBy(''),
         ),
         BlocProvider(
           create: (context) => SubCategoryCubit(
@@ -141,15 +153,12 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        BlocProvider(
-          create: (context) => OnProductDetailPageCubit()..onNextPage(() {}),
-        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: myTheme,
         // initialRoute: AppRouteNames.welcome,
-        home: const MainScreen(),
+        home: const WelcomeScreen(),
         // onGenerateRoute: onGenerateRoute,
       ),
     );

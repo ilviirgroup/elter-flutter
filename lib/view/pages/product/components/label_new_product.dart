@@ -1,4 +1,4 @@
-import 'package:elter/view/styles.dart';
+import 'package:elter/view/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class NewProductLabel extends StatelessWidget {

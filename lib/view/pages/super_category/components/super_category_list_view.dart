@@ -1,6 +1,6 @@
 import 'package:elter/entity/models.dart';
 import 'package:elter/presenter/cubit.dart';
-import 'package:elter/view/styles.dart';
+import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

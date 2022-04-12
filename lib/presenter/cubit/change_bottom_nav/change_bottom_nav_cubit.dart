@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/utils/enums.dart';
+import 'package:elter/view/constants/enums.dart';
 import 'package:equatable/equatable.dart';
 
 part 'change_bottom_nav_state.dart';

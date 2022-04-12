@@ -1,19 +1,22 @@
-import 'package:elter/view/styles.dart';
+import 'package:elter/view/constants/colors.dart';
+import 'package:elter/view/constants/enums.dart';
+import 'package:elter/view/constants/constant_words.dart';
+import 'package:elter/view/constants/styles.dart';
 import 'package:flutter/material.dart';
 
 IgnorePointer searchBar() {
-  return const IgnorePointer(
+  return IgnorePointer(
     child: TextField(
       textAlignVertical: TextAlignVertical.bottom,
       decoration: InputDecoration(
         filled: true,
         fillColor: whiteGrey,
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
-        hintText: """Elterde gözle""",
-        prefixIcon: Icon(
+        hintText: searchBarWords[SearchBarWords.searchInStore]!,
+        prefixIcon: const Icon(
           Icons.search,
           color: kBlack,
         ),

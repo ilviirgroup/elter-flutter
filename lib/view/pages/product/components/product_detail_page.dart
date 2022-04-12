@@ -1,8 +1,10 @@
 import 'package:elter/entity/models.dart';
+import 'package:elter/utils/modify_price.dart';
+import 'package:elter/view/constants/colors.dart';
+import 'package:elter/view/constants/styles.dart';
 import 'package:elter/view/pages/product/components/color_container.dart';
 import 'package:elter/view/pages/product/components/label_new_product.dart';
 import 'package:elter/view/pages/product/components/size_container.dart';
-import 'package:elter/view/styles.dart';
 
 import 'package:flutter/material.dart';
 
@@ -18,11 +20,11 @@ class ProductDetailPage extends StatefulWidget {
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
-  int san = 0;
 
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kTransparent,
@@ -46,7 +48,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   ),
                 ),
-                widget.product.isNew!
+                widget.product.isNew
                     ? const Positioned(
                         top: 12,
                         right: 1,
@@ -68,7 +70,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       widget.product.brand!,
-                      style: productDetail,
+                      style: boldTextStyle,
                     ),
                   ),
                   Padding(
@@ -108,10 +110,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   children: [
-                    Text(
-                      "Satyjy: ",
-                      style: productDetail.copyWith(fontSize: 17),
-                    ),
+                    Text("Satyjy: ",
+                        style: boldTextStyle.copyWith(fontSize: 17)),
                     Text(
                       widget.product.vendorName,
                       style: Theme.of(context).textTheme.titleMedium,
@@ -166,15 +166,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     padding: const EdgeInsets.all(5.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Padding(
-                          padding: const EdgeInsets.all(2.0),
+                          padding: EdgeInsets.all(2.0),
                           child: Text(
                             "Eltip bermek hyzmaty",
-                            style: productDetail,
+                            style: boldTextStyle,
                           ),
                         ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.all(2.0),
                           child: Text(
                               """•Eltip bermek hyzmatynyň tölegi harydyňyza görä. Häzirlikçe sagatda 40 km tizlik bilen hereket edýän elektro skooterimiz bar şonuň bilen nesip bolsa halkymyza hezil bereris!!!"""),
@@ -187,7 +187,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
             const SizedBox(
               height: 100,
-            )
+            ),
           ],
         ),
       ),
@@ -202,7 +202,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            widget.product.newPrice != null
+            widget.product.isSale
                 ? Container(
                     padding: const EdgeInsets.all(7.0),
                     decoration: BoxDecoration(
@@ -218,7 +218,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   )
                 : const SizedBox(),
-            widget.product.newPrice != null
+            widget.product.isSale
                 ? Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Column(
@@ -232,7 +232,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               ),
                         ),
                         Text(
-                          widget.product.newPrice.toString() + ' TMT',
+                          modifyPrice(widget.product.newPrice!) + ' TMT',
                           style:
                               Theme.of(context).textTheme.subtitle2!.copyWith(
                                     color: kBlack,
@@ -246,7 +246,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 : Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Text(
-                      widget.product.price.toString() + ' TMT',
+                      modifyPrice(widget.product.newPrice!) + ' TMT',
                       style: Theme.of(context).textTheme.subtitle2!.copyWith(
                             color: kBlack,
                             fontSize: 16,
@@ -299,13 +299,10 @@ class ProductDetailRow extends StatelessWidget {
           ),
           Text(
             trailing,
-            style: productDetail,
+            style: boldTextStyle,
           ),
         ],
       ),
     );
   }
 }
-
-//in asakkyny color bermek ucin ulanjak boldum emma ulanyp bilmedim
-

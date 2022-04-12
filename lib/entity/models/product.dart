@@ -9,7 +9,8 @@ class Product {
   double? discountAmount;
   double? discountPercentage;
   String? gender;
-  bool? isNew;
+  bool isNew;
+  bool isSale;
   String location;
   String name;
   double? newPrice;
@@ -36,7 +37,8 @@ class Product {
     this.discountAmount,
     this.discountPercentage,
     this.gender,
-    this.isNew,
+    required this.isSale,
+    required this.isNew,
     required this.location,
     required this.name,
     this.newPrice,
@@ -56,36 +58,37 @@ class Product {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
-        barcode: json[ApiFields.barcode] ?? '',
-        brand: json[ApiFields.brand],
-        category: json[ApiFields.category],
-        color: json[ApiFields.color],
-        date: json[ApiFields.date],
-        description: json[ApiFields.description],
-        discountAmount: json[ApiFields.discountAmount],
-        discountPercentage: json[ApiFields.discountPercentage],
-        gender: json[ApiFields.gender],
-        isNew: json[ApiFields.isNew],
-        location: json[ApiFields.location],
-        name: json[ApiFields.name],
-        newPrice: json[ApiFields.newPrice],
-        photo1: json[ApiFields.photo1] ?? 'Surat ýok',
-        photo2: json[ApiFields.photo2],
-        photo3: json[ApiFields.photo3],
-        photo4: json[ApiFields.photo4],
-        pk: json[ApiFields.pk],
-        price: json[ApiFields.price],
-        productId: json[ApiFields.productId],
-        vendorName: json[ApiFields.vendorName],
-        size: json[ApiFields.size],
-        subCategory: json[ApiFields.subCategory],
-        superCategory: json[ApiFields.superCategory],
-        url: json[ApiFields.url],
-        visited: json[ApiFields.visited],
+        barcode: json[ProductApiFields.barcode] ?? '',
+        brand: json[ProductApiFields.brand],
+        category: json[ProductApiFields.category],
+        color: json[ProductApiFields.color],
+        date: json[ProductApiFields.date],
+        description: json[ProductApiFields.description],
+        discountAmount: json[ProductApiFields.discountAmount],
+        discountPercentage: json[ProductApiFields.discountPercentage],
+        gender: json[ProductApiFields.gender],
+        isSale: json[ProductApiFields.isSale],
+        isNew: json[ProductApiFields.isNew],
+        location: json[ProductApiFields.location],
+        name: json[ProductApiFields.name],
+        newPrice: json[ProductApiFields.newPrice],
+        photo1: json[ProductApiFields.photo1] ?? 'Surat ýok',
+        photo2: json[ProductApiFields.photo2],
+        photo3: json[ProductApiFields.photo3],
+        photo4: json[ProductApiFields.photo4],
+        pk: json[ProductApiFields.pk],
+        price: json[ProductApiFields.price],
+        productId: json[ProductApiFields.productId],
+        vendorName: json[ProductApiFields.vendorName],
+        size: json[ProductApiFields.size],
+        subCategory: json[ProductApiFields.subCategory],
+        superCategory: json[ProductApiFields.superCategory],
+        url: json[ProductApiFields.url],
+        visited: json[ProductApiFields.visited],
       );
 }
 
-class ApiFields {
+class ProductApiFields {
   static const barcode = "barcode";
   static const brand = "brand";
   static const category = "category";
@@ -95,6 +98,7 @@ class ApiFields {
   static const discountAmount = "discounted_price";
   static const discountPercentage = "discount";
   static const gender = "gender";
+  static const isSale = "calc_discount";
   static const isNew = "new";
   static const location = "location";
   static const name = "name";

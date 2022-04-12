@@ -1,8 +1,11 @@
 import 'package:elter/entity/models.dart';
 import 'package:elter/presenter/cubit.dart';
+import 'package:elter/presenter/cubit/on_cart_page/on_cart_page_cubit.dart';
 import 'package:elter/presenter/cubit/on_product_detail_page/on_product_detail_page_cubit.dart';
 import 'package:elter/presenter/cubit/visited/visited_cubit.dart';
-import 'package:elter/utils/enums.dart';
+import 'package:elter/view/constants/colors.dart';
+import 'package:elter/view/constants/enums.dart';
+import 'package:elter/view/constants/constant_words.dart';
 
 import 'package:elter/view/pages/cart/cart_screen.dart';
 import 'package:elter/view/pages/catalog/catalog_page.dart';
@@ -10,7 +13,6 @@ import 'package:elter/view/pages/home/home_page.dart';
 import 'package:elter/view/pages/product/components/product_detail_page.dart';
 import 'package:elter/view/pages/profile/my_profile.dart';
 import 'package:elter/view/pages/season/new_products.dart';
-import 'package:elter/view/styles.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +35,7 @@ class _MainScreenState extends State<MainScreen>
   final List<GlobalKey<NavigatorState>> _navigatorKeys = [
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
+    // GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
   ];
@@ -58,6 +60,14 @@ class _MainScreenState extends State<MainScreen>
           builder: (context) => ProductDetailPage(
             product: product,
           ),
+        ),
+      );
+    });
+    context.read<OnCartPageCubit>().toCartPage(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const CartPage(),
         ),
       );
     });
@@ -99,25 +109,39 @@ class _MainScreenState extends State<MainScreen>
               children: [
                 _buildOffstageNavigator(0),
                 _buildOffstageNavigator(1),
+                // _buildOffstageNavigator(2),
                 _buildOffstageNavigator(2),
                 _buildOffstageNavigator(3),
-                _buildOffstageNavigator(4),
               ],
             ),
-            floatingActionButton: FloatingActionButton(
-              elevation: 0,
-              foregroundColor: bottomNavScreen == BottomNavScreen.cart
-                  ? kWhite
-                  : unselectedIconColor,
-              backgroundColor: bottomNavScreen == BottomNavScreen.cart
-                  ? kPrimaryColor
-                  : kWhite,
-              child: const Icon(
-                Icons.shopping_cart_outlined,
-                size: 24,
-              ),
-              onPressed: () => changeBottomNavCubit
-                  .changeBottomNavIndex(BottomNavScreen.cart),
+            floatingActionButton: BlocBuilder<OnCartPageCubit, OnCartPageState>(
+              builder: (context, state) {
+                final Function toCartPage =
+                    (state as OnCartPageLoaded).cartPage;
+                return FloatingActionButton(
+                    elevation: 0,
+                    foregroundColor:
+                        // bottomNavScreen == BottomNavScreen.cart
+                        //     ? kWhite
+                        //     :
+                        unselectedIconColor,
+                    backgroundColor:
+                        // bottomNavScreen == BottomNavScreen.cart
+                        //     ? kPrimaryColor
+                        //     :
+                        kWhite,
+                    child: const Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 24,
+                    ),
+                    onPressed: () {
+                      toCartPage();
+                    }
+
+                    // => changeBottomNavCubit
+                    //     .changeBottomNavIndex(BottomNavScreen.cart),
+                    );
+              },
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
@@ -131,14 +155,15 @@ class _MainScreenState extends State<MainScreen>
                     BottomNavItem(
                       index: BottomNavScreen.home,
                       currentIndex: bottomNavScreen,
-                      label: 'Esasy',
-                      icon: Icons.home,
+                      label: bottomNavigationIconLabels[BottomNavScreen.home]!,
+                      icon: Icons.home_outlined,
                     ),
                     BottomNavItem(
-                      index: BottomNavScreen.news,
+                      index: BottomNavScreen.vendors,
                       currentIndex: bottomNavScreen,
-                      label: "Täzeler",
-                      icon: Icons.new_releases_outlined,
+                      label:
+                          bottomNavigationIconLabels[BottomNavScreen.vendors]!,
+                      icon: Icons.store_outlined,
                     ),
                     SizedBox(
                       width: screenSize.width / 5,
@@ -146,13 +171,15 @@ class _MainScreenState extends State<MainScreen>
                     BottomNavItem(
                       index: BottomNavScreen.catalog,
                       currentIndex: bottomNavScreen,
-                      label: "Katalog",
-                      icon: Icons.grid_view,
+                      label:
+                          bottomNavigationIconLabels[BottomNavScreen.catalog]!,
+                      icon: Icons.dashboard_outlined,
                     ),
                     BottomNavItem(
                       index: BottomNavScreen.profile,
                       currentIndex: bottomNavScreen,
-                      label: "Profil",
+                      label:
+                          bottomNavigationIconLabels[BottomNavScreen.profile]!,
                       icon: Icons.person_outline,
                     ),
                   ],
@@ -171,7 +198,7 @@ class _MainScreenState extends State<MainScreen>
         return [
           const HomePage(),
           const NewProducts(),
-          const CartScreen(),
+          // const CartPage(),
           const CatalogPage(),
           const MyProfile(),
         ].elementAt(index);
@@ -197,7 +224,7 @@ class _MainScreenState extends State<MainScreen>
   bool get wantKeepAlive => true;
 }
 
-class ProductDetailPageArgument {
-  final Product product;
-  ProductDetailPageArgument(this.product);
-}
+// class ProductDetailPageArgument {
+//   final Product product;
+//   ProductDetailPageArgument(this.product);
+// }

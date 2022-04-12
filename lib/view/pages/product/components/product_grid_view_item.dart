@@ -1,7 +1,11 @@
+import 'package:elter/data/api_routes.dart';
 import 'package:elter/data/network_service.dart';
 import 'package:elter/entity/models.dart';
+import 'package:elter/entity/repos/product_repository.dart';
+import 'package:elter/presenter/bloc/product/product_bloc.dart';
 import 'package:elter/presenter/cubit/on_product_detail_page/on_product_detail_page_cubit.dart';
-import 'package:elter/view/styles.dart';
+import 'package:elter/utils/modify_price.dart';
+import 'package:elter/view/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,6 +41,7 @@ class ProductGridViewItem extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   onNext(product);
+                  networkService.getRequest.fetchData(product.url!);
                 },
                 child: Column(
                   children: [
@@ -56,9 +61,10 @@ class ProductGridViewItem extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Padding(
                               padding:
@@ -83,11 +89,12 @@ class ProductGridViewItem extends StatelessWidget {
                                     .copyWith(color: textGreyColor),
                               ),
                             ),
+                            // price
                             Row(
                               children: [
-                                product.newPrice != null
+                                product.isSale
                                     ? Text(
-                                        product.newPrice.toString(),
+                                        modifyPrice(product.newPrice!),
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle2!
@@ -97,7 +104,7 @@ class ProductGridViewItem extends StatelessWidget {
                                             ),
                                       )
                                     : Text(
-                                        product.price.toString(),
+                                        modifyPrice(product.newPrice!),
                                         style: Theme.of(context)
                                             .textTheme
                                             .subtitle2!
@@ -109,7 +116,7 @@ class ProductGridViewItem extends StatelessWidget {
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                product.newPrice != null
+                                product.isSale
                                     ? Text(
                                         product.price.toString(),
                                         style: Theme.of(context)
@@ -137,7 +144,7 @@ class ProductGridViewItem extends StatelessWidget {
         Positioned(
           top: 12,
           left: 1,
-          child: product.isNew! ? const NewProductLabel() : const SizedBox(),
+          child: product.isNew ? const NewProductLabel() : const SizedBox(),
         )
       ],
     );

@@ -12,6 +12,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc(this.repository) : super(ProductInitial()) {
     on<ProductInitializedEvent>(_onProductInitialized);
     on<ProductFetchedEvent>(_onProductFetched);
+    on<ProductUpdatedEvent>(_onProductUpdated);
   }
 
   void _onProductInitialized(
@@ -26,5 +27,17 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         products: await repository.fetchData(),
       ),
     );
+  }
+
+  void _onProductUpdated(
+      ProductUpdatedEvent event, Emitter<ProductState> emit) async {
+    final updatedProduct =
+        await repository.updateProduct(event.updateObj, event.id);
+    // print('gelen haryt ${updatedProduct.visited}');
+    // emit(
+    //   ProductsLoadedState(
+    //     products: await repository.fetchData(),
+    //   ),
+    // );
   }
 }

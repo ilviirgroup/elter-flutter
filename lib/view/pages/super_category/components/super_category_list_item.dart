@@ -1,6 +1,6 @@
 import 'package:elter/entity/models.dart';
+import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/pages/category/category_page.dart';
-import 'package:elter/view/styles.dart';
 import 'package:flutter/material.dart';
 
 class SuperCategoryListItem extends StatelessWidget {
@@ -17,7 +17,9 @@ class SuperCategoryListItem extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => CategoryPage(superCategoryObject: superCat,),
+          builder: (context) => CategoryPage(
+            superCategoryObject: superCat,
+          ),
         ),
       ),
       leading: CircleAvatar(
@@ -25,7 +27,9 @@ class SuperCategoryListItem extends StatelessWidget {
         backgroundColor: whiteGrey,
         backgroundImage: NetworkImage(superCat.photo),
       ),
-      title: Text(superCat.name),
+      title: Text(
+        superCat.name,
+      ),
       trailing: const Icon(
         Icons.keyboard_arrow_right,
         color: kBlack,

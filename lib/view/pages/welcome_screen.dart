@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:elter/router/app_routes.dart';
+import 'package:elter/view/pages/main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -19,10 +20,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     super.initState();
     Timer(
       const Duration(seconds: 1),
-      () => Navigator.popAndPushNamed(
-        context,
-        AppRouteNames.main,
-      ),
+      () => Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const MainScreen())),
     );
   }
 
