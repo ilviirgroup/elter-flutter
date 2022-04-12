@@ -9,9 +9,9 @@ class TemporarySubcategoryObjectCubit
   TemporarySubcategoryObjectCubit()
       : super(TemporarySubcategoryObjectInitial());
 
-  void temporarySubCategoryObject(SubCategory subCategoryObject) {
+  void temporarySubCategoryObject(String appBarTitle) {
     emit(
-      TemporarySubcategoryObjectLoaded(subCategoryObject),
+      TemporarySubcategoryObjectLoaded(appBarTitle),
     );
   }
 }

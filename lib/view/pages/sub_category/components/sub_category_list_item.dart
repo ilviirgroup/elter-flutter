@@ -25,7 +25,7 @@ class SubCategoryListItem extends StatelessWidget {
           onTap: () {
             context
                 .read<TemporarySubcategoryObjectCubit>()
-                .temporarySubCategoryObject(item);
+                .temporarySubCategoryObject(item.name);
             Navigator.push(
               context,
               MaterialPageRoute(

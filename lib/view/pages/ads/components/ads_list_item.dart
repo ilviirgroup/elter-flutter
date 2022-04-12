@@ -1,4 +1,5 @@
 import 'package:elter/view/constants/colors.dart';
+import 'package:elter/view/constants/styles.dart';
 import 'package:elter/view/pages/product/products_page.dart';
 
 import 'package:elter/view/widgets/loading_indicator.dart';
@@ -41,15 +42,45 @@ class AdsListItem extends StatelessWidget {
           ),
         );
       },
-      child: Container(
-        padding: EdgeInsets.zero,
-        decoration: BoxDecoration(
-          image: DecorationImage(image: NetworkImage(adsItem.photo)),
-          color: kWhite,
-          borderRadius: const BorderRadius.all(Radius.circular(5)),
-        ),
-        margin: const EdgeInsets.fromLTRB(10, 1.5, 10, 1.5),
-        height: screenSize.height / 6,
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.only(right: 15),
+              alignment: Alignment.center,
+              decoration: const BoxDecoration(
+                color: kWhite,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(5),
+                  topLeft: Radius.circular(5),
+                ),
+              ),
+              margin: const EdgeInsets.fromLTRB(10, 1.5, 0, 1.5),
+              height: screenSize.height / 6,
+              child: Text(
+                adsItem.description,
+                style: const TextStyle(fontSize: 20),
+                textAlign: TextAlign.end,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.zero,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(adsItem.photo), fit: BoxFit.cover),
+                color: kWhite,
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(5),
+                  topRight: Radius.circular(5),
+                ),
+              ),
+              margin: const EdgeInsets.fromLTRB(0, 1.5, 10, 1.5),
+              height: screenSize.height / 6,
+            ),
+          ),
+        ],
       ),
     );
   }

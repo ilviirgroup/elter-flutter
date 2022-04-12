@@ -11,9 +11,9 @@ class TemporarySubcategoryObjectInitial
     extends TemporarySubcategoryObjectState {}
 
 class TemporarySubcategoryObjectLoaded extends TemporarySubcategoryObjectState {
-  final SubCategory subCategory;
-  const TemporarySubcategoryObjectLoaded(this.subCategory);
+  final String appBarTitle;
+  const TemporarySubcategoryObjectLoaded(this.appBarTitle);
 
   @override
-  List<Object> get props => [subCategory];
+  List<Object> get props => [appBarTitle];
 }

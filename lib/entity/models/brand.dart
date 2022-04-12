@@ -16,7 +16,7 @@ class Brand {
   factory Brand.fromJson(Map<String, dynamic> json) => Brand(
         pk: json[BrandApiFields.pk],
         name: json[BrandApiFields.name],
-        photo: json[BrandApiFields.photo],
+        photo: json[BrandApiFields.photo] ?? '',
         products: json[BrandApiFields.products],
         url: json[BrandApiFields.url],
       );

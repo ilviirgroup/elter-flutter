@@ -1,7 +1,6 @@
 import 'package:elter/entity/models.dart';
 import 'package:elter/presenter/cubit.dart';
-import 'package:elter/presenter/cubit/on_cart_page/on_cart_page_cubit.dart';
-import 'package:elter/presenter/cubit/on_product_detail_page/on_product_detail_page_cubit.dart';
+
 import 'package:elter/presenter/cubit/visited/visited_cubit.dart';
 import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/constants/enums.dart';
@@ -12,7 +11,7 @@ import 'package:elter/view/pages/catalog/catalog_page.dart';
 import 'package:elter/view/pages/home/home_page.dart';
 import 'package:elter/view/pages/product/components/product_detail_page.dart';
 import 'package:elter/view/pages/profile/my_profile.dart';
-import 'package:elter/view/pages/season/new_products.dart';
+import 'package:elter/view/pages/vendor/vendor_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -197,7 +196,7 @@ class _MainScreenState extends State<MainScreen>
       '/': (context) {
         return [
           const HomePage(),
-          const NewProducts(),
+          const VendorPage(),
           // const CartPage(),
           const CatalogPage(),
           const MyProfile(),

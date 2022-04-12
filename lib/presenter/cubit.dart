@@ -3,6 +3,8 @@ export 'package:elter/presenter/cubit/category_cubit/category_cubit.dart';
 export 'package:elter/presenter/cubit/change_bottom_nav/change_bottom_nav_cubit.dart';
 export 'package:elter/presenter/cubit/change_catalog_screens/change_catalog_screens_cubit.dart';
 export 'package:elter/presenter/cubit/change_tabs_length.dart/change_tabs_length_cubit.dart';
+export 'package:elter/presenter/cubit/on_cart_page/on_cart_page_cubit.dart';
+export 'package:elter/presenter/cubit/on_product_detail_page/on_product_detail_page_cubit.dart';
 export 'package:elter/presenter/cubit/search_tapped/search_tapped_cubit.dart';
 export 'package:elter/presenter/cubit/sub_category_cubit/sub_category_cubit.dart';
 export 'package:elter/presenter/cubit/super_category_cubit/super_category_cubit.dart';

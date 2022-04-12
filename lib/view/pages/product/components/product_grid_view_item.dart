@@ -1,8 +1,6 @@
 import 'package:elter/data/api_routes.dart';
 import 'package:elter/data/network_service.dart';
 import 'package:elter/entity/models.dart';
-import 'package:elter/entity/repos/product_repository.dart';
-import 'package:elter/presenter/bloc/product/product_bloc.dart';
 import 'package:elter/presenter/cubit/on_product_detail_page/on_product_detail_page_cubit.dart';
 import 'package:elter/utils/modify_price.dart';
 import 'package:elter/view/constants/colors.dart';
@@ -39,9 +37,13 @@ class ProductGridViewItem extends StatelessWidget {
               final Function onNext =
                   (state as OnProductDetailPageLoaded).onNext;
               return GestureDetector(
-                onTap: () {
+                onTap: () async {
                   onNext(product);
                   networkService.getRequest.fetchData(product.url!);
+                  // await networkService.updateRequest.patchData(patchObj: {
+                  //   AdsApiFields.name: "Elter market"
+                  // "http://96.30.193.58/Products/?ai=&name=&description=&vendor_name=1&supercategory=2&category=1&subcategory=&brand=&location=&gender=&barcode=&size=&color=&date=&new=&in_dollar=&exchange=&price=&discount=&discounted_price=&new_price=&calc_dollar=&calc_discount=true"
+                  // }, id: 3, apiRoute: ApiRoutes.adsApiRoute);
                 },
                 child: Column(
                   children: [
@@ -118,7 +120,7 @@ class ProductGridViewItem extends StatelessWidget {
                                 ),
                                 product.isSale
                                     ? Text(
-                                        product.price.toString(),
+                                        modifyPrice(product.price),
                                         style: Theme.of(context)
                                             .textTheme
                                             .caption!

@@ -9,16 +9,14 @@ import 'package:elter/entity/models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 AppBar appBarWithFilter(BuildContext context, int productsLength,
-    {Ads? adsObject, SubCategory? subCategoryObject}) {
+    {Ads? adsObject, String? appBarTitle}) {
   final screenSize = MediaQuery.of(context).size;
   return AppBar(
     title: RichText(
       text: TextSpan(
         children: [
           TextSpan(
-            text: subCategoryObject == null
-                ? adsObject!.description
-                : subCategoryObject.name,
+            text: appBarTitle ?? adsObject!.description,
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!

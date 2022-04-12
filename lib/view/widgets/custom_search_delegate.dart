@@ -3,7 +3,6 @@ import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/constants/enums.dart';
 import 'package:elter/view/constants/constant_words.dart';
 import 'package:elter/view/pages/product/components/products_grid_view.dart';
-import 'package:elter/view/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/flutter_svg.dart';

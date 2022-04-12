@@ -1,5 +1,9 @@
 import 'package:elter/view/constants/enums.dart';
 
+class ConstantTabLabels{
+  
+}
+
 const Map<BottomNavScreen, String> bottomNavigationIconLabels = {
   BottomNavScreen.home: 'Esasy',
   BottomNavScreen.vendors: 'Dükanlar',

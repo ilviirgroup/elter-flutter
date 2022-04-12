@@ -1,10 +1,12 @@
 import 'package:elter/entity/models/sub_category.dart';
+import 'package:elter/entity/repos/brand_repository.dart';
 import 'package:elter/entity/repos/visited_repository.dart';
-import 'package:elter/presenter/cubit/on_cart_page/on_cart_page_cubit.dart';
+import 'package:elter/presenter/bloc/brand/brand_bloc.dart';
+
 import 'package:elter/presenter/cubit/sort_by/sort_by_cubit.dart';
 import 'package:elter/presenter/cubit/visited/visited_cubit.dart';
 import 'package:elter/view/constants/enums.dart';
-import 'package:elter/view/pages/main_screen/main_screen.dart';
+
 import 'package:elter/view/pages/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +17,6 @@ import 'entity/models/ads.dart';
 import 'presenter/bloc.dart';
 import 'presenter/cubit.dart';
 
-import 'presenter/cubit/on_product_detail_page/on_product_detail_page_cubit.dart';
 import 'utils/app_bloc_observer.dart';
 import 'utils/app_theme.dart';
 
@@ -56,6 +57,13 @@ class MyApp extends StatelessWidget {
               networkservice,
             ),
           ),
+        ),
+        BlocProvider(
+          create: (context) => BrandBloc(
+            BrandRepository(networkservice),
+          )..add(
+              BrandFetched(),
+            ),
         ),
         BlocProvider(
           create: (context) => CategoryCubit(
@@ -132,9 +140,16 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => TemporarySubcategoryObjectCubit()
-            ..temporarySubCategoryObject(
-              SubCategory(category: '', name: '', pk: 0),
-            ),
+            ..temporarySubCategoryObject(''
+                // SubCategory(category: '', name: '', pk: 0),
+                ),
+        ),
+        BlocProvider(
+          create: ((context) => VendorBloc(
+                VendorRepository(networkservice),
+              )..add(
+                  VendorFetched(),
+                )),
         ),
         BlocProvider(
           create: (context) => TogglePasswordCubit(),

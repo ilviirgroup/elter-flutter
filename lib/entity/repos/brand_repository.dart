@@ -6,9 +6,9 @@ class BrandRepository {
   final NetworkService networkService;
   BrandRepository(this.networkService);
 
-  Future<List> fetchData() async {
-    final List rawData =
-        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.brandApiRoute);
+  Future<List<Brand>> fetchData() async {
+    final List rawData = await networkService.getRequest
+        .fetchData(BaseUrl.baseUrl + ApiRoutes.brandApiRoute);
     return rawData.map((json) => Brand.fromJson(json)).toList();
   }
 }

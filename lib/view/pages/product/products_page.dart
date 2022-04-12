@@ -39,7 +39,7 @@ class _ProductsPageState extends State<ProductsPage> {
         if (state is! TemporarySubcategoryObjectLoaded) {
           return const LoadingIndicator();
         }
-        final SubCategory subCategoryObject = state.subCategory;
+        final String subCategoryObject = state.appBarTitle;
         return BlocBuilder<TemporaryAdsObjectCubit, TemporaryAdsObjectState>(
           builder: (context, state) {
             if (state is! TemporaryAdsObjectLoaded) {
@@ -49,7 +49,7 @@ class _ProductsPageState extends State<ProductsPage> {
             return Scaffold(
               appBar: widget.adsProductList == null
                   ? appBarWithFilter(context, widget.productsList!.length,
-                      subCategoryObject: subCategoryObject)
+                      appBarTitle: subCategoryObject)
                   : appBarWithFilter(
                       context,
                       widget.adsProductList!.length,
