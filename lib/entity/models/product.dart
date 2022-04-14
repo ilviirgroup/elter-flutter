@@ -1,30 +1,62 @@
-class Product {
+import 'package:hive/hive.dart';
+
+part 'product.g.dart';
+
+@HiveType(typeId: 1)
+class Product extends HiveObject {
+  @HiveField(0)
   int pk;
+  @HiveField(1)
   String? barcode;
+  @HiveField(2)
   String? brand;
+  @HiveField(3)
   String category;
+  @HiveField(4)
   String? color;
+  @HiveField(5)
   String date;
+  @HiveField(6)
   String? description;
+  @HiveField(7)
   double? discountAmount;
+  @HiveField(8)
   double? discountPercentage;
+  @HiveField(9)
   String? gender;
+  @HiveField(10)
   bool isNew;
+  @HiveField(11)
   bool isSale;
+  @HiveField(12)
   String location;
+  @HiveField(13)
   String name;
+  @HiveField(14)
   double? newPrice;
+  @HiveField(15)
   String? photo1;
+  @HiveField(16)
   String? photo2;
+  @HiveField(17)
   String? photo3;
+  @HiveField(18)
   String? photo4;
+  @HiveField(19)
   double price;
+  @HiveField(20)
   String productId;
+  @HiveField(21)
   String vendorName;
+  @HiveField(22)
   String? size;
+  @HiveField(23)
   String subCategory;
+  @HiveField(24)
   String superCategory;
+  @HiveField(25)
   String? url;
+  @HiveField(26)
   int visited;
 
   Product({

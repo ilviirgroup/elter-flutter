@@ -1,19 +1,16 @@
-import 'package:elter/entity/models/sub_category.dart';
+import 'package:elter/entity/models.dart';
 import 'package:elter/entity/repos/brand_repository.dart';
 import 'package:elter/entity/repos/visited_repository.dart';
-import 'package:elter/presenter/bloc/brand/brand_bloc.dart';
 
-import 'package:elter/presenter/cubit/sort_by/sort_by_cubit.dart';
-import 'package:elter/presenter/cubit/visited/visited_cubit.dart';
 import 'package:elter/view/constants/enums.dart';
 
 import 'package:elter/view/pages/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'data/network_service.dart';
 import 'entity/repos.dart';
-import 'entity/models/ads.dart';
 import 'presenter/bloc.dart';
 import 'presenter/cubit.dart';
 
@@ -22,7 +19,8 @@ import 'utils/app_theme.dart';
 
 final NetworkService networkservice = NetworkService();
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
   BlocOverrides.runZoned(
     () => runApp(
       const MyApp(),
@@ -37,6 +35,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => CartBloc(
+            CartRepository(),
+          )..add(CartInitializedEvent()),
+        ),
         BlocProvider(
           create: (context) => AdsBloc(
             AdsRepository(

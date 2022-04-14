@@ -1,17 +1,17 @@
-class Color {
+class ColorObject {
   int pk;
   String name;
   List? products;
   String? url;
 
-  Color({
+  ColorObject({
     required this.pk,
     required this.name,
     this.products,
     this.url,
   });
 
-  factory Color.fromJson(Map<String, dynamic> json) => Color(
+  factory ColorObject.fromJson(Map<String, dynamic> json) => ColorObject(
         name: json[ColorApiFields.name],
         pk: json[ColorApiFields.pk],
         url: json[ColorApiFields.url],

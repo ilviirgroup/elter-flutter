@@ -1,4 +1,7 @@
 import 'package:elter/entity/models.dart';
+import 'package:elter/presenter/bloc.dart';
+import 'package:elter/presenter/cubit.dart';
+
 import 'package:elter/utils/modify_price.dart';
 import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/constants/styles.dart';
@@ -7,6 +10,7 @@ import 'package:elter/view/pages/product/components/label_new_product.dart';
 import 'package:elter/view/pages/product/components/size_container.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final Product product;
@@ -20,7 +24,6 @@ class ProductDetailPage extends StatefulWidget {
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
-
   @override
   Widget build(BuildContext context) {
     final _size = MediaQuery.of(context).size;
@@ -225,14 +228,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          widget.product.price.toString() + ' TMT',
+                          modifyPrice(widget.product.price),
                           style: Theme.of(context).textTheme.caption!.copyWith(
                                 color: textGreyColor,
                                 decoration: TextDecoration.lineThrough,
                               ),
                         ),
                         Text(
-                          modifyPrice(widget.product.newPrice!) + ' TMT',
+                          modifyPrice(widget.product.newPrice!),
                           style:
                               Theme.of(context).textTheme.subtitle2!.copyWith(
                                     color: kBlack,
@@ -246,7 +249,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 : Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Text(
-                      modifyPrice(widget.product.newPrice!) + ' TMT',
+                      modifyPrice(widget.product.newPrice!),
                       style: Theme.of(context).textTheme.subtitle2!.copyWith(
                             color: kBlack,
                             fontSize: 16,
@@ -256,14 +259,98 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   ),
             Expanded(
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(minimumSize: const Size(0, 50)),
-                child: const Text('Sebede goş'),
+              child: BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  if (state is CartLoadedState) {
+                    Product? isAddedToCart;
+                    for (var item in state.cartItems) {
+                      if (item.productId == widget.product.productId &&
+                          item.name == widget.product.name) {
+                        isAddedToCart = item;
+                      }
+                    }
+                    return isAddedToCart != null
+                        ? BlocBuilder<OnCartPageCubit, OnCartPageState>(
+                            builder: (context, state) {
+                              return AddToCartButton(
+                                color: const Color(0xFF43A047),
+                                label: 'Haryt sebetde',
+                                addToCart: () {
+                                  (state as OnCartPageLoaded).cartPage();
+                                },
+                              );
+                              // SizedBox(
+                              //   height: 50,
+                              //   child: ElevatedButton(
+                              //     onPressed:
+                              // () {
+                              //       (state as OnCartPageLoaded).cartPage();
+                              //     },
+                              //     style: Theme.of(context)
+                              //         .elevatedButtonTheme
+                              //         .style!
+                              //         .copyWith(
+                              //             backgroundColor:
+                              //                 MaterialStateProperty.all(
+                              //                     const Color(0xFF43A047))),
+                              //     child: const Text('Haryt sebetde'),
+                              //   ),
+                              // );
+                            },
+                          )
+                        : AddToCartButton(
+                            color: kPrimaryColor,
+                            label: 'Sebede goş',
+                            addToCart: () {
+                              context
+                                  .read<CartBloc>()
+                                  .add(CartAddedEvent(widget.product));
+                            },
+                          );
+                  }
+                  return AddToCartButton(
+                    color: kPrimaryColor,
+                    label: 'Sebede goş',
+                    addToCart: () {
+                      context
+                          .read<CartBloc>()
+                          .add(CartAddedEvent(widget.product));
+                    },
+                  );
+                },
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class AddToCartButton extends StatelessWidget {
+  final Color color;
+  final String label;
+  final Function addToCart;
+  const AddToCartButton(
+      {Key? key,
+      required this.color,
+      required this.label,
+      required this.addToCart})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      child: ElevatedButton(
+        onPressed: () {
+          addToCart();
+        },
+        style: Theme.of(context)
+            .elevatedButtonTheme
+            .style!
+            .copyWith(backgroundColor: MaterialStateProperty.all(color)),
+        child: Text(label),
       ),
     );
   }

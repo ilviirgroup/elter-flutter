@@ -12,3 +12,5 @@ export 'package:elter/presenter/cubit/toggle_password_cubit/toggle_password_cubi
 export 'package:elter/presenter/cubit/temporary_ads_object/temporary_ads_object_cubit.dart';
 export 'package:elter/presenter/cubit/temporary_subcategory_object/temporary_subcategory_object_cubit.dart';
 export 'package:elter/presenter/cubit/update_available_cubit/update_available_cubit.dart';
+export 'package:elter/presenter/cubit/sort_by/sort_by_cubit.dart';
+export 'package:elter/presenter/cubit/visited/visited_cubit.dart';

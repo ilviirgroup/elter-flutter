@@ -1,7 +1,8 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/cubit.dart';
+import 'dart:async';
 
-import 'package:elter/presenter/cubit/visited/visited_cubit.dart';
+import 'package:elter/entity/models.dart';
+import 'package:elter/presenter/bloc.dart';
+import 'package:elter/presenter/cubit.dart';
 import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/constants/enums.dart';
 import 'package:elter/view/constants/constant_words.dart';
@@ -17,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/bottom_nav_item.dart';
+import 'components/cart_button.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({
@@ -44,6 +46,7 @@ class _MainScreenState extends State<MainScreen>
   @override
   void initState() {
     context.read<VisitedCubit>().getVisited();
+    context.read<CartBloc>().add(CartLoadedEvent());
     super.initState();
   }
 
@@ -129,17 +132,10 @@ class _MainScreenState extends State<MainScreen>
                         //     ? kPrimaryColor
                         //     :
                         kWhite,
-                    child: const Icon(
-                      Icons.shopping_cart_outlined,
-                      size: 24,
-                    ),
+                    child: const CartButton(),
                     onPressed: () {
                       toCartPage();
-                    }
-
-                    // => changeBottomNavCubit
-                    //     .changeBottomNavIndex(BottomNavScreen.cart),
-                    );
+                    });
               },
             ),
             floatingActionButtonLocation:
@@ -162,7 +158,7 @@ class _MainScreenState extends State<MainScreen>
                       currentIndex: bottomNavScreen,
                       label:
                           bottomNavigationIconLabels[BottomNavScreen.vendors]!,
-                      icon: Icons.store_outlined,
+                      icon: Icons.storefront_outlined,
                     ),
                     SizedBox(
                       width: screenSize.width / 5,
@@ -222,6 +218,8 @@ class _MainScreenState extends State<MainScreen>
   @override
   bool get wantKeepAlive => true;
 }
+
+
 
 // class ProductDetailPageArgument {
 //   final Product product;
