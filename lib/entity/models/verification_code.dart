@@ -1,7 +1,7 @@
 class VerificationCode {
   final int pk;
   final String code;
-  final String phoneNumber;
+  String phoneNumber;
   final String url;
 
   VerificationCode({
@@ -18,6 +18,15 @@ class VerificationCode {
         pk: json[VerificationCodeApiFields.pk],
         url: json[VerificationCodeApiFields.url],
       );
+
+  Map<String, dynamic> toJson() {
+    return {
+      VerificationCodeApiFields.code: code,
+      VerificationCodeApiFields.phoneNumber: phoneNumber,
+      VerificationCodeApiFields.pk: pk,
+      VerificationCodeApiFields.url: url,
+    };
+  }
 }
 
 class VerificationCodeApiFields {

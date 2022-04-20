@@ -1,8 +1,18 @@
-class User {
+import 'package:hive/hive.dart';
+
+part 'user.g.dart';
+
+@HiveType(typeId: 2)
+class User extends HiveObject{
+  @HiveField(0)
   final int? pk;
+  @HiveField(1)
   final String? address;
+  @HiveField(2)
   final String? name;
+  @HiveField(3)
   final String phoneNumber;
+  @HiveField(4)
   final String? url;
 
   User({

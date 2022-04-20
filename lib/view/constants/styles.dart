@@ -13,17 +13,27 @@ double ulgamaGirmekTextMarginHorizontal = 10.0;
 
 const TextStyle boldTextStyle = TextStyle(fontWeight: FontWeight.w700);
 
+const TextStyle greenTextStyle =
+    TextStyle(color: kGreen, fontWeight: FontWeight.bold);
+
+const TextStyle semiBoldTextStyle = TextStyle(fontWeight: FontWeight.w600);
+
+const TextStyle inputTextStyle =
+    TextStyle(fontSize: 18, fontWeight: FontWeight.w600);
+
 const kTextFieldDecoration = InputDecoration(
-  hintText: 'Enter a value',
-  contentPadding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
-  border: OutlineInputBorder(
-    borderSide: BorderSide(
-      color: Color(0xFFD3D3D3),
-    ), // #d3d3d3
-    borderRadius: BorderRadius.all(Radius.circular(4.0)),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
-    borderRadius: BorderRadius.all(Radius.circular(4.0)),
-  ),
-);
+    hintText: 'Enter a value',
+    hintStyle: TextStyle(fontSize: 16),
+    contentPadding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
+    border: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Color(0xFFD3D3D3),
+      ), // #d3d3d3
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: kPrimaryColor, width: 1.0),
+      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+    ),
+    prefixStyle: TextStyle(
+        color: textGreyColor, fontSize: 18, fontWeight: FontWeight.w600));

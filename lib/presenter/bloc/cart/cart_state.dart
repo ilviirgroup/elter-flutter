@@ -11,11 +11,16 @@ class CartInitial extends CartState {
 
 class CartLoadedState extends CartState {
   final List<Product> cartItems;
+  final double totalAmount;
+  final int totalCartItems;
+  final bool isDeliveryFree;
+  final double freeDeliveryProductsPrice;
 
-  const CartLoadedState(this.cartItems);
+  const CartLoadedState(this.cartItems, this.totalAmount, this.totalCartItems,
+      this.isDeliveryFree, this.freeDeliveryProductsPrice);
 
   @override
-  List<Object> get props => [cartItems];
+  List<Object> get props => [cartItems, totalAmount, totalCartItems];
 }
 
 class RegisterRepositoryState extends CartState {

@@ -1,6 +1,5 @@
 part of 'login_bloc.dart';
 
-@immutable
 abstract class LoginState extends Equatable {
   const LoginState();
 
@@ -28,13 +27,7 @@ class OtpVerifiedState extends LoginState {
 }
 
 class LoginCompleteState extends LoginState {
-  // final FirebaseAuth? firebaseUser;
-
   const LoginCompleteState();
-
-  // FirebaseAuth getUser() {
-  //   return firebaseUser!;
-  // }
 
   @override
   List<Object> get props => [];
@@ -58,10 +51,11 @@ class OtpExceptionState extends LoginState {
   List<Object> get props => [message!];
 }
 
-class UserFetchSucess extends LoginState {
-  final List? users;
-  const UserFetchSucess({this.users});
+class PhoneNumberSentSuccess extends LoginState {
+  final VerificationCode code;
+
+  const PhoneNumberSentSuccess(this.code);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [code];
 }

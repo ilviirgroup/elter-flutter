@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:elter/entity/models.dart';
 import 'package:elter/presenter/bloc.dart';
 import 'package:elter/presenter/cubit.dart';
+import 'package:elter/presenter/cubit/on_sign_in_page/on_sign_in_page_cubit.dart';
 import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/constants/enums.dart';
 import 'package:elter/view/constants/constant_words.dart';
@@ -11,7 +12,8 @@ import 'package:elter/view/pages/cart/cart_screen.dart';
 import 'package:elter/view/pages/catalog/catalog_page.dart';
 import 'package:elter/view/pages/home/home_page.dart';
 import 'package:elter/view/pages/product/components/product_detail_page.dart';
-import 'package:elter/view/pages/profile/my_profile.dart';
+import 'package:elter/view/pages/profile/login/sign_in.dart';
+import 'package:elter/view/pages/profile/profile.dart';
 import 'package:elter/view/pages/vendor/vendor_page.dart';
 
 import 'package:flutter/material.dart';
@@ -36,12 +38,9 @@ class _MainScreenState extends State<MainScreen>
   final List<GlobalKey<NavigatorState>> _navigatorKeys = [
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
-    // GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
   ];
-
-  // List<Widget> screens = [];
 
   @override
   void initState() {
@@ -55,6 +54,14 @@ class _MainScreenState extends State<MainScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    context.read<OnCartPageCubit>().toCartPage(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const CartPage(),
+        ),
+      );
+    });
     context.read<OnProductDetailPageCubit>().onNextPage((Product product) {
       Navigator.push(
         context,
@@ -65,11 +72,11 @@ class _MainScreenState extends State<MainScreen>
         ),
       );
     });
-    context.read<OnCartPageCubit>().toCartPage(() {
+    context.read<OnSignInPageCubit>().toSignInPage(() {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const CartPage(),
+          builder: (context) => SignInPage(),
         ),
       );
     });
@@ -111,7 +118,6 @@ class _MainScreenState extends State<MainScreen>
               children: [
                 _buildOffstageNavigator(0),
                 _buildOffstageNavigator(1),
-                // _buildOffstageNavigator(2),
                 _buildOffstageNavigator(2),
                 _buildOffstageNavigator(3),
               ],
@@ -122,16 +128,8 @@ class _MainScreenState extends State<MainScreen>
                     (state as OnCartPageLoaded).cartPage;
                 return FloatingActionButton(
                     elevation: 0,
-                    foregroundColor:
-                        // bottomNavScreen == BottomNavScreen.cart
-                        //     ? kWhite
-                        //     :
-                        unselectedIconColor,
-                    backgroundColor:
-                        // bottomNavScreen == BottomNavScreen.cart
-                        //     ? kPrimaryColor
-                        //     :
-                        kWhite,
+                    foregroundColor: unselectedIconColor,
+                    backgroundColor: kWhite,
                     child: const CartButton(),
                     onPressed: () {
                       toCartPage();
@@ -193,9 +191,8 @@ class _MainScreenState extends State<MainScreen>
         return [
           const HomePage(),
           const VendorPage(),
-          // const CartPage(),
           const CatalogPage(),
-          const MyProfile(),
+          const Profile(),
         ].elementAt(index);
       }
     };
@@ -218,10 +215,3 @@ class _MainScreenState extends State<MainScreen>
   @override
   bool get wantKeepAlive => true;
 }
-
-
-
-// class ProductDetailPageArgument {
-//   final Product product;
-//   ProductDetailPageArgument(this.product);
-// }

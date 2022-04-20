@@ -1,9 +1,11 @@
 import 'package:elter/data/api_routes.dart';
 import 'package:elter/data/network_service.dart';
 import 'package:elter/entity/models.dart';
+import 'package:elter/presenter/bloc.dart';
 import 'package:elter/presenter/cubit/on_product_detail_page/on_product_detail_page_cubit.dart';
 import 'package:elter/utils/modify_price.dart';
 import 'package:elter/view/constants/colors.dart';
+import 'package:elter/view/constants/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,11 +40,13 @@ class ProductGridViewItem extends StatelessWidget {
                   (state as OnProductDetailPageLoaded).onNext;
               return GestureDetector(
                 onTap: () async {
+                  // await networkService.deleteRequest
+                  //     .deleteData(4, ApiRoutes.adsApiRoute);
                   onNext(product);
-                  networkService.getRequest.fetchData(product.url!);
+                  await networkService.getRequest.fetchData(product.url!);
                   // await networkService.updateRequest.patchData(patchObj: {
                   //   AdsApiFields.name: "Elter market"
-                  // "http://96.30.193.58/Products/?ai=&name=&description=&vendor_name=1&supercategory=2&category=1&subcategory=&brand=&location=&gender=&barcode=&size=&color=&date=&new=&in_dollar=&exchange=&price=&discount=&discounted_price=&new_price=&calc_dollar=&calc_discount=true"
+                  // "http://96.30.193.58/Products/?ai=&name=&description=&vendor_name=&supercategory=2&category=2&subcategory=&brand=&location=&gender=&barcode=&size=&color=&date=&new=&in_dollar=&exchange=&price=&discount=&discounted_price=&new_price=&calc_dollar=&calc_discount=true"
                   // }, id: 3, apiRoute: ApiRoutes.adsApiRoute);
                 },
                 child: Column(
@@ -147,7 +151,54 @@ class ProductGridViewItem extends StatelessWidget {
           top: 12,
           left: 1,
           child: product.isNew ? const NewProductLabel() : const SizedBox(),
-        )
+        ),
+        Positioned(
+            top: 0,
+            right: 0,
+            child: BlocBuilder<CartBloc, CartState>(
+              builder: (context, state) {
+                if (state is CartLoadedState) {
+                  Product? isAddedToCart;
+                  for (var item in state.cartItems) {
+                    if (item.productId == product.productId &&
+                        item.name == product.name) {
+                      isAddedToCart = item;
+                    }
+                  }
+
+                  return isAddedToCart != null
+                      ? Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    kPrimaryColor.withOpacity(0.5),
+                                    Colors.orange.withOpacity(0.5),
+                                  ]),
+                              // color: kGreen.withOpacity(0.5),
+                              borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(8.0),
+                                  bottomLeft: Radius.circular(50.0))),
+                          margin: const EdgeInsets.only(top: 2, right: 2),
+                          width: 20,
+                          height: 550 / 3,
+                          child: const RotatedBox(
+                              quarterTurns: 1,
+                              child: Text(
+                                'Sebetde',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: kWhite,
+                                    fontWeight: FontWeight.w600),
+                              )),
+                        )
+                      : const SizedBox();
+                }
+                return const SizedBox();
+              },
+            ))
       ],
     );
   }

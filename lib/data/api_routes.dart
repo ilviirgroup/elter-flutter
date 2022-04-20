@@ -6,7 +6,7 @@ class BaseUrl {
 
 class ApiRoutes {
   static String aboutUsApiRoute = 'AboutUs/';
-  static String adsApiRoute = 'ADS';
+  static String adsApiRoute = 'ADS/';
   static String brandApiRoute = 'Brands/';
   static String categoryApiRoute = 'Category/';
   static String verificationCodeApiRoute = 'ClientCode/';
@@ -15,14 +15,14 @@ class ApiRoutes {
   static String discountApiRoute = 'Discount/';
   static String exchangeApiRoute = 'Exchange/';
   static String genderApiRoute = 'Genders/';
-  static String locationApiRoute = 'Location';
+  static String locationApiRoute = 'Location/';
   static String messageApiRoute = 'Messages/';
   static String orderApiRoute = 'Orders/';
   static String productApiRoute = 'Products/';
   static String sizeApiRoute = 'Sizes/';
   static String subCategoryApiRoute = 'SubCategory/';
-  static String superCategoryApiRoute = 'SuperCategory';
+  static String superCategoryApiRoute = 'SuperCategory/';
   static String updateApiRoute = 'Update/';
   static String vendorApiRoute = 'Vendor/';
-  static String visitedApiRoute = 'Visited';
+  static String visitedApiRoute = 'Visited/';
 }

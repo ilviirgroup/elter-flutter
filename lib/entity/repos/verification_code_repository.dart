@@ -6,9 +6,12 @@ class VerificationCodeRepository {
   final NetworkService networkService;
   VerificationCodeRepository(this.networkService);
 
-  Future<List> fetchData() async {
+  Future<VerificationCode> fetchData() async {
     final List rawData = await networkService.getRequest
         .fetchData(BaseUrl.baseUrl + ApiRoutes.verificationCodeApiRoute);
-    return rawData.map((json) => VerificationCode.fromJson(json)).toList();
+    return rawData
+        .map((json) => VerificationCode.fromJson(json))
+        .toList()
+        .first;
   }
 }

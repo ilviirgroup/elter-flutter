@@ -1,6 +1,9 @@
 import 'package:elter/entity/models.dart';
 import 'package:elter/entity/repos/brand_repository.dart';
+import 'package:elter/entity/repos/verification_code_repository.dart';
 import 'package:elter/entity/repos/visited_repository.dart';
+import 'package:elter/presenter/bloc/verification/verification_bloc.dart';
+import 'package:elter/presenter/cubit/on_sign_in_page/on_sign_in_page_cubit.dart';
 
 import 'package:elter/view/constants/enums.dart';
 
@@ -41,6 +44,15 @@ class MyApp extends StatelessWidget {
           )..add(CartInitializedEvent()),
         ),
         BlocProvider(
+          create: (context) => AuthenticationBloc(
+            userRepository: UserRepository(
+              networkservice,
+            ),
+          )..add(
+              AuthenticationInitializedEvent(),
+            ),
+        ),
+        BlocProvider(
           create: (context) => AdsBloc(
             AdsRepository(
               networkservice,
@@ -55,15 +67,10 @@ class MyApp extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          create: (context) => AuthenticationBloc(
-            userRepository: UserRepository(
+          create: (context) => BrandBloc(
+            BrandRepository(
               networkservice,
             ),
-          ),
-        ),
-        BlocProvider(
-          create: (context) => BrandBloc(
-            BrandRepository(networkservice),
           )..add(
               BrandFetched(),
             ),
@@ -86,7 +93,13 @@ class MyApp extends StatelessWidget {
           create: (context) => ChangeTabsLengthCubit(),
         ),
         BlocProvider(
-          create: (context) => LoginBloc(),
+          create: (context) => LoginBloc(
+            UserRepository(
+              networkservice,
+            ),
+          )..add(
+              AppStartEvent(),
+            ),
         ),
         BlocProvider(
           create: (context) => MyOrdersBloc(
@@ -97,6 +110,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => OnProductDetailPageCubit()..onNextPage(() {}),
+        ),
+        BlocProvider(
+          create: (context) => OnSignInPageCubit()..toSignInPage(() {}),
         ),
         BlocProvider(
           create: (context) => OnCartPageCubit()..toCartPage(() {}),
@@ -149,13 +165,22 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: ((context) => VendorBloc(
-                VendorRepository(networkservice),
+                VendorRepository(
+                  networkservice,
+                ),
               )..add(
                   VendorFetched(),
                 )),
         ),
         BlocProvider(
           create: (context) => TogglePasswordCubit(),
+        ),
+        BlocProvider(
+          create: (context) => VerificationBloc(
+            VerificationCodeRepository(
+              networkservice,
+            ),
+          )..add(VerificationCodeFetchedEvent()),
         ),
         BlocProvider(
           create: (context) => VisitedCubit(
@@ -175,9 +200,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: myTheme,
-        // initialRoute: AppRouteNames.welcome,
         home: const WelcomeScreen(),
-        // onGenerateRoute: onGenerateRoute,
       ),
     );
   }

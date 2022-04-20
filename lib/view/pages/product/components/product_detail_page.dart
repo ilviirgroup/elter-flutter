@@ -135,20 +135,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 backgroundColor: kWhite,
                 title: const Text("Haryt barada"),
                 children: [
-                  ProductDetailRow(
-                    widget: widget,
-                    title: "Ady: ",
-                    trailing: 'name',
-                  ),
-                  ProductDetailRow(
-                    widget: widget,
-                    title: "Harydyn hili:",
-                    trailing: "quality",
-                  ),
-                  ProductDetailRow(
-                    widget: widget,
-                    title: "Düzümi: ",
-                    trailing: "composition",
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10.0, 0, 10, 10),
+                    child: Text(widget.product.description!),
                   )
                 ],
               ),
@@ -272,29 +261,26 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     return isAddedToCart != null
                         ? BlocBuilder<OnCartPageCubit, OnCartPageState>(
                             builder: (context, state) {
-                              return AddToCartButton(
-                                color: const Color(0xFF43A047),
-                                label: 'Haryt sebetde',
-                                addToCart: () {
-                                  (state as OnCartPageLoaded).cartPage();
-                                },
+                              return SizedBox(
+                                height: 50,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    (state as OnCartPageLoaded).cartPage();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      primary: kWhite,
+                                      side: const BorderSide(
+                                          width: 2, color: kPrimaryColor)),
+                                  child: const Text('Haryt sebetde',
+                                      style: TextStyle(color: kPrimaryColor)),
+                                ),
                               );
-                              // SizedBox(
-                              //   height: 50,
-                              //   child: ElevatedButton(
-                              //     onPressed:
-                              // () {
-                              //       (state as OnCartPageLoaded).cartPage();
-                              //     },
-                              //     style: Theme.of(context)
-                              //         .elevatedButtonTheme
-                              //         .style!
-                              //         .copyWith(
-                              //             backgroundColor:
-                              //                 MaterialStateProperty.all(
-                              //                     const Color(0xFF43A047))),
-                              //     child: const Text('Haryt sebetde'),
-                              //   ),
+                              // AddToCartButton(
+                              //   color: kGreen,
+                              //   label: 'Haryt sebetde',
+                              //   addToCart: () {
+                              //     (state as OnCartPageLoaded).cartPage();
+                              //   },
                               // );
                             },
                           )
@@ -351,44 +337,6 @@ class AddToCartButton extends StatelessWidget {
             .style!
             .copyWith(backgroundColor: MaterialStateProperty.all(color)),
         child: Text(label),
-      ),
-    );
-  }
-}
-
-class ProductDetailRow extends StatelessWidget {
-  const ProductDetailRow({
-    Key? key,
-    required this.widget,
-    required this.title,
-    required this.trailing,
-  }) : super(key: key);
-
-  final ProductDetailPage widget;
-  final String title;
-  final String trailing;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 15,
-            ),
-          ),
-          const SizedBox(
-            width: 2,
-          ),
-          Text(
-            trailing,
-            style: boldTextStyle,
-          ),
-        ],
       ),
     );
   }

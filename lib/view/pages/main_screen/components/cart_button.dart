@@ -30,7 +30,7 @@ class CartButton extends StatelessWidget {
                       decoration: const BoxDecoration(
                           color: Colors.red, shape: BoxShape.circle),
                       child: Text(
-                        state.cartItems.length.toString(),
+                        state.totalCartItems.toString(),
                         style: const TextStyle(
                             color: kWhite, fontWeight: FontWeight.bold),
                       ),

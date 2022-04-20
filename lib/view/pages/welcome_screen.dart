@@ -21,15 +21,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   void initState() {
     super.initState();
     Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 5),
       () => Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const MainScreen())),
     );
-    Timer(
-      const Duration(seconds: 1),
-      () => context.read<CartBloc>().add(CartLoadedEvent()),
-    );
-    
+
+    Timer(const Duration(seconds: 5), () {
+      context.read<CartBloc>().add(CartLoadedEvent());
+    });
   }
 
   @override

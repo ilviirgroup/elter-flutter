@@ -1,25 +1,32 @@
 part of 'login_bloc.dart';
 
-@immutable
-abstract class LoginEvent {}
+abstract class LoginEvent extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 
 class AppStartEvent extends LoginEvent {}
 
-class OtpSendEvent extends LoginEvent {
-  final Map<String, dynamic> obj;
-  final int id;
-  OtpSendEvent({required this.obj, required this.id});
+class PhoneNumberSentEvent extends LoginEvent {
+  final VerificationCode verificationCode;
+
+  PhoneNumberSentEvent(this.verificationCode);
+
+  @override
+  List<Object?> get props => [verificationCode];
 }
 
 class VerifyOtpEvent extends LoginEvent {
-  final String? otp;
+  // final VerificationCode code;
 
-  VerifyOtpEvent({this.otp});
+  // VerifyOtpEvent({ required this.code});
+
+  // @override
+  // List<Object?> get props => [];
 }
 
-class LoginCompleteEvent extends LoginEvent {
-  // final FirebaseAuth? firebaseUser;
-  LoginCompleteEvent();
+class LoginCompletedEvent extends LoginEvent {
+  LoginCompletedEvent();
 }
 
 class LogoutEvent extends LoginEvent {}
@@ -29,5 +36,3 @@ class LoginExceptionEvent extends LoginEvent {
 
   LoginExceptionEvent({this.message});
 }
-
-class UsersFetchedEvent extends LoginEvent {}

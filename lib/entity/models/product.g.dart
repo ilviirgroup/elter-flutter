@@ -44,13 +44,15 @@ class ProductAdapter extends TypeAdapter<Product> {
       superCategory: fields[24] as String,
       url: fields[25] as String?,
       visited: fields[26] as int,
+      freeDelivery: fields[29] == null ? false : fields[29] as bool?,
+      selectedQuantity: fields[27] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Product obj) {
     writer
-      ..writeByte(27)
+      ..writeByte(29)
       ..writeByte(0)
       ..write(obj.pk)
       ..writeByte(1)
@@ -104,7 +106,11 @@ class ProductAdapter extends TypeAdapter<Product> {
       ..writeByte(25)
       ..write(obj.url)
       ..writeByte(26)
-      ..write(obj.visited);
+      ..write(obj.visited)
+      ..writeByte(29)
+      ..write(obj.freeDelivery)
+      ..writeByte(27)
+      ..write(obj.selectedQuantity);
   }
 
   @override

@@ -58,6 +58,10 @@ class Product extends HiveObject {
   String? url;
   @HiveField(26)
   int visited;
+  @HiveField(29, defaultValue: false)
+  bool? freeDelivery;
+  @HiveField(27)
+  int? selectedQuantity;
 
   Product({
     this.barcode,
@@ -87,6 +91,8 @@ class Product extends HiveObject {
     required this.superCategory,
     required this.url,
     required this.visited,
+    this.freeDelivery = false,
+    this.selectedQuantity = 1,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
@@ -98,6 +104,7 @@ class Product extends HiveObject {
         description: json[ProductApiFields.description],
         discountAmount: json[ProductApiFields.discountAmount],
         discountPercentage: json[ProductApiFields.discountPercentage],
+        freeDelivery: json[ProductApiFields.freeDelivery],
         gender: json[ProductApiFields.gender],
         isSale: json[ProductApiFields.isSale],
         isNew: json[ProductApiFields.isNew],
@@ -129,6 +136,7 @@ class ProductApiFields {
   static const description = "description";
   static const discountAmount = "discounted_price";
   static const discountPercentage = "discount";
+  static const freeDelivery = "free_delivery";
   static const gender = "gender";
   static const isSale = "calc_discount";
   static const isNew = "new";
