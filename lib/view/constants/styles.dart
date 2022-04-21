@@ -6,10 +6,10 @@ double appNameBoxWidth = 65;
 double loginBoxVarticalPadding = 15.0, loginBoxhorizontalPadding = 20.0;
 var checkBoxBorderRadius = 2.0;
 
-var ulgamaGirmekTextStyle =
-    const TextStyle(fontSize: 14, fontWeight: FontWeight.w700);
+// var ulgamaGirmekTextStyle =
+//     const TextStyle(fontSize: 14, fontWeight: FontWeight.w700);
 
-double ulgamaGirmekTextMarginHorizontal = 10.0;
+// double ulgamaGirmekTextMarginHorizontal = 10.0;
 
 const TextStyle boldTextStyle = TextStyle(fontWeight: FontWeight.w700);
 
@@ -37,3 +37,12 @@ const kTextFieldDecoration = InputDecoration(
     ),
     prefixStyle: TextStyle(
         color: textGreyColor, fontSize: 18, fontWeight: FontWeight.w600));
+
+const TextStyle priceStyle =
+    TextStyle(fontWeight: FontWeight.bold, color: kPrimaryColor);
+
+const TextStyle discountedPriceStyle =
+    TextStyle(fontWeight: FontWeight.bold, color: textRedColor);
+
+const TextStyle oldPriceStyle = TextStyle(
+    color: textGreyColor, decoration: TextDecoration.lineThrough, fontSize: 12);

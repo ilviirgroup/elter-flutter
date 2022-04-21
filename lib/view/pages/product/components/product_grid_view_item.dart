@@ -95,46 +95,51 @@ class ProductGridViewItem extends StatelessWidget {
                                     .copyWith(color: textGreyColor),
                               ),
                             ),
-                            // price
+                            // --------------- price
                             Row(
                               children: [
                                 product.isSale
-                                    ? Text(
-                                        modifyPrice(product.newPrice!),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2!
-                                            .copyWith(
-                                              color: textRedColor,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                      )
-                                    : Text(
-                                        modifyPrice(product.newPrice!),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2!
-                                            .copyWith(
-                                              color: kPrimaryColor,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                      ),
+                                    ? Text(modifyPrice(product.newPrice!),
+                                        style: discountedPriceStyle)
+                                    : Text(modifyPrice(product.newPrice!),
+                                        style: priceStyle),
                                 const SizedBox(
                                   width: 10,
                                 ),
                                 product.isSale
-                                    ? Text(
-                                        modifyPrice(product.price),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .caption!
-                                            .copyWith(
-                                              color: textGreyColor,
-                                              decoration:
-                                                  TextDecoration.lineThrough,
-                                            ),
-                                      )
+                                    ? Text(modifyPrice(product.price),
+                                        style: oldPriceStyle)
                                     : const SizedBox(),
+                                BlocBuilder<CartBloc, CartState>(
+                                  builder: (context, state) {
+                                    if (state is CartLoadedState) {
+                                      Product? isAddedToCart;
+                                      for (var item in state.cartItems) {
+                                        if (item.productId ==
+                                                product.productId &&
+                                            item.name == product.name) {
+                                          isAddedToCart = item;
+                                        }
+                                      }
+                                      return isAddedToCart == null
+                                          ? Expanded(
+                                              child: InkWell(
+                                                onTap: () {
+                                                  context.read<CartBloc>().add(
+                                                      CartAddedEvent(product));
+                                                },
+                                                child: const Icon(
+                                                  Icons
+                                                      .add_shopping_cart_rounded,
+                                                  color: kPrimaryColor,
+                                                ),
+                                              ),
+                                            )
+                                          : const SizedBox();
+                                    }
+                                    return const SizedBox();
+                                  },
+                                )
                               ],
                             )
                           ],

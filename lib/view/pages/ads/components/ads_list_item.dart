@@ -1,5 +1,4 @@
 import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/styles.dart';
 import 'package:elter/view/pages/product/products_page.dart';
 
 import 'package:elter/view/widgets/loading_indicator.dart';
@@ -49,7 +48,8 @@ class AdsListItem extends StatelessWidget {
               padding: const EdgeInsets.only(right: 15),
               alignment: Alignment.center,
               decoration: const BoxDecoration(
-                color: kWhite,
+                gradient:
+                    LinearGradient(colors: [kPrimaryColor, Colors.orange]),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(5),
                   topLeft: Radius.circular(5),
@@ -59,7 +59,7 @@ class AdsListItem extends StatelessWidget {
               height: screenSize.height / 6,
               child: Text(
                 adsItem.description,
-                style: const TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20, color: kWhite),
                 textAlign: TextAlign.end,
               ),
             ),

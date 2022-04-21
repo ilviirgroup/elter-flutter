@@ -1,3 +1,4 @@
+import 'package:elter/view/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,6 +38,15 @@ class _EnterPinState extends State<EnterPin> {
         size: _size,
         title: 'Telefon belgiňize gelen SMS kody ýazyň',
       ),
+      BlocBuilder<LoginBloc, LoginState>(
+        builder: (context, state) {
+          if (state is PhoneNumberSentSuccess) {
+            return TitleContainer(
+                size: _size, title: 'Kod: ${state.code.code}');
+          }
+          return const SizedBox();
+        },
+      ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -60,7 +70,9 @@ class _EnterPinState extends State<EnterPin> {
                 child: const SizedBox(
                   height: 25,
                   width: 25,
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: kPrimaryColor,
+                  ),
                 ),
               ),
             );

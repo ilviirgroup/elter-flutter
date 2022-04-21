@@ -7,6 +7,8 @@ import 'package:elter/view/pages/cart/componenst/cart_screen_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'componenst/cart_list_view_item.dart';
+
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
 
@@ -19,6 +21,7 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
           'Sebet',
           style: boldTextStyle,
@@ -35,79 +38,7 @@ class _CartPageState extends State<CartPage> {
                         child: ListView(
                           children: [
                             ...state.cartItems.map(
-                              (e) => Container(
-                                color: kWhite,
-                                height: 100,
-                                margin: const EdgeInsets.all(10),
-                                child: Stack(children: [
-                                  Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(e.name),
-                                            InkWell(
-                                              onTap: () {
-                                                setState(() {
-                                                  context.read<CartBloc>().add(
-                                                        CartUpdatedEvent(
-                                                            e.productId,
-                                                            e.name,
-                                                            false),
-                                                      );
-                                                });
-                                              },
-                                              child: const Icon(Icons.remove),
-                                            ),
-                                            Text(e.selectedQuantity.toString()),
-                                            InkWell(
-                                              onTap: () {
-                                                setState(() {
-                                                  context.read<CartBloc>().add(
-                                                      CartUpdatedEvent(
-                                                          e.productId,
-                                                          e.name,
-                                                          true));
-                                                });
-                                              },
-                                              child: const Icon(Icons.add),
-                                            ),
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              15.0, 0, 0, 0),
-                                          child: Row(
-                                            children: [
-                                              Text(e.freeDelivery.toString()),
-                                              const SizedBox(
-                                                width: 50,
-                                              ),
-                                              Text(modifyPrice((e.newPrice! *
-                                                  e.selectedQuantity!)))
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 0,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          context.read<CartBloc>().add(
-                                              CartRemovedEvent(
-                                                  e.productId, e.name));
-                                        },
-                                        child:
-                                            const Icon(Icons.delete_outline)),
-                                  )
-                                ]),
-                              ),
+                              (e) => CartListViewItem(product: e),
                             )
                           ],
                         ),

@@ -2,8 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:elter/entity/models/user.dart';
 import 'package:elter/entity/models/verification_code.dart';
 import 'package:elter/entity/repos/user_repository.dart';
-import 'package:elter/presenter/bloc/login/login_bloc.dart';
-import 'package:elter/presenter/bloc/verification/verification_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 part 'authentication_event.dart';

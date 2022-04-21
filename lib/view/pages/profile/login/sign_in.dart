@@ -1,14 +1,22 @@
 import 'package:elter/presenter/bloc.dart';
+import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/constants/styles.dart';
 import 'package:elter/view/pages/profile/login/components/title_container.dart';
 import 'package:elter/view/pages/profile/login/enter_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignInPage extends StatelessWidget {
-  SignInPage({Key? key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
 
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
   final TextEditingController _textEditingController = TextEditingController();
+
+  bool validPhoneNumber = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,27 +50,33 @@ class SignInPage extends StatelessWidget {
                       if (state is VerificationCodeLoadedState) {
                         final _codeObject = state.codeObject;
                         return SizedBox(
-                          height: 50,
-                          width: MediaQuery.of(context).size.width,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_textEditingController.text.isNotEmpty) {
-                                context.read<LoginBloc>().add(
-                                      PhoneNumberSentEvent(_codeObject
-                                        ..phoneNumber =
-                                            _textEditingController.text),
-                                    );
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => const EnterPin(),
-                                //   ),
-                                // );
-                              }
-                            },
-                            child: const Text('Ugrat'),
-                          ),
-                        );
+                            height: 50,
+                            width: MediaQuery.of(context).size.width,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (_textEditingController.text.length == 8) {
+                                  context.read<LoginBloc>().add(
+                                        PhoneNumberSentEvent(_codeObject
+                                          ..phoneNumber =
+                                              _textEditingController.text),
+                                      );
+                                  setState(() {
+                                    validPhoneNumber = true;
+                                  });
+                                } else {
+                                  myDialog(context);
+                                }
+                              },
+                              child: validPhoneNumber
+                                  ? const SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator(
+                                        color: kWhite,
+                                      ),
+                                    )
+                                  : const Text('Ugrat'),
+                            ));
                       }
                       return const SizedBox();
                     },
@@ -75,5 +89,14 @@ class SignInPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void myDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+              title: Text('Üns beriň!'),
+              content: Text('Telefon belgi, 8 sandan ybarat bolmaly'),
+            ));
   }
 }

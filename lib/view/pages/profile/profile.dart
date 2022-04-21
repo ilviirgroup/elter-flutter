@@ -1,6 +1,5 @@
 import 'package:elter/presenter/bloc.dart';
 import 'package:elter/presenter/cubit/on_sign_in_page/on_sign_in_page_cubit.dart';
-import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/pages/profile/login/components/title_container.dart';
 import 'package:elter/view/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +39,9 @@ class Profile extends StatelessWidget {
                                   child: ElevatedButton(
                                     onPressed: () {
                                       toSignInPage();
+                                      context
+                                          .read<LoginBloc>()
+                                          .add(AppStartEvent());
                                     },
                                     child: const Text('Ulgama gir'),
                                   ),

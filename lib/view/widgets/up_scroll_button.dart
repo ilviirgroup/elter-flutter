@@ -1,5 +1,4 @@
 import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/styles.dart';
 import 'package:flutter/material.dart';
 
 class UpScrollButton extends StatelessWidget {
@@ -21,11 +20,11 @@ class UpScrollButton extends StatelessWidget {
               scrollUp();
               toggleButton();
             },
-            child: const CircleAvatar(
-              backgroundColor: kBlack,
+            child: CircleAvatar(
+              backgroundColor: kBlack.withOpacity(0.9),
               foregroundColor: kWhite,
               radius: 20,
-              child: Icon(Icons.keyboard_arrow_up),
+              child: const Icon(Icons.keyboard_arrow_up),
             ),
           )
         : const SizedBox();
