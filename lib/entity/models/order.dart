@@ -1,47 +1,48 @@
 class Order {
-  final int pk;
+  final int? pk;
   final String? address;
-  final String ai;
-  final String? color;
+  final String? orderId;
+  final List? color;
   final bool completed;
-  final String date;
-  final bool inProcess;
+  final String? date;
+  final bool onProcess;
   final String? photo;
-  final double price;
+  final double? price;
   final String productName;
   final double quantity;
   final double? result;
-  final String? size;
-  final String url;
+  final List? size;
+  final String? url;
   final String? userName;
   final String userPhone;
 
   Order({
-    required this.pk,
-    this.address,
-    required this.ai,
+    this.pk,
+    required this.address,
+    this.orderId,
     this.color,
     required this.completed,
-    required this.date,
-    required this.inProcess,
+    this.date,
+    required this.onProcess,
     this.photo,
     required this.price,
     required this.productName,
     required this.quantity,
     this.result,
     this.size,
-    required this.url,
-    this.userName,
+    this.url,
+    required this.userName,
     required this.userPhone,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
         address: json[OrderApiFields.address],
-        ai: json[OrderApiFields.ai],
+        orderId: json[OrderApiFields.orderId],
         color: json[OrderApiFields.color],
         completed: json[OrderApiFields.completed],
         date: json[OrderApiFields.date],
-        inProcess: json[OrderApiFields.inProcess],
+        onProcess: json[OrderApiFields.onProcess],
+        photo: json[OrderApiFields.photo] ?? 'No Photo',
         pk: json[OrderApiFields.pk],
         price: json[OrderApiFields.price],
         productName: json[OrderApiFields.productName],
@@ -52,18 +53,33 @@ class Order {
         userName: json[OrderApiFields.userName],
         userPhone: json[OrderApiFields.userPhone],
       );
+
+  Map<String, dynamic> toJson() => {
+        OrderApiFields.address: address,
+        OrderApiFields.color: color,
+        OrderApiFields.completed: completed,
+        OrderApiFields.onProcess: onProcess,
+        OrderApiFields.orderId: orderId,
+        // OrderApiFields.photo: photo,
+        OrderApiFields.price: price,
+        OrderApiFields.productName: productName,
+        OrderApiFields.quantity: quantity,
+        OrderApiFields.size: size,
+        OrderApiFields.userName: userName,
+        OrderApiFields.userPhone: userPhone,
+      };
 }
 
 class OrderApiFields {
   static const pk = 'pk';
-  static const ai = 'ai';
+  static const orderId = 'ai';
   static const productName = 'name_order';
   static const address = 'adress';
   static const userName = 'user_name';
   static const userEmail = 'user_email';
   static const userPhone = 'user_phone';
   static const completed = 'completed';
-  static const inProcess = 'in_process';
+  static const onProcess = 'in_process';
   static const color = 'color';
   static const size = 'size';
   static const date = 'date';

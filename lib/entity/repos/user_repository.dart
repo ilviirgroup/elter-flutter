@@ -2,9 +2,8 @@ import 'package:elter/data/api_routes.dart';
 import 'package:elter/data/network_service.dart';
 import 'package:elter/entity/models.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class UserRepository {
+class UserRepository implements SignIn {
   UserRepository(this.networkService);
   final NetworkService networkService;
   late Box<User> _currentUser;
@@ -32,25 +31,40 @@ class UserRepository {
     return VerificationCode.fromJson(updatedObject);
   }
 
+  Future<void> updateUserInfos(User user) async {
+    final response = await networkService.updateRequest.patchData(
+        patchObj: User(
+                phoneNumber: user.phoneNumber,
+                name: user.name,
+                address: user.address)
+            .toJson(),
+        id: user.pk!,
+        apiRoute: ApiRoutes.userApiRoute);
+    final updatedUser = User.fromJson(response);
+    return await upDateToken(updatedUser);
+  }
+
+  @override
   Future<User> sigIn(VerificationCode code) async {
     final userList = await fetchData();
 
     final List users = userList
         .where((element) => element.phoneNumber == code.phoneNumber)
         .toList();
-    print('ulanyjylar : $userList');
+
     if (users.isEmpty) {
       final newUser =
           await registerUser({UserApiFields.phoneNumber: code.phoneNumber});
-      print('Taze ulanyjy : ${newUser.phoneNumber}');
+
       persistToken(newUser);
       return newUser;
     }
-    print('login boldy : ${users.first.phoneNumber}');
+
     persistToken(users.first);
     return users.first;
   }
 
+  @override
   Future<User> registerUser(Map<String, dynamic> obj) async {
     final userMap = await networkService.postRequest
         .addData(dataObj: obj, apiRoute: ApiRoutes.userApiRoute);
@@ -61,14 +75,25 @@ class UserRepository {
     _currentUser.add(authenticatedUser);
   }
 
-  List<User> getUser() {
-    return _currentUser.values.toList();
-  }
-
   Future<void> deleteToken(String userPhone) async {
     final userToSignOut = _currentUser.values
         .firstWhere((element) => element.phoneNumber == userPhone);
     await userToSignOut.delete();
+  }
+
+  Future<void> upDateToken(User user) async {
+    final userToEdit = _currentUser.values
+        .firstWhere((element) => element.phoneNumber == user.phoneNumber);
+    final index = userToEdit.key as int;
+    await _currentUser.put(
+        index,
+        userToEdit
+          ..address = user.address
+          ..name = user.name);
+  }
+
+  List<User> getUser() {
+    return _currentUser.values.toList();
   }
 
   // Future<void> persistToken(String token) async {
@@ -90,4 +115,9 @@ class UserRepository {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
   //   return prefs.getString('token');
   // }
+}
+
+abstract class SignIn {
+  registerUser(Map<String, dynamic> obj);
+  sigIn(VerificationCode code);
 }

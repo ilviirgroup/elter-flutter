@@ -1,5 +1,6 @@
 import 'package:elter/presenter/bloc.dart';
-import 'package:elter/presenter/cubit/on_sign_in_page/on_sign_in_page_cubit.dart';
+import 'package:elter/presenter/cubit.dart';
+
 import 'package:elter/view/pages/profile/login/components/title_container.dart';
 import 'package:elter/view/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';

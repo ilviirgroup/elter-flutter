@@ -6,7 +6,7 @@ import 'package:elter/utils/modify_price.dart';
 import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/constants/styles.dart';
 import 'package:elter/view/pages/product/components/color_container.dart';
-import 'package:elter/view/pages/product/components/label_new_product.dart';
+import 'package:elter/view/pages/product/components/new_product_label.dart';
 import 'package:elter/view/pages/product/components/size_container.dart';
 
 import 'package:flutter/material.dart';

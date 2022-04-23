@@ -16,6 +16,7 @@ class AuthenticationBloc
     on<AppStarted>(_onAppStarted);
     on<LoggedIn>(_onLoggedIn);
     on<LoggedOut>(_onLoggedOut);
+    on<UserInfosUpdated>(_onUserInfosUpdated);
     // on<UserSaved>(_onUserSaved);
   }
 
@@ -41,13 +42,18 @@ class AuthenticationBloc
     emit(LoadingState());
     final signedUser = await userRepository.sigIn(event.code);
     emit(Authenticated(signedUser));
-   
   }
 
   void _onLoggedOut(LoggedOut event, Emitter<AuthenticationState> emit) async {
     emit(LoadingState());
     await userRepository.deleteToken(event.userPhone);
     emit(Unauthenticated());
+  }
+
+  Future<void> _onUserInfosUpdated(
+      UserInfosUpdated event, Emitter<AuthenticationState> emit) async {
+    await userRepository.updateUserInfos(event._user);
+    add(AppStarted());
   }
 
   // Future<void> _onUserSaved(

@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
             OrderRepository(
               networkservice,
             ),
-          ),
+          )..add(MyOrdersInitializedEvent()),
         ),
         BlocProvider(
           create: (context) => OnProductDetailPageCubit()..onNextPage(() {}),

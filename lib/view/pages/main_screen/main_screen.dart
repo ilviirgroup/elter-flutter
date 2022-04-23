@@ -12,7 +12,7 @@ import 'package:elter/view/pages/cart/cart_screen.dart';
 import 'package:elter/view/pages/catalog/catalog_page.dart';
 import 'package:elter/view/pages/home/home_page.dart';
 import 'package:elter/view/pages/product/components/product_detail_page.dart';
-import 'package:elter/view/pages/profile/login/sign_in.dart';
+import 'package:elter/view/pages/profile/login/enter_phone.dart';
 import 'package:elter/view/pages/profile/profile.dart';
 import 'package:elter/view/pages/vendor/vendor_page.dart';
 
@@ -76,7 +76,7 @@ class _MainScreenState extends State<MainScreen>
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => SignInPage(),
+          builder: (context) => const SignInPage(),
         ),
       );
     });

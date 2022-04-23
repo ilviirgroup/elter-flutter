@@ -1,13 +1,17 @@
+import 'package:elter/entity/models.dart';
 import 'package:elter/presenter/bloc.dart';
+import 'package:elter/presenter/cubit.dart';
+import 'package:elter/utils/modify_phone_number.dart';
 import 'package:elter/utils/modify_price.dart';
 import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/constants/constant_numbers.dart';
 import 'package:elter/view/constants/styles.dart';
-import 'package:elter/view/pages/cart/componenst/cart_screen_bottom_sheet.dart';
+import 'package:elter/view/pages/cart/components/cart_screen_bottom_sheet.dart';
+import 'package:elter/view/pages/cart/components/edit_user_infos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'componenst/cart_list_view_item.dart';
+import 'components/cart_list_view_item.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -17,6 +21,16 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+
+  late TextEditingController _nameController;
+
+  late TextEditingController _phoneController;
+
+  late TextEditingController _addressController;
+
+  late TextEditingController _noteController;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +53,42 @@ class _CartPageState extends State<CartPage> {
                           children: [
                             ...state.cartItems.map(
                               (e) => CartListViewItem(product: e),
-                            )
+                            ),
+                            BlocBuilder<AuthenticationBloc,
+                                AuthenticationState>(
+                              builder: (context, state) {
+                                if (state is Authenticated) {
+                                  _addressController = TextEditingController(
+                                      text: state.user.address);
+                                  _nameController = TextEditingController(
+                                      text: state.user.name);
+                                  _noteController = TextEditingController();
+                                  _phoneController = TextEditingController(
+                                    text: modifyPhoneNumber(
+                                        state.user.phoneNumber),
+                                  );
+                                  return EditUserInfos(
+                                    formKey: _globalKey,
+                                    user: state.user,
+                                    addressController: _addressController,
+                                    nameController: _nameController,
+                                    noteController: _noteController,
+                                    phoneController: _phoneController,
+                                  );
+                                }
+                                _addressController = TextEditingController();
+                                _nameController = TextEditingController();
+                                _noteController = TextEditingController();
+                                _phoneController = TextEditingController();
+                                return EditUserInfos(
+                                  formKey: _globalKey,
+                                  addressController: _addressController,
+                                  nameController: _nameController,
+                                  noteController: _noteController,
+                                  phoneController: _phoneController,
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -107,10 +156,9 @@ class _CartPageState extends State<CartPage> {
                                     InkWell(
                                       onTap: () {
                                         showBottomSheet(
-                                          context: context,
-                                          builder: (context) =>
-                                              const CartScreenBottomSheet(),
-                                        );
+                                            context: context,
+                                            builder: (context) =>
+                                                const CartScreenBottomSheet());
                                       },
                                       child: Row(
                                         children: [
@@ -140,16 +188,7 @@ class _CartPageState extends State<CartPage> {
                             ),
                             Expanded(
                               flex: 1,
-                              child: SizedBox(
-                                height: 70,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    child: const Text('Sargyt et'),
-                                  ),
-                                ),
-                              ),
+                              child: orderButton(cartItems),
                             ),
                           ],
                         ),
@@ -165,6 +204,83 @@ class _CartPageState extends State<CartPage> {
           }
           return const SizedBox();
         },
+      ),
+    );
+  }
+
+  SizedBox orderButton(List<Product> cartItems) {
+    return SizedBox(
+      height: 70,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: BlocBuilder<OnSignInPageCubit, OnSignInPageState>(
+          builder: (context, state) {
+            Function? toSignInPage;
+            if (state is OnSignInPageLoaded) {
+              toSignInPage = state.signInPage;
+            }
+            return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+              builder: (context, state) {
+                return ElevatedButton(
+                  onPressed: () {
+                    if (_globalKey.currentState!.validate()) {
+                      if (state is Authenticated) {
+                        bool isSameUser = state.user.phoneNumber ==
+                            modifyPhoneNumber(_phoneController.text);
+                        if (isSameUser) {
+                          context.read<AuthenticationBloc>().add(
+                                UserInfosUpdated(
+                                  state.user
+                                    ..name = _nameController.text
+                                    ..address = _addressController.text,
+                                ),
+                              );
+
+                          for (var item in cartItems) {
+                            context.read<MyOrdersBloc>().add(
+                                  MyOrdersSentEvent(
+                                    obj: Order(
+                                            address: state.user.address,
+                                            color: [
+                                              "http://96.30.193.58/Colors/1/"
+                                            ],
+                                            completed: false,
+                                            onProcess: false,
+                                            orderId: '2',
+                                            price: item.newPrice,
+                                            productName: item.name,
+                                            quantity: item.selectedQuantity!
+                                                .toDouble(),
+                                            size: [
+                                              "http://96.30.193.58/Sizes/2/"
+                                            ],
+                                            userName: state.user.name,
+                                            userPhone: state.user.phoneNumber)
+                                        .toJson(),
+                                  ),
+                                );
+                          }
+                          for (var item in cartItems) {
+                            context.read<CartBloc>().add(
+                                CartRemovedEvent(item.productId, item.name));
+                          }
+                        } else if (!isSameUser && toSignInPage != null) {
+                          toSignInPage();
+                          context.read<LoginBloc>().add(AppStartEvent());
+                        }
+                      } else if (state is Unauthenticated &&
+                          toSignInPage != null) {
+                        toSignInPage();
+                        context.read<LoginBloc>().add(AppStartEvent());
+                      }
+                    }
+                  },
+                  child: const Text('Sargyt et'),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

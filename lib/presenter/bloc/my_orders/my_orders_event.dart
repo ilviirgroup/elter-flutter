@@ -12,9 +12,9 @@ class MyOrdersInitializedEvent extends MyOrdersEvent {}
 
 class MyOrdersFetchedEvent extends MyOrdersEvent {}
 
-class MyOrdersSendedEvent extends MyOrdersEvent {
+class MyOrdersSentEvent extends MyOrdersEvent {
   final Map<String, dynamic> obj;
-  const MyOrdersSendedEvent({required this.obj});
+  const MyOrdersSentEvent({required this.obj});
 }
 
 class MyOrdersDeletedEvent extends MyOrdersEvent {

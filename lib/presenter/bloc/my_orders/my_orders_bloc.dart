@@ -11,7 +11,7 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
   MyOrdersBloc(this.repository) : super(MyOrdersInitial()) {
     on<MyOrdersInitializedEvent>(_onMyOrdersInitializedEvent);
     on<MyOrdersFetchedEvent>(_onMyOrdersFetchedEvent);
-    on<MyOrdersSendedEvent>(_onMyOrdersSendedEvent);
+    on<MyOrdersSentEvent>(_onMyOrdersSentEvent);
     on<MyOrdersDeletedEvent>(_onMyOrdersDeletedEvent);
   }
 
@@ -29,10 +29,9 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
     );
   }
 
-  void _onMyOrdersSendedEvent(
-      MyOrdersSendedEvent event, Emitter<MyOrdersState> emit) async {
+  void _onMyOrdersSentEvent(
+      MyOrdersSentEvent event, Emitter<MyOrdersState> emit) async {
     await repository.sendOrder(event.obj);
-    // emit();
   }
 
   void _onMyOrdersDeletedEvent(

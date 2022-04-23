@@ -28,3 +28,12 @@ class LoggedOut extends AuthenticationEvent {
 
   const LoggedOut(this.userPhone);
 }
+
+class UserInfosUpdated extends AuthenticationEvent{
+  final User _user;
+
+  const UserInfosUpdated(this._user);
+
+   @override
+  List<Object> get props => [_user];
+}

@@ -12,7 +12,7 @@ class OrderRepository {
     return rawData.map((json) => Order.fromJson(json)).toList();
   }
 
-  Future<Order> sendOrder(Map<String, dynamic> dataObj) async {
+  Future sendOrder(Map<String, dynamic> dataObj) async {
     final orderMap = await networkService.postRequest
         .addData(dataObj: dataObj, apiRoute: ApiRoutes.orderApiRoute);
     return Order.fromJson(orderMap);

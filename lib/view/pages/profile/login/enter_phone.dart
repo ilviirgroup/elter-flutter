@@ -58,7 +58,7 @@ class _SignInPageState extends State<SignInPage> {
                                   context.read<LoginBloc>().add(
                                         PhoneNumberSentEvent(_codeObject
                                           ..phoneNumber =
-                                              _textEditingController.text),
+                                              '+993${_textEditingController.text}'),
                                       );
                                   setState(() {
                                     validPhoneNumber = true;
