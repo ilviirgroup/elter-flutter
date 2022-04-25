@@ -1,4 +1,5 @@
 import 'package:elter/entity/models.dart';
+import 'package:elter/view/constants/assets.dart';
 import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/constants/enums.dart';
 import 'package:elter/view/constants/constant_words.dart';
@@ -47,7 +48,7 @@ class CustomSearchDelegate extends SearchDelegate {
           query = barcodeScanResult;
         },
         child: SvgPicture.asset(
-          'assets/icons/barcode-scanner.svg',
+          barcodeSearchIcon,
           width: 30,
           height: 30,
         ),

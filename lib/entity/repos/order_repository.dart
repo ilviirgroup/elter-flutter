@@ -6,9 +6,9 @@ class OrderRepository {
   final NetworkService networkService;
   OrderRepository(this.networkService);
 
-  Future<List<Order>> fetchData() async {
-    final List rawData =
-        await networkService.getRequest.fetchData(BaseUrl.baseUrl + ApiRoutes.orderApiRoute);
+  Future<List<Order>> fetchData(UrlBuilder urlBuilder) async {
+    final List rawData = await networkService.getRequest.fetchData(
+        BaseUrl.baseUrl + ApiRoutes.orderApiRoute + urlBuilder.toString());
     return rawData.map((json) => Order.fromJson(json)).toList();
   }
 
@@ -18,8 +18,19 @@ class OrderRepository {
     return Order.fromJson(orderMap);
   }
 
-  Future<bool> deleteOrder(int id) async {
+  Future deleteOrder(int id) async {
     return await networkService.deleteRequest
         .deleteData(id, ApiRoutes.orderApiRoute);
+  }
+}
+
+class UrlBuilder {
+  String phone = '';
+  String productName = '';
+  String userName = '';
+
+  @override
+  String toString() {
+    return '?ai=&name_order=$productName&adress=&user_name=$userName&user_email=&user_phone=%2B${phone.substring(1)}&completed=&in_process=&price_order=&quantity=&result=';
   }
 }

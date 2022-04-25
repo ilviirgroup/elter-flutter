@@ -6,7 +6,7 @@ import 'package:elter/view/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'login/my_profile.dart';
+import 'my_profile/my_profile.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class Profile extends StatelessWidget {
         return Scaffold(
           body: (state is Authenticated)
               ? MyProfile(
-                  phoneNumber: state.user.phoneNumber,
+                  
                 )
               : (state is Unauthenticated)
                   ? BlocBuilder<OnSignInPageCubit, OnSignInPageState>(

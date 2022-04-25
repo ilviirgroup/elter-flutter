@@ -1,7 +1,7 @@
 part of 'my_orders_bloc.dart';
 
 @immutable
-abstract class MyOrdersState extends Equatable{
+abstract class MyOrdersState extends Equatable {
   const MyOrdersState();
 
   @override
@@ -11,9 +11,13 @@ abstract class MyOrdersState extends Equatable{
 class MyOrdersInitial extends MyOrdersState {}
 
 class MyOrdersFetchSuccess extends MyOrdersState {
-  final List? myOrders;
+  final List<Order>? myOrders;
   const MyOrdersFetchSuccess({this.myOrders});
 
   @override
   List<Object> get props => [myOrders!];
 }
+
+class MyOrdersSentSuccess extends MyOrdersState {}
+
+class MyOrdersLoadingState extends MyOrdersState{}

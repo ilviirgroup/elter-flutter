@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:elter/entity/models.dart';
 import 'package:elter/entity/repos/order_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -13,6 +14,7 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
     on<MyOrdersFetchedEvent>(_onMyOrdersFetchedEvent);
     on<MyOrdersSentEvent>(_onMyOrdersSentEvent);
     on<MyOrdersDeletedEvent>(_onMyOrdersDeletedEvent);
+    on<MyOrdersLoadingEvent>(_onMyOrdersLoadingEvent);
   }
 
   void _onMyOrdersInitializedEvent(
@@ -24,7 +26,7 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
       MyOrdersFetchedEvent event, Emitter<MyOrdersState> emit) async {
     emit(
       MyOrdersFetchSuccess(
-        myOrders: await repository.fetchData(),
+        myOrders: await repository.fetchData(event.urlBuilder),
       ),
     );
   }
@@ -32,6 +34,9 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
   void _onMyOrdersSentEvent(
       MyOrdersSentEvent event, Emitter<MyOrdersState> emit) async {
     await repository.sendOrder(event.obj);
+    emit(MyOrdersFetchSuccess(
+      myOrders: await repository.fetchData(event.urlBuilder!),
+    ));
   }
 
   void _onMyOrdersDeletedEvent(
@@ -39,10 +44,17 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
     await repository.deleteOrder(event.id);
     emit(
       MyOrdersFetchSuccess(
-        myOrders: ((state.props.first) as List)
-            .where((element) => element.id != event.id)
+        myOrders: ((state.props.first) as List<Order>)
+            .where((element) => element.pk != event.id)
             .toList(),
       ),
+    );
+  }
+
+  void _onMyOrdersLoadingEvent(
+      MyOrdersLoadingEvent event, Emitter<MyOrdersState> emit) {
+    emit(
+      MyOrdersLoadingState(),
     );
   }
 }

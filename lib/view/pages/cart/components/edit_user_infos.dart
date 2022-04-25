@@ -76,12 +76,12 @@ class _EditUserInfosState extends State<EditUserInfos> {
                     height: 10,
                   ),
                   TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Telefon belgiňiz ýazylmaly';
+                    validator: (text) {
+                      if (text == null || text.isEmpty) {
+                        return 'Telefon belgi ýazylmaly';
                       }
-                      if (value.length > 1 && value.length < 8) {
-                        return 'Telefon belgi 8 sandan ybarat bolmaly';
+                      if (text.length > 1 && text.length < 8) {
+                        return '8 sandan ybarat bolmaly';
                       }
                       return null;
                     },
@@ -92,7 +92,7 @@ class _EditUserInfosState extends State<EditUserInfos> {
                         borderSide: BorderSide(width: 2, color: kPrimaryColor),
                       ),
                       counterText: '',
-                      hintText: 'Telefon belgiňiz',
+                      hintText: 'Telefon belgi',
                       prefixIcon: Padding(
                         padding: EdgeInsets.fromLTRB(0, 15.0, 0, 15.0),
                         child: Text(
@@ -104,7 +104,7 @@ class _EditUserInfosState extends State<EditUserInfos> {
                   const SizedBox(
                     height: 10,
                   ),
-                  inputField(_addressController, 'Adresiňiz'),
+                  inputField(_addressController, 'Adres'),
                   const SizedBox(
                     height: 20,
                   ),
@@ -137,8 +137,8 @@ class _EditUserInfosState extends State<EditUserInfos> {
     String hintText,
   ) {
     return TextFormField(
-      validator: (value) {
-        if (value == null || value.isEmpty) {
+      validator: (text) {
+        if (text == null || text.isEmpty) {
           return '$hintText ýazylmaly';
         }
         return null;

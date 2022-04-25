@@ -14,7 +14,9 @@ class LoadingIndicator extends StatelessWidget {
       height: screenSize.height,
       width: screenSize.width,
       child: const Center(
-        child: CircularProgressIndicator.adaptive(),
+        child: 
+       
+        CircularProgressIndicator.adaptive(),
       ),
     );
   }

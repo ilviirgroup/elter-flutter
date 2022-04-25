@@ -1,13 +1,18 @@
+import 'dart:async';
+
 import 'package:elter/entity/models.dart';
+import 'package:elter/entity/repos/order_repository.dart';
 import 'package:elter/presenter/bloc.dart';
 import 'package:elter/presenter/cubit.dart';
 import 'package:elter/utils/modify_phone_number.dart';
 import 'package:elter/utils/modify_price.dart';
+import 'package:elter/view/constants/assets.dart';
 import 'package:elter/view/constants/colors.dart';
 import 'package:elter/view/constants/constant_numbers.dart';
 import 'package:elter/view/constants/styles.dart';
 import 'package:elter/view/pages/cart/components/cart_screen_bottom_sheet.dart';
 import 'package:elter/view/pages/cart/components/edit_user_infos.dart';
+import 'package:elter/view/widgets/simple_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,16 +36,12 @@ class _CartPageState extends State<CartPage> {
 
   late TextEditingController _noteController;
 
+  bool orderSent = false;
   @override
   Widget build(BuildContext context) {
+    final _size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'Sebet',
-          style: boldTextStyle,
-        ),
-      ),
+      appBar: simpleAppBar('Sebet'),
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           if (state is CartLoadedState) {
@@ -195,11 +196,12 @@ class _CartPageState extends State<CartPage> {
                       )
                     ],
                   )
-                : const Center(
-                    child: Text(
-                      'Sebediňizde haryt ýok',
-                      style: semiBoldTextStyle,
-                    ),
+                : Container(
+                    color: kWhite,
+                    height: _size.height,
+                    width: _size.width,
+                    padding: const EdgeInsets.all(50),
+                    child: Image.asset(emptyCartImage),
                   );
           }
           return const SizedBox();
@@ -223,11 +225,16 @@ class _CartPageState extends State<CartPage> {
               builder: (context, state) {
                 return ElevatedButton(
                   onPressed: () {
-                    if (_globalKey.currentState!.validate()) {
+                    if (!_globalKey.currentState!.validate()) {
+                      return;
+                    } else {
                       if (state is Authenticated) {
                         bool isSameUser = state.user.phoneNumber ==
                             modifyPhoneNumber(_phoneController.text);
                         if (isSameUser) {
+                          context
+                              .read<MyOrdersBloc>()
+                              .add(MyOrdersLoadingEvent());
                           context.read<AuthenticationBloc>().add(
                                 UserInfosUpdated(
                                   state.user
@@ -235,35 +242,38 @@ class _CartPageState extends State<CartPage> {
                                     ..address = _addressController.text,
                                 ),
                               );
-
-                          for (var item in cartItems) {
-                            context.read<MyOrdersBloc>().add(
-                                  MyOrdersSentEvent(
-                                    obj: Order(
-                                            address: state.user.address,
-                                            color: [
-                                              "http://96.30.193.58/Colors/1/"
-                                            ],
-                                            completed: false,
-                                            onProcess: false,
-                                            orderId: '2',
-                                            price: item.newPrice,
-                                            productName: item.name,
-                                            quantity: item.selectedQuantity!
-                                                .toDouble(),
-                                            size: [
-                                              "http://96.30.193.58/Sizes/2/"
-                                            ],
-                                            userName: state.user.name,
-                                            userPhone: state.user.phoneNumber)
-                                        .toJson(),
-                                  ),
-                                );
-                          }
-                          for (var item in cartItems) {
-                            context.read<CartBloc>().add(
-                                CartRemovedEvent(item.productId, item.name));
-                          }
+                          Timer(const Duration(seconds: 2), () {
+                            for (var item in cartItems) {
+                              context.read<MyOrdersBloc>().add(
+                                    MyOrdersSentEvent(
+                                      urlBuilder: UrlBuilder()
+                                        ..phone = state.user.phoneNumber,
+                                      obj: Order(
+                                              address: state.user.address,
+                                              color: [
+                                                "http://96.30.193.58/Colors/1/"
+                                              ],
+                                              completed: false,
+                                              onProcess: false,
+                                              orderId: '2',
+                                              price: item.newPrice,
+                                              productName: item.name,
+                                              quantity: item.selectedQuantity!
+                                                  .toDouble(),
+                                              size: [
+                                                "http://96.30.193.58/Sizes/2/"
+                                              ],
+                                              userName: state.user.name,
+                                              userPhone: state.user.phoneNumber)
+                                          .toJson(),
+                                    ),
+                                  );
+                            }
+                            for (var item in cartItems) {
+                              context.read<CartBloc>().add(
+                                  CartRemovedEvent(item.productId, item.name));
+                            }
+                          });
                         } else if (!isSameUser && toSignInPage != null) {
                           toSignInPage();
                           context.read<LoginBloc>().add(AppStartEvent());
@@ -275,7 +285,19 @@ class _CartPageState extends State<CartPage> {
                       }
                     }
                   },
-                  child: const Text('Sargyt et'),
+                  child: BlocBuilder<MyOrdersBloc, MyOrdersState>(
+                    builder: (context, state) {
+                      return (state is MyOrdersLoadingState)
+                          ? const SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: CircularProgressIndicator(
+                                color: kWhite,
+                              ),
+                            )
+                          : const Text('Sargyt et');
+                    },
+                  ),
                 );
               },
             );
