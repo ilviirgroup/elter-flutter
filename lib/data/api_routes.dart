@@ -1,5 +1,5 @@
 class BaseUrl {
-  static String baseUrl = '';
+  static String baseUrl = 'http://96.30.193.58/';
 }
 
 class ApiRoutes {

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/entity/models/product.dart';
-import 'package:elter/entity/repos.dart';
+import '../../../entity/models/product.dart';
+import '../../../entity/repos.dart';
 import 'package:equatable/equatable.dart';
 
 part 'cart_event.dart';

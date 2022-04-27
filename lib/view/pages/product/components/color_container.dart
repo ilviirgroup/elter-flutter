@@ -1,7 +1,4 @@
-import 'package:elter/entity/models/product.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/styles.dart';
-import 'package:flutter/material.dart';
+part of 'package:elter/view/pages/product/products_page.dart';
 
 class ColorContainer extends StatelessWidget {
   final Product product;

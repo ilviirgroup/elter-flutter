@@ -1,11 +1,4 @@
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/styles.dart';
-import 'package:elter/view/pages/profile/login/components/title_container.dart';
-import 'package:elter/view/pages/profile/login/enter_pin.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
+part of 'login.dart';
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
 

@@ -1,9 +1,4 @@
-import 'package:elter/view/widgets/up_scroll_button.dart';
-import 'package:flutter/material.dart';
-
-import 'package:elter/entity/models.dart';
-import 'package:flutter/rendering.dart';
-import 'product_grid_view_item.dart';
+part of 'package:elter/view/pages/product/products_page.dart';
 
 class ProductsGridView extends StatefulWidget {
   const ProductsGridView({

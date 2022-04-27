@@ -1,4 +1,4 @@
-import 'package:elter/data/api_routes.dart';
+import '../api_routes.dart';
 import 'package:http/http.dart' as http;
 
 class Delete {

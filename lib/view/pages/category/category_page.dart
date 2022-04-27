@@ -1,11 +1,16 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/cubit.dart';
-import 'package:elter/view/constants/enums.dart';
-import 'package:elter/view/pages/category/components/category_list_view.dart';
-import 'package:elter/view/widgets/app_bar_with_tab_bar.dart';
-import 'package:elter/view/widgets/loading_indicator.dart';
+import '../../../entity/models.dart';
+import '../../../presenter/cubit.dart';
+
+import '../../../utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../widgets/widgets.dart';
+import '../sub_category/sub_category_page.dart';
+
+part 'components/category_list_view.dart';
+part 'components/category_list_item.dart';
+
 
 class CategoryPage extends StatefulWidget {
   final SuperCategory superCategoryObject;

@@ -1,14 +1,24 @@
-import 'package:elter/presenter/cubit/sort_by/sort_by_cubit.dart';
-import 'package:elter/view/constants/constant_words.dart';
-import 'package:elter/view/constants/enums.dart';
+import 'package:flutter/rendering.dart';
+
+import '../../../data/network_service.dart';
+import '../../../presenter/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/cubit.dart';
-import 'package:elter/view/widgets/app_bar_with_filter.dart';
-import 'package:elter/view/widgets/loading_indicator.dart';
-import 'components/products_grid_view.dart';
+import '../../../entity/models.dart';
+import '../../../presenter/cubit.dart';
+import '../../../utils/constants/constants.dart';
+import '../../../utils/modify_price.dart';
+import '../../widgets/widgets.dart';
+
+part 'components/cart_icon.dart';
+part 'components/color_container.dart';
+part 'components/in_the_cart_label.dart';
+part 'components/new_product_label.dart';
+part 'components/product_detail_page.dart';
+part 'components/product_grid_view_item.dart';
+part 'components/products_grid_view.dart';
+part 'components/size_container.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({

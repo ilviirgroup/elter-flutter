@@ -1,9 +1,9 @@
-import 'package:elter/entity/models/category.dart';
-import 'package:elter/presenter/cubit.dart';
-import 'package:elter/view/constants/enums.dart';
-import 'package:elter/view/pages/sub_category/components/sub_category_list_view.dart';
-import 'package:elter/view/widgets/app_bar_with_tab_bar.dart';
-import 'package:elter/view/widgets/loading_indicator.dart';
+import '../../../entity/models/category.dart';
+import '../../../presenter/cubit.dart';
+import '../../../utils/constants/app_enums.dart';
+import 'components/sub_category_list_view.dart';
+import '../../widgets/app_bar_with_tab_bar.dart';
+import '../../widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

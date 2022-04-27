@@ -1,17 +1,4 @@
-import 'package:elter/data/api_routes.dart';
-import 'package:elter/data/network_service.dart';
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/presenter/cubit/on_product_detail_page/on_product_detail_page_cubit.dart';
-import 'package:elter/utils/modify_price.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/styles.dart';
-import 'package:elter/view/pages/product/components/cart_icon.dart';
-import 'package:elter/view/pages/product/components/in_the_cart_label.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'new_product_label.dart';
+part of 'package:elter/view/pages/product/products_page.dart';
 
 final NetworkService networkService = NetworkService();
 

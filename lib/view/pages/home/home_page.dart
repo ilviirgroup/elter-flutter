@@ -1,5 +1,6 @@
-import 'package:elter/view/pages/ads/ads_page.dart';
 import 'package:flutter/material.dart';
+
+import '../ads/ads_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({

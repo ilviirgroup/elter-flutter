@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/entity/models/category.dart';
-import 'package:elter/entity/repos/category_repository.dart';
+import '../../../entity/models/category.dart';
+import '../../../entity/repos/category_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'category_state.dart';

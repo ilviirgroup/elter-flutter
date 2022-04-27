@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/entity/models/ads.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../../entity/models/ads.dart';
 
 part 'temporary_ads_object_state.dart';
 

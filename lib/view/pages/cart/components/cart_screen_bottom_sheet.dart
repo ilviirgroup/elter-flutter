@@ -1,9 +1,4 @@
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/utils/modify_price.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/styles.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+part of 'package:elter/view/pages/cart/cart_screen.dart';
 
 class CartScreenBottomSheet extends StatelessWidget {
   

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/view/widgets/loading_indicator.dart';
-import 'package:elter/view/widgets/up_scroll_button.dart';
+import '../../../../entity/models.dart';
+import '../../../../presenter/bloc.dart';
 
+
+import '../../../widgets/widgets.dart';
 import 'ads_list_item.dart';
 
 class AdsListView extends StatefulWidget {

@@ -1,4 +1,6 @@
-import 'package:elter/view/constants/enums.dart';
+
+
+import 'app_enums.dart';
 
 class ConstantTabLabels{
   

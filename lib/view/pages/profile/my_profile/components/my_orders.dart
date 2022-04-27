@@ -1,9 +1,4 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/widgets/simple_app_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+part of 'package:elter/view/pages/profile/my_profile/my_profile.dart';
 
 class MyOrders extends StatelessWidget {
   const MyOrders({Key? key}) : super(key: key);

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'package:elter/view/pages/profile/my_profile/my_profile.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({Key? key}) : super(key: key);

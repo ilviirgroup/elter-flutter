@@ -1,12 +1,13 @@
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/pages/product/products_page.dart';
 
-import 'package:elter/view/widgets/loading_indicator.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../product/products_page.dart';
+
+import '../../../widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/cubit.dart';
+import '../../../../entity/models.dart';
+import '../../../../presenter/cubit.dart';
 
 class AdsListItem extends StatelessWidget {
   const AdsListItem({

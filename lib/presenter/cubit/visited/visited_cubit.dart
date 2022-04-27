@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/entity/models.dart';
-import 'package:elter/entity/repos/visited_repository.dart';
+import '../../../entity/models.dart';
+import '../../../entity/repos/visited_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'visited_state.dart';

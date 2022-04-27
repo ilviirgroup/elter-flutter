@@ -1,9 +1,8 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/presenter/cubit.dart';
-import 'package:elter/view/pages/product/products_page.dart';
-import 'package:elter/view/widgets/custom_grid_delegate.dart';
-import 'package:elter/view/widgets/loading_indicator.dart';
+import '../../../../entity/models.dart';
+import '../../../../presenter/bloc.dart';
+import '../../../../presenter/cubit.dart';
+import '../../product/products_page.dart';
+import '../../../widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

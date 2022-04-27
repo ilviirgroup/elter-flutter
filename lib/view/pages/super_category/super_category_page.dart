@@ -1,11 +1,17 @@
-import 'package:elter/entity/models/product.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/pages/super_category/components/super_category_list_view.dart';
-import 'package:elter/view/widgets/custom_search_delegate.dart';
-import 'package:elter/view/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../entity/models.dart';
+import '../../../presenter/bloc.dart';
+import '../../../presenter/cubit.dart';
+import '../../../utils/constants/app_colors.dart';
+import '../../widgets/custom_search_delegate.dart';
+import '../../widgets/loading_indicator.dart';
+import '../../widgets/search_bar.dart';
+import '../category/category_page.dart';
+
+part 'super_category_list_view.dart';
+part 'super_category_list_item.dart';
 
 class SuperCategoryPage extends StatelessWidget {
   const SuperCategoryPage({Key? key}) : super(key: key);

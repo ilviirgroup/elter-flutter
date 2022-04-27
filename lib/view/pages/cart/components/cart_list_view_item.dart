@@ -1,13 +1,4 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/presenter/cubit/on_product_detail_page/on_product_detail_page_cubit.dart';
-import 'package:elter/utils/modify_price.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/styles.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'change_quantity.dart';
+part of 'package:elter/view/pages/cart/cart_screen.dart';
 
 class CartListViewItem extends StatefulWidget {
   final Product product;
@@ -82,7 +73,21 @@ class _CartListViewItemState extends State<CartListViewItem> {
                                 alignment: Alignment.topRight,
                                 child: InkWell(
                                   onTap: () {
-                                    myDialog();
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AppAlertDialog(
+                                              content:
+                                                  'Harydy sebetden aýyrmakçymy?',
+                                              alertType: AlertTypes.warning,
+                                              callBack: () {
+                                                context.read<CartBloc>().add(
+                                                      CartRemovedEvent(
+                                                          widget.product
+                                                              .productId,
+                                                          widget.product.name),
+                                                    );
+                                              },
+                                            ));
                                   },
                                   child: const Icon(
                                     Icons.delete_outlined,

@@ -1,5 +1,4 @@
-import 'package:elter/view/constants/colors.dart';
-import 'package:flutter/material.dart';
+part of 'package:elter/view/pages/product/products_page.dart';
 
 class InTheCartLabel extends StatelessWidget {
   const InTheCartLabel({Key? key}) : super(key: key);

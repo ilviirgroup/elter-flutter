@@ -112,9 +112,9 @@ class Product extends HiveObject {
         name: json[ProductApiFields.name],
         newPrice: json[ProductApiFields.newPrice],
         photo1: json[ProductApiFields.photo1] ?? 'Surat ýok',
-        photo2: json[ProductApiFields.photo2],
-        photo3: json[ProductApiFields.photo3],
-        photo4: json[ProductApiFields.photo4],
+        photo2: json[ProductApiFields.photo2] ?? 'Surat ýok',
+        photo3: json[ProductApiFields.photo3] ?? 'Surat ýok',
+        photo4: json[ProductApiFields.photo4] ?? 'Surat ýok',
         pk: json[ProductApiFields.pk],
         price: json[ProductApiFields.price],
         productId: json[ProductApiFields.productId],
@@ -149,7 +149,7 @@ class ProductApiFields {
   static const photo4 = "photo4";
   static const pk = "pk";
   static const price = "price";
-  static const productId = "ai";
+  static const productId = "product_id";
   static const vendorName = "vendor_name";
   static const size = "size";
   static const subCategory = "subcategory";

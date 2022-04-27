@@ -1,8 +1,4 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+part of 'package:elter/view/pages/product/products_page.dart';
 
 class CartIcon extends StatelessWidget {
   final Product product;

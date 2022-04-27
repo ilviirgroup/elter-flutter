@@ -1,7 +1,7 @@
 import 'http_requests/delete.dart';
 import 'http_requests/get.dart';
-import 'http_requests/post.dart';
 import 'http_requests/patch.dart';
+import 'http_requests/post.dart';
 
 class NetworkService {
   final Get getRequest = Get();

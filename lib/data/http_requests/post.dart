@@ -1,6 +1,8 @@
 import 'dart:convert';
-import 'package:elter/data/api_routes.dart';
+
 import 'package:http/http.dart';
+
+import '../api_routes.dart';
 
 class Post {
   Future<Map<String, dynamic>> addData(

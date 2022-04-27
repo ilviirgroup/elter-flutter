@@ -1,24 +1,22 @@
 import 'dart:async';
 
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/presenter/cubit.dart';
-import 'package:elter/presenter/cubit/on_sign_in_page/on_sign_in_page_cubit.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/enums.dart';
-import 'package:elter/view/constants/constant_words.dart';
+import '../../../entity/models.dart';
+import '../../../presenter/bloc.dart';
+import '../../../presenter/cubit.dart';
 
-import 'package:elter/view/pages/cart/cart_screen.dart';
-import 'package:elter/view/pages/catalog/catalog_page.dart';
-import 'package:elter/view/pages/home/home_page.dart';
-import 'package:elter/view/pages/product/components/product_detail_page.dart';
-import 'package:elter/view/pages/profile/login/enter_phone.dart';
-import 'package:elter/view/pages/profile/profile.dart';
-import 'package:elter/view/pages/vendor/vendor_page.dart';
+import '../../../utils/constants/constants.dart';
+import '../cart/cart_screen.dart';
+import '../catalog/catalog_page.dart';
+import '../home/home_page.dart';
+import '../product/products_page.dart';
+import '../profile/login/login.dart';
+import '../profile/profile.dart';
+import '../vendor/vendor_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'components/bottom_nav_bar.dart';
 import 'components/bottom_nav_item.dart';
 import 'components/cart_button.dart';
 
@@ -103,7 +101,8 @@ class _MainScreenState extends State<MainScreen>
                   currentBackPressTime = now;
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Çykmak üçin ýene bir gezek basyň'),
+                      behavior: SnackBarBehavior.floating,
+                      content: Text("Çykmak üçin ýene bir gezek 'YZA' basyň!"),
                     ),
                   );
                   return Future.value(false);
@@ -138,52 +137,15 @@ class _MainScreenState extends State<MainScreen>
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            bottomNavigationBar: BottomAppBar(
-              shape: const CircularNotchedRectangle(),
-              child: SizedBox(
-                height: 60,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    BottomNavItem(
-                      index: BottomNavScreen.home,
-                      currentIndex: bottomNavScreen,
-                      label: bottomNavigationIconLabels[BottomNavScreen.home]!,
-                      icon: Icons.home_outlined,
-                    ),
-                    BottomNavItem(
-                      index: BottomNavScreen.vendors,
-                      currentIndex: bottomNavScreen,
-                      label:
-                          bottomNavigationIconLabels[BottomNavScreen.vendors]!,
-                      icon: Icons.storefront_outlined,
-                    ),
-                    SizedBox(
-                      width: screenSize.width / 5,
-                    ),
-                    BottomNavItem(
-                      index: BottomNavScreen.catalog,
-                      currentIndex: bottomNavScreen,
-                      label:
-                          bottomNavigationIconLabels[BottomNavScreen.catalog]!,
-                      icon: Icons.dashboard_outlined,
-                    ),
-                    BottomNavItem(
-                      index: BottomNavScreen.profile,
-                      currentIndex: bottomNavScreen,
-                      label:
-                          bottomNavigationIconLabels[BottomNavScreen.profile]!,
-                      icon: Icons.person_outline,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            bottomNavigationBar: BottomNavBar(
+                bottomNavScreen: bottomNavScreen, screenSize: screenSize),
           ),
         );
       },
     );
   }
+
+  void backButonPressed() {}
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
     return {

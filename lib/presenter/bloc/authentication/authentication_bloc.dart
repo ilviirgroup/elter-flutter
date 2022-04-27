@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/entity/models/user.dart';
-import 'package:elter/entity/models/verification_code.dart';
-import 'package:elter/entity/repos/user_repository.dart';
+import '../../../entity/models/user.dart';
+import '../../../entity/models/verification_code.dart';
+import '../../../entity/repos/user_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'authentication_event.dart';

@@ -1,12 +1,20 @@
-import 'package:elter/entity/repos/order_repository.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/pages/profile/my_profile/components/contact_us.dart';
-import 'package:elter/view/pages/profile/my_profile/components/my_orders.dart';
-import 'package:elter/view/pages/profile/my_profile/components/profile_infos.dart';
-import 'package:elter/view/widgets/loading_indicator.dart';
+import 'dart:ui';
+
+import 'package:elter/utils/constants/app_enums.dart';
+
+import '../../../../entity/models.dart';
+import '../../../../entity/repos/order_repository.dart';
+import '../../../../utils/constants/app_colors.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:elter/presenter/bloc.dart';
+import '../../../../presenter/bloc.dart';
+import '../../../widgets/app_alert_dialog.dart';
+import '../../../widgets/widgets.dart';
+
+part 'components/contact_us.dart';
+part 'components/my_orders.dart';
+part 'components/profile_infos.dart';
 
 class MyProfile extends StatelessWidget {
   const MyProfile({Key? key}) : super(key: key);
@@ -49,9 +57,9 @@ class MyProfile extends StatelessWidget {
                           children: [
                             ListTile(
                               onTap: () {
-                                context
-                                    .read<MyOrdersBloc>()
-                                    .add(MyOrdersFetchedEvent(UrlBuilder()..phone = currentUser.phoneNumber));
+                                context.read<MyOrdersBloc>().add(
+                                    MyOrdersFetchedEvent(UrlBuilder()
+                                      ..userPhone = currentUser.phoneNumber));
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -95,9 +103,18 @@ class MyProfile extends StatelessWidget {
                         textStyle: MaterialStateProperty.all(_textStyle),
                       ),
                   onPressed: () {
-                    context.read<AuthenticationBloc>().add(
-                          LoggedOut(currentUser.phoneNumber),
-                        );
+                    showDialog(
+                      context: context,
+                      builder: (context) => AppAlertDialog(
+                        content: 'Ulgamdan çykmakçymy?',
+                        alertType: AlertTypes.warning,
+                        callBack: () {
+                          context.read<AuthenticationBloc>().add(
+                                LoggedOut(currentUser.phoneNumber),
+                              );
+                        },
+                      ),
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

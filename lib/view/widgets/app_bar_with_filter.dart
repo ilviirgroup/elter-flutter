@@ -1,12 +1,9 @@
-import 'package:elter/presenter/cubit/sort_by/sort_by_cubit.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/constant_words.dart';
-import 'package:elter/view/constants/enums.dart';
-
 import 'package:flutter/material.dart';
-
-import 'package:elter/entity/models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../entity/models.dart';
+import '../../presenter/cubit.dart';
+import '../../utils/constants/constants.dart';
 
 AppBar appBarWithFilter(BuildContext context, int productsLength,
     {Ads? adsObject, String? appBarTitle}) {
@@ -65,8 +62,8 @@ AppBar appBarWithFilter(BuildContext context, int productsLength,
                         ),
                       );
                     },
-                    child: filterContainer(context,
-                        SortingItemNames.sortBy, true, groupValue),
+                    child: filterContainer(
+                        context, SortingItemNames.sortBy, true, groupValue),
                   ),
                 ),
                 Expanded(

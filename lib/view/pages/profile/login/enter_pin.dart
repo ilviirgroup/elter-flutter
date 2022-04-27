@@ -1,12 +1,4 @@
-import 'package:elter/view/constants/colors.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:elter/entity/models.dart';
-import 'package:elter/entity/models/verification_code.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'components/otp_input.dart';
-import 'components/title_container.dart';
+part of 'login.dart';
 
 class EnterPin extends StatefulWidget {
   const EnterPin({Key? key}) : super(key: key);
@@ -97,7 +89,14 @@ class _EnterPinState extends State<EnterPin> {
                   context.read<AuthenticationBloc>().add(
                         LoggedIn(_code),
                       );
-                  context.read<LoginBloc>().add(LoginCompletedEvent());
+                  context.read<LoginBloc>().add(const LoginCompletedEvent());
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      behavior: SnackBarBehavior.floating,
+                      content: Text('Ulgama üstünlikli girdiňiz'),
+                    ),
+                  );
                   Navigator.of(context).pop();
                 }
               },

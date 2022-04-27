@@ -1,7 +1,6 @@
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/enums.dart';
-import 'package:elter/view/constants/constant_words.dart';
 import 'package:flutter/material.dart';
+
+import '../../utils/constants/constants.dart';
 
 IgnorePointer searchBar() {
   return IgnorePointer(

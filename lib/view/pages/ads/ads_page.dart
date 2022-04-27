@@ -1,12 +1,13 @@
-import 'package:elter/view/constants/enums.dart';
-import 'package:elter/view/pages/ads/components/ads_list_view.dart';
-import 'package:elter/view/widgets/app_bar_with_tab_bar.dart';
+
+import '../../../utils/constants/app_enums.dart';
+import '../../widgets/widgets.dart';
+import 'components/ads_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/cubit.dart';
-import 'package:elter/view/widgets/loading_indicator.dart';
+import '../../../entity/models.dart';
+import '../../../presenter/cubit.dart';
+
 
 class AdsPage extends StatefulWidget {
   const AdsPage({

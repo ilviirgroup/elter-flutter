@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
+import 'app_colors.dart';
 
 double mainPagePadding = 5.0;
 double appNameBoxWidth = 65;

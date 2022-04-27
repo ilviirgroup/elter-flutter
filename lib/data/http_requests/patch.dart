@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:elter/data/api_routes.dart';
+import '../api_routes.dart';
 import 'package:dio/dio.dart';
 
 final Dio dio = Dio(BaseOptions(

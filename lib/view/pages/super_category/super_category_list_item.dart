@@ -1,7 +1,4 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/pages/category/category_page.dart';
-import 'package:flutter/material.dart';
+part of 'super_category_page.dart';
 
 class SuperCategoryListItem extends StatelessWidget {
   const SuperCategoryListItem({

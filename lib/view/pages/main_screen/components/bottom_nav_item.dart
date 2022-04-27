@@ -1,8 +1,9 @@
-import 'package:elter/presenter/cubit.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/enums.dart';
+import '../../../../presenter/cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../utils/constants/constants.dart';
 
 class BottomNavItem extends StatelessWidget {
   final BottomNavScreen index;

@@ -1,11 +1,4 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/cubit.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/widgets/loading_indicator.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'super_category_list_item.dart';
+part of 'super_category_page.dart';
 
 class SuperCategoryListView extends StatelessWidget {
   const SuperCategoryListView({Key? key}) : super(key: key);

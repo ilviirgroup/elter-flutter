@@ -1,18 +1,11 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/entity/repos/brand_repository.dart';
-import 'package:elter/entity/repos/verification_code_repository.dart';
-import 'package:elter/entity/repos/visited_repository.dart';
-import 'package:elter/presenter/bloc/verification/verification_bloc.dart';
-import 'package:elter/presenter/cubit/on_sign_in_page/on_sign_in_page_cubit.dart';
-
-import 'package:elter/view/constants/enums.dart';
-
-import 'package:elter/view/pages/welcome_screen.dart';
+import 'utils/constants/constants.dart';
+import 'view/pages/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'data/network_service.dart';
+import 'entity/models.dart';
 import 'entity/repos.dart';
 import 'presenter/bloc.dart';
 import 'presenter/cubit.dart';

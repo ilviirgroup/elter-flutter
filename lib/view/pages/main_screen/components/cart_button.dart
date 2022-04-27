@@ -1,7 +1,9 @@
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/view/constants/colors.dart';
+import 'package:elter/utils/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../presenter/bloc.dart';
+import '../../../../utils/constants/app_colors.dart';
 
 class CartButton extends StatelessWidget {
   const CartButton({
@@ -15,7 +17,6 @@ class CartButton extends StatelessWidget {
         padding: EdgeInsets.all(8.0),
         child: Icon(
           Icons.shopping_cart_outlined,
-          size: 24,
         ),
       ),
       Positioned(
@@ -26,13 +27,12 @@ class CartButton extends StatelessWidget {
             if (state is CartLoadedState) {
               return state.cartItems.isNotEmpty
                   ? Container(
-                      padding: const EdgeInsets.all(2),
+                      padding: const EdgeInsets.all(3),
                       decoration: const BoxDecoration(
                           color: Colors.red, shape: BoxShape.circle),
                       child: Text(
                         state.totalCartItems.toString(),
-                        style: const TextStyle(
-                            color: kWhite, fontWeight: FontWeight.bold),
+                        style: semiBoldTextStyle.copyWith(color: kWhite),
                       ),
                     )
                   : const SizedBox();

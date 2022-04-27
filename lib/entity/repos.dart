@@ -8,3 +8,6 @@ export 'package:elter/entity/repos/ads_repository.dart';
 export 'package:elter/entity/repos/super_category_repository.dart';
 export 'package:elter/entity/repos/vendor_repository.dart';
 export 'package:elter/entity/repos/cart_repository.dart';
+export 'package:elter/entity/repos/brand_repository.dart';
+export 'package:elter/entity/repos/verification_code_repository.dart';
+export 'package:elter/entity/repos/visited_repository.dart';

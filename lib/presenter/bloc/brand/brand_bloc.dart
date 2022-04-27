@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/entity/models.dart';
-import 'package:elter/entity/repos/brand_repository.dart';
+import '../../../entity/models.dart';
+import '../../../entity/repos/brand_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'brand_event.dart';

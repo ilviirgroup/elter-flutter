@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/entity/models/super_category.dart';
-import 'package:elter/entity/repos/super_category_repository.dart';
+import '../../../entity/models/super_category.dart';
+import '../../../entity/repos/super_category_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'super_category_state.dart';

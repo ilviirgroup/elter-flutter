@@ -1,16 +1,4 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/presenter/cubit.dart';
-
-import 'package:elter/utils/modify_price.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/styles.dart';
-import 'package:elter/view/pages/product/components/color_container.dart';
-import 'package:elter/view/pages/product/components/new_product_label.dart';
-import 'package:elter/view/pages/product/components/size_container.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+part of 'package:elter/view/pages/product/products_page.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final Product product;

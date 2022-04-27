@@ -1,22 +1,22 @@
 import 'dart:async';
 
-import 'package:elter/entity/models.dart';
-import 'package:elter/entity/repos/order_repository.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/presenter/cubit.dart';
-import 'package:elter/utils/modify_phone_number.dart';
-import 'package:elter/utils/modify_price.dart';
-import 'package:elter/view/constants/assets.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/constant_numbers.dart';
-import 'package:elter/view/constants/styles.dart';
-import 'package:elter/view/pages/cart/components/cart_screen_bottom_sheet.dart';
-import 'package:elter/view/pages/cart/components/edit_user_infos.dart';
-import 'package:elter/view/widgets/simple_app_bar.dart';
+import '../../../entity/models.dart';
+import '../../../entity/repos/order_repository.dart';
+import '../../../presenter/bloc.dart';
+import '../../../presenter/cubit.dart';
+import '../../../utils/constants/constants.dart';
+import '../../../utils/modify_phone_number.dart';
+import '../../../utils/modify_price.dart';
+
+import '../../widgets/app_alert_dialog.dart';
+import '../../widgets/simple_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'components/cart_list_view_item.dart';
+part 'components/cart_list_view_item.dart';
+part 'components/cart_screen_bottom_sheet.dart';
+part 'components/change_quantity.dart';
+part 'components/edit_user_infos.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -200,8 +200,20 @@ class _CartPageState extends State<CartPage> {
                     color: kWhite,
                     height: _size.height,
                     width: _size.width,
-                    padding: const EdgeInsets.all(50),
-                    child: Image.asset(emptyCartImage),
+                    padding: const EdgeInsets.all(100),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Sebet boş',
+                          style: semiBoldTextStyle.copyWith(fontSize: 26),
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        Image.asset(AppAssets.emptyCartImage),
+                      ],
+                    ),
                   );
           }
           return const SizedBox();
@@ -247,28 +259,28 @@ class _CartPageState extends State<CartPage> {
                               context.read<MyOrdersBloc>().add(
                                     MyOrdersSentEvent(
                                       urlBuilder: UrlBuilder()
-                                        ..phone = state.user.phoneNumber,
+                                        ..userPhone = state.user.phoneNumber,
                                       obj: Order(
-                                              address: state.user.address,
-                                              color: [
-                                                "http://96.30.193.58/Colors/1/"
-                                              ],
-                                              completed: false,
-                                              onProcess: false,
-                                              orderId: '2',
-                                              price: item.newPrice,
-                                              productName: item.name,
-                                              quantity: item.selectedQuantity!
-                                                  .toDouble(),
-                                              size: [
-                                                "http://96.30.193.58/Sizes/2/"
-                                              ],
-                                              userName: state.user.name,
-                                              userPhone: state.user.phoneNumber)
-                                          .toJson(),
+                                        address: state.user.address,
+                                        color: item.color,
+                                        completed: false,
+                                        onProcess: false,
+                                        orderId: '2',
+                                        orderNote: _noteController.text,
+                                        photo: item.photo1 ?? '',
+                                        price: modifyOrderPrice(item.newPrice!),
+                                        productName: item.name,
+                                        quantity:
+                                            item.selectedQuantity!.toDouble(),
+                                        size: item.size,
+                                        userName: state.user.name,
+                                        userPhone: state.user.phoneNumber,
+                                        vendorName: item.vendorName,
+                                      ).toJson(),
                                     ),
                                   );
                             }
+
                             for (var item in cartItems) {
                               context.read<CartBloc>().add(
                                   CartRemovedEvent(item.productId, item.name));

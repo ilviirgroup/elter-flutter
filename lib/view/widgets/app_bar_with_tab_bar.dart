@@ -1,8 +1,8 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/enums.dart';
-import 'package:elter/view/widgets/search_bar.dart';
+import '../../entity/models.dart';
+import '../../presenter/bloc.dart';
+
+import '../../utils/constants/constants.dart';
+import 'search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

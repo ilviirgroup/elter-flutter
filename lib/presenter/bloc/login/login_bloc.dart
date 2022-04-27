@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/entity/models/verification_code.dart';
-import 'package:elter/entity/repos/user_repository.dart';
+import '../../../entity/models/verification_code.dart';
+import '../../../entity/repos/user_repository.dart';
 import 'package:equatable/equatable.dart';
 part 'login_event.dart';
 part 'login_state.dart';

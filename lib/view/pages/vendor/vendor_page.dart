@@ -1,6 +1,6 @@
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/pages/vendor/brands/brands_grid_view.dart';
-import 'package:elter/view/pages/vendor/vendors/vendors_grid_view.dart';
+import '../../../utils/constants/constants.dart';
+import 'brands/brands_grid_view.dart';
+import 'vendors/vendors_grid_view.dart';
 import 'package:flutter/material.dart';
 
 class VendorPage extends StatelessWidget {

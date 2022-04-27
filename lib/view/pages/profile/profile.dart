@@ -1,8 +1,8 @@
-import 'package:elter/presenter/bloc.dart';
-import 'package:elter/presenter/cubit.dart';
+import '../../../presenter/bloc.dart';
+import '../../../presenter/cubit.dart';
 
-import 'package:elter/view/pages/profile/login/components/title_container.dart';
-import 'package:elter/view/widgets/loading_indicator.dart';
+import 'login/components/title_container.dart';
+import '../../widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,9 +18,7 @@ class Profile extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body: (state is Authenticated)
-              ? MyProfile(
-                  
-                )
+              ? const MyProfile()
               : (state is Unauthenticated)
                   ? BlocBuilder<OnSignInPageCubit, OnSignInPageState>(
                       builder: (context, state) {

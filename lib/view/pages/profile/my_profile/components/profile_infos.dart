@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'package:elter/view/pages/profile/my_profile/my_profile.dart';
 
 class ProfileInfos extends StatefulWidget {
   const ProfileInfos({Key? key}) : super(key: key);
@@ -13,12 +13,12 @@ class _ProfileInfosState extends State<ProfileInfos> {
     final _size = MediaQuery.of(context).size;
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         height: _size.height,
         width: _size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const Text('Maglumatlarym')],
+          children: const [Text('Maglumatlarym')],
         ),
       ),
     );

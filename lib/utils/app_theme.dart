@@ -1,5 +1,6 @@
-import 'package:elter/view/constants/colors.dart';
 import 'package:flutter/material.dart';
+
+import 'constants/app_colors.dart';
 
 const String myFontFamily = 'Source Sans Pro';
 

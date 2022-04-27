@@ -1,6 +1,6 @@
-import 'package:elter/data/api_routes.dart';
-import 'package:elter/data/network_service.dart';
-import 'package:elter/entity/models.dart';
+import '../../data/api_routes.dart';
+import '../../data/network_service.dart';
+import '../models.dart';
 
 class OrderRepository {
   final NetworkService networkService;
@@ -25,12 +25,39 @@ class OrderRepository {
 }
 
 class UrlBuilder {
-  String phone = '';
-  String productName = '';
-  String userName = '';
+  String? orderId;
+  String? productName;
+  String? vendorName;
+  String? address;
+  String? userName;
+  String? userEmail;
+  String userPhone = '';
+  bool? completed;
+  bool? onProcess;
+  String? color;
+  String? size;
+  double? price;
+  double? quantity;
+  double? result;
 
   @override
   String toString() {
-    return '?ai=&name_order=$productName&adress=&user_name=$userName&user_email=&user_phone=%2B${phone.substring(1)}&completed=&in_process=&price_order=&quantity=&result=';
+    List filterList = [
+      '${OrderApiFields.orderId}=${orderId ?? ''}',
+      '${OrderApiFields.productName}=${productName ?? ''}',
+      '${OrderApiFields.vendorName}=${vendorName ?? ''}',
+      '${OrderApiFields.address}=${address ?? ''}',
+      '${OrderApiFields.userName}=${userName ?? ''}',
+      '${OrderApiFields.userEmail}=${userEmail ?? ''}',
+      '${OrderApiFields.userPhone}=%2B${userPhone.substring(1)}',
+      '${OrderApiFields.completed}=${completed ?? ''}',
+      '${OrderApiFields.onProcess}=${onProcess ?? ''}',
+      '${OrderApiFields.color}=${color ?? ''}',
+      '${OrderApiFields.size}=${size ?? ''}',
+      '${OrderApiFields.price}=${price ?? ''}',
+      '${OrderApiFields.quantity}=${quantity ?? ''}',
+      '${OrderApiFields.result}=${result ?? ''}',
+    ];
+    return '?' + filterList.join('&');
   }
 }

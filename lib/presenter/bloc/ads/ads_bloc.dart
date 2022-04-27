@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/entity/models/ads.dart';
-import 'package:elter/entity/repos/ads_repository.dart';
+import '../../../entity/models/ads.dart';
+import '../../../entity/repos/ads_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'ads_event.dart';

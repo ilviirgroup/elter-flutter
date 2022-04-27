@@ -1,5 +1,6 @@
-import 'package:elter/entity/models.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import '../models.dart';
 
 class CartRepository {
   late Box<Product> _cartItems;

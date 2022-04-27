@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/entity/models/sub_category.dart';
-import 'package:elter/entity/repos/subcategory_repository.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../../entity/models/sub_category.dart';
+import '../../../entity/repos/subcategory_repository.dart';
 
 part 'sub_category_state.dart';
 

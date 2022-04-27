@@ -1,10 +1,4 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/presenter/cubit/category_cubit/category_cubit.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/pages/category/components/category_list_item.dart';
-import 'package:elter/view/widgets/loading_indicator.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+part of 'package:elter/view/pages/category/category_page.dart';
 
 class CategoryListView extends StatelessWidget {
   final String superCategoryName;

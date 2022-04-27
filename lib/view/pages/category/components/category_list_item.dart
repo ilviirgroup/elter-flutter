@@ -1,8 +1,4 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/pages/sub_category/sub_category_page.dart';
-import 'package:elter/view/constants/styles.dart';
-import 'package:flutter/material.dart';
+part of 'package:elter/view/pages/category/category_page.dart';
 
 class CategoryListItem extends StatelessWidget {
   final Category item;

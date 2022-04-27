@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/entity/models.dart';
-import 'package:elter/entity/repos.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../../entity/models.dart';
+import '../../../entity/repos.dart';
 
 part 'vendor_event.dart';
 part 'vendor_state.dart';

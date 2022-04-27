@@ -1,5 +1,6 @@
-import 'package:elter/view/constants/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../utils/constants/constants.dart';
 
 class UpScrollButton extends StatelessWidget {
   final Function scrollUp;

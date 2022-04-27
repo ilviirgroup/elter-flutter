@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/view/constants/enums.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../../utils/constants/app_enums.dart';
 
 part 'change_bottom_nav_state.dart';
 

@@ -1,5 +1,6 @@
-import 'package:elter/entity/models/cart_item.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../entity/models/cart_item.dart';
 
 class Cart with ChangeNotifier {
   Map<String, CartItem> itemlar = {};

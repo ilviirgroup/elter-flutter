@@ -1,12 +1,10 @@
-import 'package:elter/entity/models.dart';
-import 'package:elter/view/constants/assets.dart';
-import 'package:elter/view/constants/colors.dart';
-import 'package:elter/view/constants/enums.dart';
-import 'package:elter/view/constants/constant_words.dart';
-import 'package:elter/view/pages/product/components/products_grid_view.dart';
+import '../../entity/models.dart';
+import '../../utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../pages/product/products_page.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   final List<Product> productList;
@@ -48,7 +46,7 @@ class CustomSearchDelegate extends SearchDelegate {
           query = barcodeScanResult;
         },
         child: SvgPicture.asset(
-          barcodeSearchIcon,
+          AppAssets.barcodeSearchIcon,
           width: 30,
           height: 30,
         ),

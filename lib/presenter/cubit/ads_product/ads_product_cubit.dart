@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:elter/entity/models.dart';
-import 'package:elter/entity/repos.dart';
+import '../../../entity/models.dart';
+import '../../../entity/repos.dart';
 import 'package:equatable/equatable.dart';
 
 part 'ads_product_state.dart';
