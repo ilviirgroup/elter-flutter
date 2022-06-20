@@ -10,16 +10,57 @@ class ProfileInfos extends StatefulWidget {
 class _ProfileInfosState extends State<ProfileInfos> {
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.all(20.0),
-        height: _size.height,
-        width: _size.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [Text('Maglumatlarym')],
+    const _style = TextStyle(
+      fontSize: 16,
+    );
+    const icons = [
+      Icon(Icons.account_box),
+      Icon(Icons.phone),
+      Icon(Icons.home_rounded),
+    ];
+    return Scaffold(
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            color: kTransparent,
+            child: const Icon(Icons.close),
+          ),
         ),
+        backgroundColor: kTransparent,
+        title: const Text('Agzalyk maglumatlar'),
+      ),
+      body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, state) {
+          var user = (state as Authenticated).user;
+          List<String> userInfos = [
+            user.name ?? 'Näbelli',
+            user.phoneNumber,
+            user.address ?? 'Näbelli'
+          ];
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Card(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: ListTile.divideTiles(
+                  context: context,
+                  color: textGreyColor,
+                  tiles: userInfos.map(
+                    (e) => ListTile(
+                      leading: icons[userInfos.indexOf(e)],
+                      title: Text(
+                        e,
+                      ),
+                    ),
+                  ),
+                ).toList(),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -1,6 +1,6 @@
 part of 'my_orders_bloc.dart';
 
-@immutable
+
 abstract class MyOrdersEvent extends Equatable {
   const MyOrdersEvent();
 
@@ -11,23 +11,24 @@ abstract class MyOrdersEvent extends Equatable {
 class MyOrdersInitializedEvent extends MyOrdersEvent {}
 
 class MyOrdersFetchedEvent extends MyOrdersEvent {
-  final UrlBuilder urlBuilder;
+  final String phone;
 
-  const MyOrdersFetchedEvent(this.urlBuilder);
+  const MyOrdersFetchedEvent(this.phone);
 
   @override
-  List<Object> get props => [urlBuilder];
+  List<Object> get props => [phone];
 }
 
 class MyOrdersSentEvent extends MyOrdersEvent {
   final Map<String, dynamic> obj;
-  final UrlBuilder? urlBuilder;
-  const MyOrdersSentEvent({required this.obj, required this.urlBuilder });
+  final String phone;
+  const MyOrdersSentEvent({required this.obj, required this.phone});
 }
 
 class MyOrdersDeletedEvent extends MyOrdersEvent {
+  final Map<String, dynamic> obj;
   final int id;
-  const MyOrdersDeletedEvent({required this.id});
+  const MyOrdersDeletedEvent({required this.obj, required this.id});
 }
 
 class MyOrdersLoadingEvent extends MyOrdersEvent {}

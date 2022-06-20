@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/constants/constants.dart';
 
-class AppAlertDialog extends StatelessWidget {
+class AppAlertDialog extends StatefulWidget {
   final String content;
   final AlertTypes alertType;
   final Function? callBack;
@@ -14,6 +14,11 @@ class AppAlertDialog extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<AppAlertDialog> createState() => _AppAlertDialogState();
+}
+
+class _AppAlertDialogState extends State<AppAlertDialog> {
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       elevation: 0,
@@ -21,25 +26,26 @@ class AppAlertDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      title: changeAlertIcon(alertType),
+      title: changeAlertIcon(widget.alertType),
       content: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(content),
+          Text(widget.content),
           const SizedBox(
             height: 20,
           ),
-          alertType == AlertTypes.warning
+          widget.alertType == AlertTypes.warning
               ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     InkWell(
                         splashFactory: NoSplash.splashFactory,
                         onTap: () {
-                          callBack!();
+                          widget.callBack!();
                           Navigator.pop(context);
+                          setState(() {});
                         },
                         child: const Text(
                           'Hawa',

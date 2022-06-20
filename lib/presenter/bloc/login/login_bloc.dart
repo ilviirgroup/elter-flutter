@@ -21,9 +21,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   void _phoneNumberSentEvent(
       PhoneNumberSentEvent event, Emitter<LoginState> emit) async {
-    final VerificationCode _code =
+    final VerificationCode code =
         await _repository.getVerificationCode(event.verificationCode);
-    emit(PhoneNumberSentSuccess(_code));
+    emit(PhoneNumberSentSuccess(code));
   }
 
   void _onVerifyOtpEvent(VerifyOtpEvent event, Emitter<LoginState> emit) async {

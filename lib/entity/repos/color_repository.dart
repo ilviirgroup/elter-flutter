@@ -12,3 +12,6 @@ class ColorRepository {
     return rawData.map((json) => ColorObject.fromJson(json)).toList();
   }
 }
+
+
+// '{'key': 'value'}' json - javascript object notation

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../entity/models.dart';
 import '../../../../presenter/bloc.dart';
 
-
 import '../../../widgets/widgets.dart';
 import 'ads_list_item.dart';
 
@@ -70,39 +69,39 @@ class _AdsListViewState extends State<AdsListView>
           },
           child: Stack(
             children: [
-              Column(
-                children: [
-                  Expanded(
-                      child: MediaQuery.removePadding(
-                    context: context,
-                    removeLeft: true,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: ListView(
-                        controller: _scrollController,
-                        children: widget.superCategoryName != null
-                            ? adsList
-                                .where((ads) =>
-                                    ads.superCategory ==
-                                    widget.superCategoryName)
-                                .toList()
-                                .map(
-                                  (adsItem) => AdsListItem(
-                                    adsItem: adsItem,
-                                  ),
-                                )
-                                .toList()
-                            : adsList
-                                .map(
-                                  (adsItem) => AdsListItem(
-                                    adsItem: adsItem,
-                                  ),
-                                )
-                                .toList(),
-                      ),
+              MediaQuery.removePadding(
+                context: context,
+                removeLeft: true,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      print('hello');
+                      setState(() {});
+                    },
+                    child: ListView(
+                      controller: _scrollController,
+                      children: widget.superCategoryName != null
+                          ? adsList
+                              .where((ads) =>
+                                  ads.superCategory == widget.superCategoryName)
+                              .toList()
+                              .map(
+                                (adsItem) => AdsListItem(
+                                  adsItem: adsItem,
+                                ),
+                              )
+                              .toList()
+                          : adsList
+                              .map(
+                                (adsItem) => AdsListItem(
+                                  adsItem: adsItem,
+                                ),
+                              )
+                              .toList(),
                     ),
-                  )),
-                ],
+                  ),
+                ),
               ),
               Positioned(
                 bottom: 20,

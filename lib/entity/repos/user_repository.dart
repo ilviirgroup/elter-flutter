@@ -75,10 +75,11 @@ class UserRepository implements SignIn {
     _currentUser.add(authenticatedUser);
   }
 
-  Future<void> deleteToken(String userPhone) async {
+  Future deleteToken(String userPhone) async {
     final userToSignOut = _currentUser.values
         .firstWhere((element) => element.phoneNumber == userPhone);
-    await userToSignOut.delete();
+    // await userToSignOut.delete();
+    return await _currentUser.clear();
   }
 
   Future<void> upDateToken(User user) async {

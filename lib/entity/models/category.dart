@@ -20,15 +20,14 @@ class Category {
   });
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-        // categoryId: json[CategoryApiFields.categoryId],
-        name: json[CategoryApiFields.name],
-        photo: json[CategoryApiFields.photo],
         pk: json[CategoryApiFields.pk],
-        products: json[CategoryApiFields.products],
-        subCategory: json[CategoryApiFields.subCategory],
+        name: json[CategoryApiFields.name],
         superCategory: json[CategoryApiFields.superCategory],
-        url: json[CategoryApiFields.url],
-      );
+      )
+        ..photo = json[CategoryApiFields.photo]
+        ..products = json[CategoryApiFields.products]
+        ..subCategory = json[CategoryApiFields.subCategory]
+        ..url = json[CategoryApiFields.url];
 }
 
 class CategoryApiFields {

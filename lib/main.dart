@@ -153,7 +153,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => TemporarySubcategoryObjectCubit()
             ..temporarySubCategoryObject(''
-                // SubCategory(category: '', name: '', pk: 0),
                 ),
         ),
         BlocProvider(

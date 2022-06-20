@@ -9,14 +9,14 @@ class CartScreenBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
     return Stack(
       children: [
         BlocBuilder<CartBloc, CartState>(
           builder: (context, state) {
             return Container(
-              // height: _size.height * 0.5,
-              width: _size.width,
+              // height: screenSize.height * 0.5,
+              width: screenSize.width,
               padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
               decoration: const BoxDecoration(
                 color: kWhite,
@@ -42,7 +42,7 @@ class CartScreenBottomSheet extends StatelessWidget {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('•  ' + e.name),
+                              Text('•  ${e.name}'),
                               Text(
                                 modifyPrice(
                                     (e.newPrice! * e.selectedQuantity!)),
@@ -87,7 +87,7 @@ class CartScreenBottomSheet extends StatelessWidget {
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('•  ' + e.name),
+                              Text('•  ${e.name}'),
                               Text(
                                 modifyPrice(
                                     (e.newPrice! * e.selectedQuantity!)),
@@ -123,7 +123,7 @@ class CartScreenBottomSheet extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: _size.width * 0.8,
+                          width: screenSize.width * 0.8,
                           child: const Padding(
                             padding: EdgeInsets.only(bottom: 30.0),
                             child: Text(

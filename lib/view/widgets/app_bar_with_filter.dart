@@ -7,7 +7,6 @@ import '../../utils/constants/constants.dart';
 
 AppBar appBarWithFilter(BuildContext context, int productsLength,
     {Ads? adsObject, String? appBarTitle}) {
-  final screenSize = MediaQuery.of(context).size;
   return AppBar(
     title: RichText(
       text: TextSpan(
@@ -27,9 +26,9 @@ AppBar appBarWithFilter(BuildContext context, int productsLength,
       ),
     ),
     bottom: PreferredSize(
-      preferredSize: Size.fromHeight(screenSize.height / 18),
+      preferredSize: const Size.fromHeight(50),
       child: SizedBox(
-        height: MediaQuery.of(context).size.height / 18,
+        height: 50,
         child: BlocBuilder<SortByCubit, SortByState>(
           builder: (context, state) {
             final String groupValue = (state as SortByCalled).sortBy;
@@ -92,37 +91,34 @@ List<String> sortItems = [
 Container filterContainer(
     BuildContext context, String text, bool isSort, String groupValue) {
   return Container(
-    child: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              isSort
-                  ? const SizedBox()
-                  : const Padding(
-                      padding: EdgeInsets.only(right: 5.0),
-                      child: Icon(Icons.filter_list),
-                    ),
-              Text(
-                text,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              isSort ? const Icon(Icons.keyboard_arrow_down) : const SizedBox(),
-            ],
-          ),
-          !isSort
-              ? const SizedBox()
-              : groupValue.isEmpty ||
-                      groupValue == SortingItemNames.defaultOrder
-                  ? const SizedBox()
-                  : Text(
-                      groupValue,
-                      style: const TextStyle(fontSize: 12),
-                    ),
-        ],
-      ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            isSort
+                ? const SizedBox()
+                : const Padding(
+                    padding: EdgeInsets.only(right: 5.0),
+                    child: Icon(Icons.filter_list),
+                  ),
+            Text(
+              text,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            isSort ? const Icon(Icons.keyboard_arrow_down) : const SizedBox(),
+          ],
+        ),
+        !isSort
+            ? const SizedBox()
+            : groupValue.isEmpty || groupValue == SortingItemNames.defaultOrder
+                ? const SizedBox()
+                : Text(
+                    groupValue,
+                    style: const TextStyle(fontSize: 12),
+                  ),
+      ],
     ),
     decoration: const BoxDecoration(
       color: kWhite,

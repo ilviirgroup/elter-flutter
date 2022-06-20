@@ -17,8 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/bottom_nav_bar.dart';
-import 'components/bottom_nav_item.dart';
-import 'components/cart_button.dart';
+import '../../widgets/cart_button.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({
@@ -26,7 +25,7 @@ class MainScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen>
@@ -80,6 +79,11 @@ class _MainScreenState extends State<MainScreen>
     });
     final screenSize = MediaQuery.of(context).size;
     final changeBottomNavCubit = context.read<ChangeBottomNavCubit>();
+    bool isKeyboardVisible() {
+      bool visible = MediaQuery.of(context).viewInsets.bottom == 0;
+      return !visible;
+    }
+
     return BlocBuilder<ChangeBottomNavCubit, BottomNavScreen>(
       builder: (context, state) {
         final BottomNavScreen bottomNavScreen = state;
@@ -99,12 +103,7 @@ class _MainScreenState extends State<MainScreen>
                     now.difference(currentBackPressTime!) >
                         const Duration(seconds: 3)) {
                   currentBackPressTime = now;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      behavior: SnackBarBehavior.floating,
-                      content: Text("Çykmak üçin ýene bir gezek 'YZA' basyň!"),
-                    ),
-                  );
+                  showMessage();
                   return Future.value(false);
                 }
                 return Future.value(true);
@@ -125,14 +124,17 @@ class _MainScreenState extends State<MainScreen>
               builder: (context, state) {
                 final Function toCartPage =
                     (state as OnCartPageLoaded).cartPage;
-                return FloatingActionButton(
-                    elevation: 0,
-                    foregroundColor: unselectedIconColor,
-                    backgroundColor: kWhite,
-                    child: const CartButton(),
-                    onPressed: () {
-                      toCartPage();
-                    });
+                return Visibility(
+                  visible: !isKeyboardVisible(),
+                  child: FloatingActionButton(
+                      elevation: 3,
+                      foregroundColor: unselectedIconColor,
+                      backgroundColor: kWhite,
+                      child: const CartButton(),
+                      onPressed: () {
+                        toCartPage();
+                      }),
+                );
               },
             ),
             floatingActionButtonLocation:
@@ -145,7 +147,14 @@ class _MainScreenState extends State<MainScreen>
     );
   }
 
-  void backButonPressed() {}
+  showMessage() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        content: Text("Çykmak üçin ýene bir gezek 'YZA' basyň!"),
+      ),
+    );
+  }
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
     return {

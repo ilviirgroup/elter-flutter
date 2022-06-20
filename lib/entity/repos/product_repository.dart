@@ -23,3 +23,4 @@ class ProductRepository {
     return Product.fromJson(updatedProduct);
   }
 }
+

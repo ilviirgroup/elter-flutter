@@ -14,3 +14,5 @@ const textRedColor = Color(0xFFE21010);
 const kPrimaryColor = Color(0xFF7A4792); // #7a4792
 const unselectedIconColor = Color(0xFF9E9E9E);
 // const kSecondaryGreenColor = Color(0xFF43A047);
+
+var myColor = Colors.green;

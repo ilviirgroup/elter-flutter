@@ -19,10 +19,10 @@ class UpScrollButton extends StatelessWidget {
         ? GestureDetector(
             onTap: () {
               scrollUp();
-              toggleButton();
+              toggleButton(context);
             },
             child: CircleAvatar(
-              backgroundColor: kBlack.withOpacity(0.9),
+              backgroundColor: kBlack.withOpacity(0.7),
               foregroundColor: kWhite,
               radius: 20,
               child: const Icon(Icons.keyboard_arrow_up),

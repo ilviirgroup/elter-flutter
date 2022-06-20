@@ -1,6 +1,5 @@
 part of 'my_orders_bloc.dart';
 
-@immutable
 abstract class MyOrdersState extends Equatable {
   const MyOrdersState();
 
@@ -20,4 +19,4 @@ class MyOrdersFetchSuccess extends MyOrdersState {
 
 class MyOrdersSentSuccess extends MyOrdersState {}
 
-class MyOrdersLoadingState extends MyOrdersState{}
+class MyOrdersLoadingState extends MyOrdersState {}

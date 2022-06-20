@@ -45,6 +45,15 @@ class _EditUserInfosState extends State<EditUserInfos> {
   }
 
   @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    _addressController.dispose();
+    _noteController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
@@ -127,7 +136,7 @@ class _EditUserInfosState extends State<EditUserInfos> {
   }
 
   TextFormField inputField(
-    TextEditingController _controller,
+    TextEditingController controller,
     String hintText,
   ) {
     return TextFormField(
@@ -137,7 +146,7 @@ class _EditUserInfosState extends State<EditUserInfos> {
         }
         return null;
       },
-      controller: _controller,
+      controller: controller,
       decoration: InputDecoration(
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: kPrimaryColor, width: 2),
@@ -163,10 +172,10 @@ class _EditUserInfosState extends State<EditUserInfos> {
     );
   }
 
-  SizedBox orderButton(Size _size, BuildContext context) {
+  SizedBox orderButton(Size screenSize, BuildContext context) {
     return SizedBox(
       height: 50,
-      width: _size.width,
+      width: screenSize.width,
       child: ElevatedButton(
         onPressed: () {
           if (widget.formKey.currentState!.validate() &&

@@ -12,7 +12,6 @@ class ProductGridViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
         if (state is! CartLoadedState) {
@@ -55,20 +54,22 @@ class ProductGridViewItem extends StatelessWidget {
                     child: Column(
                       children: [
                         Expanded(
-                          flex: 2,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.contain,
-                                image: NetworkImage(
-                                  product.photo1!,
-                                ),
-                              ),
-                            ),
-                          ),
+                          flex: 5,
+                          child: Image.network(product.photo1!,
+                              fit: BoxFit.contain),
+                          // Container(
+                          //   decoration: BoxDecoration(
+                          //     image: DecorationImage(
+                          //       fit: BoxFit.contain,
+                          //       image: NetworkImage(
+                          //         product.photo1!,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ),
                         Expanded(
-                          flex: 1,
+                          flex: 3,
                           child: Padding(
                             padding:
                                 const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),

@@ -1,6 +1,7 @@
 class Order {
   final int? pk;
   final String? address;
+  final bool cancelled;
   final String? color;
   final bool completed;
   final String? date;
@@ -22,6 +23,7 @@ class Order {
   Order({
     this.pk,
     required this.address,
+    required this.cancelled,
     this.color,
     required this.completed,
     this.date,
@@ -44,6 +46,7 @@ class Order {
   factory Order.fromJson(Map<String, dynamic> json) => Order(
         pk: json[OrderApiFields.pk],
         address: json[OrderApiFields.address],
+        cancelled: json[OrderApiFields.cancelled],
         color: json[OrderApiFields.color],
         completed: json[OrderApiFields.completed],
         date: json[OrderApiFields.date],
@@ -65,6 +68,7 @@ class Order {
 
   Map<String, dynamic> toJson() => {
         OrderApiFields.address: address,
+        OrderApiFields.cancelled: cancelled,
         OrderApiFields.color: color,
         OrderApiFields.completed: completed,
         OrderApiFields.onProcess: onProcess,
@@ -84,6 +88,7 @@ class Order {
 class OrderApiFields {
   static const pk = 'pk';
   static const address = 'adress';
+  static const cancelled = 'cancelled';
   static const color = 'color';
   static const completed = 'completed';
   static const date = 'date';

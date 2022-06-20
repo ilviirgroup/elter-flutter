@@ -20,7 +20,7 @@ class Patch {
       print((response.statusCode));
       return jsonDecode('${response.data}') as Map<String, dynamic>;
     } catch (e) {
-      throw Exception(e.toString());
+      return {};
     }
   }
 }

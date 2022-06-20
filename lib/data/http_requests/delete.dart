@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import '../api_routes.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,8 +15,12 @@ class Delete {
       // } else {
       //   return true;
       // }
+    } on SocketException {
+      return 'Problem with connection to server';
+    } on FormatException {
+      return 'Format exception has occured';
     } catch (er) {
-      throw Exception(er);
+      return 'Another exception has occured';
     }
   }
 }

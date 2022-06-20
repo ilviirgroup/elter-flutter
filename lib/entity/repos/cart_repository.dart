@@ -10,10 +10,11 @@ class CartRepository {
     // await Hive.openBox<Product>('cartItemsBox');
     // await Hive.deleteBoxFromDisk('cartItemsBox');
     _cartItems = await Hive.openBox<Product>('cartItemsBox');
+   
   }
 
   List<Product> getCartItems() {
-    return _cartItems.values.toList();
+    return Hive.box<Product>('cartItemsBox').values.toList();
   }
 
   Future<double> getTotalAmount() async {
@@ -35,14 +36,14 @@ class CartRepository {
   }
 
   bool isDeliveryFree() {
-    double _price = 0.0;
+    double price = 0.0;
     double freeDeliveryPrice = 100.0;
     for (var item in getCartItems()) {
       if (item.freeDelivery!) {
-        _price += (item.selectedQuantity! * item.newPrice!);
+        price += (item.selectedQuantity! * item.newPrice!);
       }
     }
-    if (_price >= freeDeliveryPrice) {
+    if (price >= freeDeliveryPrice) {
       return true;
     }
     return false;
@@ -67,6 +68,11 @@ class CartRepository {
     final cartItemToRemove = _cartItems.values.firstWhere((element) =>
         element.productId == productId && element.name == productName);
     await cartItemToRemove.delete();
+  }
+
+  Future<List<Product>> clearCart() async {
+    await _cartItems.clear();
+    return getCartItems();
   }
 
   Future<void> updateCartItem(

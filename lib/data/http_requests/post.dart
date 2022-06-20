@@ -19,7 +19,7 @@ class Post {
       print(response.statusCode);
       return jsonDecode(utf8.decode(response.bodyBytes));
     } catch (e) {
-     throw Exception(e.toString());
+      return {};
     }
   }
 }

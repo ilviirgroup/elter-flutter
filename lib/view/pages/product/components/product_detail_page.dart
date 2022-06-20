@@ -8,47 +8,62 @@ class ProductDetailPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ProductDetailPageState createState() => _ProductDetailPageState();
+  createState() => _ProductDetailPageState();
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
+  List<String> imageUrls = [];
+  late CarouselController _carouselController;
+
+  @override
+  void initState() {
+    imageUrls = collectImages(widget.product);
+    _carouselController = CarouselController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
-
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kTransparent,
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: _size.height * 0.4,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        widget.product.photo1!,
-                      ),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+            SizedBox(
+              height: screenSize.height * 0.5,
+              child: CarouselSlider(
+                carouselController: _carouselController,
+                items: imageUrls
+                    .map((e) => GestureDetector(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ZoomPhoto(
+                                photoUrl: e,
+                                imageList: imageUrls,
+                              ),
+                            ),
+                          ),
+                          child: HeroWidget(
+                            height: screenSize.height * 0.5,
+                            width: screenSize.width,
+                            imageUrl: e,
+                          ),
+                        ))
+                    .toList(),
+                options: CarouselOptions(
+                  viewportFraction: 1,
+                  enableInfiniteScroll: false,
+                  height: screenSize.height * 0.5,
                 ),
-                widget.product.isNew
-                    ? const Positioned(
-                        top: 12,
-                        right: 1,
-                        child: NewProductLabel(),
-                      )
-                    : const SizedBox(),
-              ],
+              ),
             ),
             Container(
+              width: screenSize.width,
               margin: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 color: kWhite,
@@ -74,11 +89,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           .copyWith(color: textGreyColor),
                     ),
                   ),
-                  const Divider(
-                    indent: 8,
-                    endIndent: 15,
-                    thickness: 2,
-                  ),
                   widget.product.color! != 'Standart'
                       ? ColorContainer(product: widget.product)
                       : const SizedBox(),
@@ -101,33 +111,36 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   children: [
-                    Text("Satyjy: ",
-                        style: boldTextStyle.copyWith(fontSize: 17)),
                     Text(
-                      widget.product.vendorName,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      "Satyjy: ",
+                      style: semiBoldTextStyle.copyWith(fontSize: 16),
                     ),
+                    Text(widget.product.vendorName,
+                        style: Theme.of(context).textTheme.titleMedium),
                   ],
                 ),
               ),
             ),
             Container(
+              width: screenSize.width,
               margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: kWhite,
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: ExpansionTile(
-                textColor: kBlack,
-                iconColor: kBlack,
-                backgroundColor: kWhite,
-                title: const Text("Haryt barada"),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10.0, 0, 10, 10),
-                    child: Text(widget.product.description!),
-                  )
-                ],
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Haryt barada:',
+                      style: semiBoldTextStyle.copyWith(fontSize: 16),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(widget.product.description!),
+                  ],
+                ),
               ),
             ),
             Container(
@@ -172,7 +185,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         ),
       ),
 
-      // bottomsheet
+// bottomsheet
 
       bottomSheet: Container(
         padding: const EdgeInsets.all(10),
@@ -182,22 +195,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            widget.product.isSale
-                ? Container(
-                    padding: const EdgeInsets.all(7.0),
-                    decoration: BoxDecoration(
-                      color: textRedColor,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Text(
-                      '%${widget.product.discountPercentage!.ceil().toString()}',
-                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                            color: kWhite,
-                          ),
-                      textAlign: TextAlign.center,
-                    ),
-                  )
-                : const SizedBox(),
+            widget.product.isSale ? saleParcentage(context) : const SizedBox(),
             widget.product.isSale
                 ? Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -263,34 +261,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                       style: TextStyle(color: kPrimaryColor)),
                                 ),
                               );
-                              // AddToCartButton(
-                              //   color: kGreen,
-                              //   label: 'Haryt sebetde',
-                              //   addToCart: () {
-                              //     (state as OnCartPageLoaded).cartPage();
-                              //   },
-                              // );
                             },
                           )
-                        : AddToCartButton(
-                            color: kPrimaryColor,
-                            label: 'Sebede goş',
-                            addToCart: () {
-                              context
-                                  .read<CartBloc>()
-                                  .add(CartAddedEvent(widget.product));
-                            },
-                          );
+                        : buttonAddingToCart(context);
                   }
-                  return AddToCartButton(
-                    color: kPrimaryColor,
-                    label: 'Sebede goş',
-                    addToCart: () {
-                      context
-                          .read<CartBloc>()
-                          .add(CartAddedEvent(widget.product));
-                    },
-                  );
+                  return buttonAddingToCart(context);
                 },
               ),
             ),
@@ -299,33 +274,40 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       ),
     );
   }
-}
 
-class AddToCartButton extends StatelessWidget {
-  final Color color;
-  final String label;
-  final Function addToCart;
-  const AddToCartButton(
-      {Key? key,
-      required this.color,
-      required this.label,
-      required this.addToCart})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: ElevatedButton(
-        onPressed: () {
-          addToCart();
-        },
-        style: Theme.of(context)
-            .elevatedButtonTheme
-            .style!
-            .copyWith(backgroundColor: MaterialStateProperty.all(color)),
-        child: Text(label),
+  Container saleParcentage(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(7.0),
+      decoration: BoxDecoration(
+        color: textRedColor,
+        borderRadius: BorderRadius.circular(5),
       ),
+      child: Text(
+        '%${widget.product.discountPercentage!.ceil().toString()}',
+        style: Theme.of(context).textTheme.subtitle2!.copyWith(
+              color: kWhite,
+            ),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+  AddToCartButton buttonAddingToCart(BuildContext context) {
+    return AddToCartButton(
+      color: kPrimaryColor,
+      label: 'Sebede goş',
+      addToCart: () {
+        context
+            .read<CartBloc>()
+            .add(CartAddedEvent(widget.product..selectedQuantity = 1));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Sebede goşuldy'),
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.fromLTRB(20, 0, 20, 70),
+          ),
+        );
+      },
     );
   }
 }

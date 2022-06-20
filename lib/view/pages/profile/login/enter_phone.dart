@@ -1,4 +1,5 @@
 part of 'login.dart';
+
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
 
@@ -10,6 +11,12 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController _textEditingController = TextEditingController();
 
   bool validPhoneNumber = false;
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

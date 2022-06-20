@@ -30,8 +30,7 @@ class Profile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 TitleContainer(
-                                    size: _size,
-                                    title: 'Entek ulgama girmediňiz'),
+                                    size: _size, title: 'Siz ulgamda däl!'),
                                 SizedBox(
                                   height: 50,
                                   width: _size.width * 0.9,

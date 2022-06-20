@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:elter/utils/constants/app_assets.dart';
+import 'package:elter/utils/constants/app_colors.dart';
+
 import '../../presenter/bloc.dart';
 import 'main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +23,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   void initState() {
     super.initState();
     Timer(
-      const Duration(seconds: 5),
+      const Duration(seconds: 4),
       () => Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const MainScreen())),
     );
 
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 3), () {
       context.read<CartBloc>().add(CartLoadedEvent());
     });
   }
@@ -39,6 +42,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: kWhite,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -49,11 +53,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   return Container(
                     padding: const EdgeInsets.all(0),
                     decoration: const BoxDecoration(
-                        // image: DecorationImage(
-                        //   fit: BoxFit.contain,
-                        //   image: AssetImage('images/logo.png'),
-                        // ),
-                        ),
+                      image: DecorationImage(
+                        fit: BoxFit.contain,
+                        image: AssetImage(AppAssets.colorfullCircles),
+                      ),
+                    ),
                     height: MediaQuery.of(context).size.height / 2,
                   );
                 },

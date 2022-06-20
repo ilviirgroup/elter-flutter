@@ -9,14 +9,14 @@ class ColorContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-             const Text(
+              const Text(
                 "Reňk: ",
                 style: boldTextStyle,
               ),
@@ -35,8 +35,8 @@ class ColorContainer extends StatelessWidget {
             ..._color.map(
               (e) => Container(
                 margin: const EdgeInsets.all(5),
-                height: _size.height / 10,
-                width: _size.width / 8,
+                height: screenSize.height / 10,
+                width: screenSize.width / 8,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(color: kBlack, width: 2),

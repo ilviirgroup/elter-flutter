@@ -6,7 +6,7 @@ class SizeContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -144,7 +144,7 @@ class SizeContainer extends StatelessWidget {
                       ),
                       Container(
                         margin: const EdgeInsets.all(8),
-                        height: _size.height / 10,
+                        height: screenSize.height / 10,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),

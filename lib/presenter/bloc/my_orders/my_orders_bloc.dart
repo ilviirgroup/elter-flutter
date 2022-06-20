@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import '../../../entity/models.dart';
 import '../../../entity/repos/order_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+
 
 part 'my_orders_event.dart';
 part 'my_orders_state.dart';
@@ -24,9 +24,11 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
 
   void _onMyOrdersFetchedEvent(
       MyOrdersFetchedEvent event, Emitter<MyOrdersState> emit) async {
+    await repository.fetchData(event.phone);
+
     emit(
       MyOrdersFetchSuccess(
-        myOrders: await repository.fetchData(event.urlBuilder),
+        myOrders: repository.myOrders,
       ),
     );
   }
@@ -34,14 +36,16 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent, MyOrdersState> {
   void _onMyOrdersSentEvent(
       MyOrdersSentEvent event, Emitter<MyOrdersState> emit) async {
     await repository.sendOrder(event.obj);
-    emit(MyOrdersFetchSuccess(
-      myOrders: await repository.fetchData(event.urlBuilder!),
-    ));
+    // await repository.fetchData(event.urlBuilder!);
+    add(MyOrdersFetchedEvent(event.phone));
+    // emit(MyOrdersFetchSuccess(
+    //   myOrders: repository.myOrders,
+    // ));
   }
 
   void _onMyOrdersDeletedEvent(
       MyOrdersDeletedEvent event, Emitter<MyOrdersState> emit) async {
-    await repository.deleteOrder(event.id);
+    await repository.cancelOrder(event.obj, event.id);
     emit(
       MyOrdersFetchSuccess(
         myOrders: ((state.props.first) as List<Order>)

@@ -9,12 +9,11 @@ part 'cart_state.dart';
 class CartBloc extends Bloc<CartEvent, CartState> {
   final CartRepository _repository;
   CartBloc(this._repository) : super(RegisterRepositoryState()) {
-    
     on<CartInitializedEvent>((event, emit) async {
       await _repository.init();
       emit(CartInitial());
     });
-    
+
     on<CartLoadedEvent>((event, emit) async {
       final cartItems = _repository.getCartItems();
       final totalAmount = await _repository.getTotalAmount();
@@ -22,8 +21,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       final isDeliveryFree = _repository.isDeliveryFree();
       final freeDeliveryProductsPrice =
           await _repository.freeDeliveryProductsPrice();
-      emit(CartLoadedState(
-          cartItems, totalAmount, totalCartItems, isDeliveryFree, freeDeliveryProductsPrice));
+      emit(CartLoadedState(cartItems, totalAmount, totalCartItems,
+          isDeliveryFree, freeDeliveryProductsPrice));
     });
 
     on<CartAddedEvent>((event, emit) async {
@@ -36,11 +35,17 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       add(CartLoadedEvent());
     });
 
-
     on<CartUpdatedEvent>((event, emit) async {
       await _repository.updateCartItem(
           event.productId, event.productName, event.increment);
       add(CartLoadedEvent());
+    });
+
+    on<CartEmptiedEvent>((event, emit) async {
+      await _repository.clearCart();
+      
+      add(CartLoadedEvent());
+
     });
   }
 }

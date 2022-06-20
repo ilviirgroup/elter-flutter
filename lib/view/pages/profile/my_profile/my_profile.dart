@@ -1,6 +1,8 @@
-import 'dart:ui';
-
 import 'package:elter/utils/constants/app_enums.dart';
+import 'package:elter/utils/modify_price.dart';
+
+import 'package:elter/view/pages/profile/my_profile/components/order_list_item.dart';
+import 'package:flutter/gestures.dart';
 
 import '../../../../entity/models.dart';
 import '../../../../entity/repos/order_repository.dart';
@@ -9,6 +11,7 @@ import '../../../../utils/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../presenter/bloc.dart';
+import '../../../../utils/constants/constants.dart';
 import '../../../widgets/app_alert_dialog.dart';
 import '../../../widgets/widgets.dart';
 
@@ -58,8 +61,9 @@ class MyProfile extends StatelessWidget {
                             ListTile(
                               onTap: () {
                                 context.read<MyOrdersBloc>().add(
-                                    MyOrdersFetchedEvent(UrlBuilder()
-                                      ..userPhone = currentUser.phoneNumber));
+                                      MyOrdersFetchedEvent(
+                                          currentUser.phoneNumber),
+                                    );
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

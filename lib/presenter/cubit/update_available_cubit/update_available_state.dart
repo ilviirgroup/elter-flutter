@@ -1,7 +1,6 @@
 part of 'update_available_cubit.dart';
 
-@immutable
-abstract class UpdateAvailableState extends Equatable{
+abstract class UpdateAvailableState extends Equatable {
   const UpdateAvailableState();
 
   @override

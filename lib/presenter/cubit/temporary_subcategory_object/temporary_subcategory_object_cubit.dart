@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import '../../../entity/models.dart';
 import 'package:equatable/equatable.dart';
 
 part 'temporary_subcategory_object_state.dart';

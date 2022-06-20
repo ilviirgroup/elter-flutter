@@ -6,16 +6,31 @@ class OrderRepository {
   final NetworkService networkService;
   OrderRepository(this.networkService);
 
-  Future<List<Order>> fetchData(UrlBuilder urlBuilder) async {
+  late List<Order> myOrders;
+
+  Future<void> fetchData(String phone) async {
+    UrlBuilder urlBuilder = UrlBuilder()..userPhone = phone;
     final List rawData = await networkService.getRequest.fetchData(
         BaseUrl.baseUrl + ApiRoutes.orderApiRoute + urlBuilder.toString());
-    return rawData.map((json) => Order.fromJson(json)).toList();
+    List<Order> _myOrders =
+        rawData.map((json) => Order.fromJson(json)).toList();
+    myOrders = _myOrders.where((element) => !element.cancelled).toList();
+  }
+
+  List<String> orderIds() {
+    return myOrders.map((e) => e.orderId!).toList().toSet().toList();
   }
 
   Future sendOrder(Map<String, dynamic> dataObj) async {
     final orderMap = await networkService.postRequest
         .addData(dataObj: dataObj, apiRoute: ApiRoutes.orderApiRoute);
+
     return Order.fromJson(orderMap);
+  }
+
+  Future cancelOrder(Map<String, dynamic> obj, int id) async {
+    return await networkService.updateRequest
+        .patchData(patchObj: obj, id: id, apiRoute: ApiRoutes.orderApiRoute);
   }
 
   Future deleteOrder(int id) async {
@@ -58,6 +73,6 @@ class UrlBuilder {
       '${OrderApiFields.quantity}=${quantity ?? ''}',
       '${OrderApiFields.result}=${result ?? ''}',
     ];
-    return '?' + filterList.join('&');
+    return '?${filterList.join('&')}';
   }
 }

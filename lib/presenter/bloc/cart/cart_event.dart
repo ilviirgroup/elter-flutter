@@ -2,17 +2,16 @@ part of 'cart_bloc.dart';
 
 abstract class CartEvent extends Equatable {
   const CartEvent();
-}
 
-class CartLoadedEvent extends CartEvent {
   @override
   List<Object> get props => [];
 }
 
-class CartInitializedEvent extends CartEvent {
-  @override
-  List<Object> get props => [];
-}
+class CartInitializedEvent extends CartEvent {}
+
+class CartLoadedEvent extends CartEvent {}
+
+class CartEmptiedEvent extends CartEvent {}
 
 class CartAddedEvent extends CartEvent {
   final Product cartItem;

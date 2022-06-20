@@ -11,12 +11,11 @@ class CartListViewItem extends StatefulWidget {
 class _CartListViewItemState extends State<CartListViewItem> {
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
     return BlocBuilder<OnProductDetailPageCubit, OnProductDetailPageState>(
       builder: (context, state) {
         final toProductDetailPage = (state as OnProductDetailPageLoaded).onNext;
         return SizedBox(
-          height: _size.height * 0.2,
+          height: 200,
           child: Card(
             margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             elevation: 0.0,
@@ -24,7 +23,7 @@ class _CartListViewItemState extends State<CartListViewItem> {
             child: Row(
               children: [
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: GestureDetector(
                     onTap: () {
                       toProductDetailPage(widget.product);
@@ -36,16 +35,17 @@ class _CartListViewItemState extends State<CartListViewItem> {
                   ),
                 ),
                 Expanded(
-                  flex: 6,
+                  flex: 3,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10.0, right: 10),
+                    padding: const EdgeInsets.fromLTRB(0, 10, 10, 5),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
-                              flex: 4,
+                              flex: 6,
                               child: GestureDetector(
                                 onTap: () {
                                   toProductDetailPage(widget.product);
@@ -57,8 +57,11 @@ class _CartListViewItemState extends State<CartListViewItem> {
                                         style: boldTextStyle),
                                     Text(
                                       widget.product.name,
-                                      style:
-                                          const TextStyle(color: textGreyColor),
+                                      maxLines: 2,
+                                      style: const TextStyle(
+                                        color: textGreyColor,
+                                        overflow: TextOverflow.fade,
+                                      ),
                                     ),
                                     widget.product.size == 'Standart'
                                         ? const Text('Reňksiz/Standart')
@@ -98,44 +101,38 @@ class _CartListViewItemState extends State<CartListViewItem> {
                             )
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ChangeQuantity(product: widget.product),
-                              widget.product.isSale
-                                  ? Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          modifyPrice(
-                                            (widget.product.newPrice! *
-                                                widget
-                                                    .product.selectedQuantity!),
-                                          ),
-                                          style: discountedPriceStyle,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ChangeQuantity(product: widget.product),
+                            widget.product.isSale
+                                ? Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        modifyPrice(
+                                          (widget.product.newPrice! *
+                                              widget.product.selectedQuantity!),
                                         ),
-                                        Text(
-                                          modifyPrice(
-                                            (widget.product.price *
-                                                widget
-                                                    .product.selectedQuantity!),
-                                          ),
-                                          style: oldPriceStyle,
-                                        ),
-                                      ],
-                                    )
-                                  : Text(
-                                      modifyPrice(
-                                        (widget.product.newPrice! *
-                                            widget.product.selectedQuantity!),
+                                        style: discountedPriceStyle,
                                       ),
-                                      style: priceStyle,
+                                      Text(
+                                        modifyPrice(
+                                          (widget.product.price *
+                                              widget.product.selectedQuantity!),
+                                        ),
+                                        style: oldPriceStyle,
+                                      ),
+                                    ],
+                                  )
+                                : Text(
+                                    modifyPrice(
+                                      (widget.product.newPrice! *
+                                          widget.product.selectedQuantity!),
                                     ),
-                            ],
-                          ),
+                                    style: priceStyle,
+                                  ),
+                          ],
                         )
                       ],
                     ),
@@ -147,41 +144,5 @@ class _CartListViewItemState extends State<CartListViewItem> {
         );
       },
     );
-  }
-
-  void myDialog() {
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              content: const Text(
-                'Siz harydy sebetden aýyrmakçymy?',
-                style: semiBoldTextStyle,
-              ),
-              actions: [
-                GestureDetector(
-                  onTap: () {
-                    context.read<CartBloc>().add(CartRemovedEvent(
-                        widget.product.productId, widget.product.name));
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    'HAWA',
-                    style: boldTextStyle.copyWith(color: Colors.orange),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.fromLTRB(25.0, 10.0, 10.0, 10.0),
-                    child: Text(
-                      'Ýok',
-                      style: semiBoldTextStyle,
-                    ),
-                  ),
-                )
-              ],
-            ));
   }
 }

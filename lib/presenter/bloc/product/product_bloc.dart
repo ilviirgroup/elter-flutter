@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import '../../../entity/models/product.dart';
 import '../../../entity/repos/product_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';
@@ -33,11 +32,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       ProductUpdatedEvent event, Emitter<ProductState> emit) async {
     final updatedProduct =
         await repository.updateProduct(event.updateObj, event.id);
-    // print('gelen haryt ${updatedProduct.visited}');
-    // emit(
-    //   ProductsLoadedState(
-    //     products: await repository.fetchData(),
-    //   ),
-    // );
+    print('gelen haryt ${updatedProduct.visited}');
+    emit(
+      ProductsLoadedState(
+        products: await repository.fetchData(),
+      ),
+    );
   }
 }

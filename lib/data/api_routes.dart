@@ -1,5 +1,7 @@
 class BaseUrl {
-  static String baseUrl = 'http://96.30.193.58/';
+  // // static String baseUrl = 'http://96.30.193.58/';
+  // // static String baseUrl = 'http://192.168.1.104:8000/';
+  static String baseUrl = 'http://192.168.31.135:8000/';
 }
 
 class ApiRoutes {
@@ -24,3 +26,4 @@ class ApiRoutes {
   static String vendorApiRoute = 'Vendor/';
   static String visitedApiRoute = 'Visited/';
 }
+

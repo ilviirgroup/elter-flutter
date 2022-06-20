@@ -20,6 +20,17 @@ class _EnterPinState extends State<EnterPin> {
 
   final TextEditingController _fieldSix = TextEditingController();
 
+  @override
+  void dispose() {
+    _fieldOne.dispose();
+    _fieldTwo.dispose();
+    _fieldThree.dispose();
+    _fieldFour.dispose();
+    _fieldFive.dispose();
+    _fieldSix.dispose();
+    super.dispose();
+  }
+
   String? _otp;
 
   @override
@@ -93,8 +104,9 @@ class _EnterPinState extends State<EnterPin> {
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
+                      margin: EdgeInsets.fromLTRB(20.0, 0, 20.0, 140),
                       behavior: SnackBarBehavior.floating,
-                      content: Text('Ulgama üstünlikli girdiňiz'),
+                      content: Text('Ulgama, üstünlikli girdiňiz'),
                     ),
                   );
                   Navigator.of(context).pop();
