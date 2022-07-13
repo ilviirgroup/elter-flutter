@@ -13,6 +13,7 @@ class CartIcon extends StatelessWidget {
             .add(CartAddedEvent(product..selectedQuantity = 1));
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
+            
             content: Text('Sebede goşuldy'),
             behavior: SnackBarBehavior.floating,
             margin: EdgeInsets.fromLTRB(20, 0, 20, 10),

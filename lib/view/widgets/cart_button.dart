@@ -1,3 +1,4 @@
+import 'package:elter/utils/constants/app_icons.dart';
 import 'package:elter/utils/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +17,7 @@ class CartButton extends StatelessWidget {
       const Padding(
         padding: EdgeInsets.all(8.0),
         child: Icon(
-          Icons.shopping_cart_outlined,
+          BottomBarIcons.cart,
         ),
       ),
       Positioned(

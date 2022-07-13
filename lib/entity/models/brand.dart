@@ -20,6 +20,13 @@ class Brand {
         products: json[BrandApiFields.products],
         url: json[BrandApiFields.url],
       );
+
+  Map<String, dynamic> toMap() {
+    return {
+      BrandApiFields.pk: pk,
+      BrandApiFields.name: name,
+    };
+  }
 }
 
 class BrandApiFields {

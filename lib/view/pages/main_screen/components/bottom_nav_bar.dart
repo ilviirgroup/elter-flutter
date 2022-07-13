@@ -1,3 +1,4 @@
+import 'package:elter/utils/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/constants/constants.dart';
@@ -26,14 +27,14 @@ class BottomNavBar extends StatelessWidget {
               index: BottomNavScreen.home,
               currentIndex: bottomNavScreen,
               label: bottomNavigationIconLabels[BottomNavScreen.home]!,
-              icon: Icons.home_outlined,
+              icon: BottomBarIcons.home,
             ),
             BottomNavItem(
               index: BottomNavScreen.vendors,
               currentIndex: bottomNavScreen,
               label:
                   bottomNavigationIconLabels[BottomNavScreen.vendors]!,
-              icon: Icons.storefront_outlined,
+              icon: BottomBarIcons.vendors,
             ),
             SizedBox(
               width: screenSize.width / 5,
@@ -43,14 +44,14 @@ class BottomNavBar extends StatelessWidget {
               currentIndex: bottomNavScreen,
               label:
                   bottomNavigationIconLabels[BottomNavScreen.catalog]!,
-              icon: Icons.dashboard_outlined,
+              icon: BottomBarIcons.catalog,
             ),
             BottomNavItem(
               index: BottomNavScreen.profile,
               currentIndex: bottomNavScreen,
               label:
                   bottomNavigationIconLabels[BottomNavScreen.profile]!,
-              icon: Icons.person_outline,
+              icon: BottomBarIcons.profile,
             ),
           ],
         ),

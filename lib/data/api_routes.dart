@@ -1,7 +1,9 @@
 class BaseUrl {
   // // static String baseUrl = 'http://96.30.193.58/';
   // // static String baseUrl = 'http://192.168.1.104:8000/';
-  static String baseUrl = 'http://192.168.31.135:8000/';
+  static String baseUrl = 'http://10.10.10.30:8000/';
+  // static String baseUrl = 'http://192.168.31.135:8000/';
+
 }
 
 class ApiRoutes {
@@ -11,7 +13,7 @@ class ApiRoutes {
   static String categoryApiRoute = 'Category/';
   static String verificationCodeApiRoute = 'ClientCode/';
   static String userApiRoute = 'Clients/';
-  static String colorAPiRoute = 'Colors/';
+  static String colorApiRoute = 'Colors/';
   static String discountApiRoute = 'Discount/';
   static String exchangeApiRoute = 'Exchange/';
   static String genderApiRoute = 'Genders/';
@@ -26,4 +28,3 @@ class ApiRoutes {
   static String vendorApiRoute = 'Vendor/';
   static String visitedApiRoute = 'Visited/';
 }
-

@@ -4,7 +4,6 @@ import '../../../data/network_service.dart';
 import '../../../presenter/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -13,15 +12,15 @@ import '../../../presenter/cubit.dart';
 import '../../../utils/collect_images.dart';
 import '../../../utils/constants/constants.dart';
 import '../../../utils/modify_price.dart';
-import '../../widgets/hero_widget.dart';
 import '../../widgets/widgets.dart';
-import 'components/add_to_cart_button.dart';
+import 'components/bottom_price_bar.dart';
+import 'components/custom_slider.dart';
 
 part 'components/cart_icon.dart';
 part 'components/color_container.dart';
 part 'components/in_the_cart_label.dart';
 part 'components/new_product_label.dart';
-part 'components/product_detail_page.dart';
+part 'product_detail_page.dart';
 part 'components/product_grid_view_item.dart';
 part 'components/products_grid_view.dart';
 part 'components/size_container.dart';

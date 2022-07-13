@@ -39,13 +39,6 @@ class _MainScreenState extends State<MainScreen>
     GlobalKey<NavigatorState>(),
   ];
 
-  @override
-  void initState() {
-    context.read<VisitedCubit>().getVisited();
-    context.read<CartBloc>().add(CartLoadedEvent());
-    super.initState();
-  }
-
   DateTime? currentBackPressTime;
 
   @override

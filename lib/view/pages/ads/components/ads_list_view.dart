@@ -52,7 +52,7 @@ class _AdsListViewState extends State<AdsListView>
     return BlocBuilder<AdsBloc, AdsState>(
       builder: (context, state) {
         if (state is! AdsLoadedState) {
-          return const LoadingIndicator();
+          return const SizedBox();
         }
         final List<Ads> adsList = state.ads;
 

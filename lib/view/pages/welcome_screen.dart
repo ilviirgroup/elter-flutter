@@ -4,6 +4,7 @@ import 'package:elter/utils/constants/app_assets.dart';
 import 'package:elter/utils/constants/app_colors.dart';
 
 import '../../presenter/bloc.dart';
+import '../../presenter/cubit.dart';
 import 'main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,30 +13,48 @@ class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen>
     with TickerProviderStateMixin {
-  AnimationController? animationController;
+  StreamSubscription? subs;
+  int totalBall = 5;
+  int position = 0;
 
   @override
   void initState() {
-    super.initState();
-    Timer(
-      const Duration(seconds: 4),
-      () => Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const MainScreen())),
-    );
-
+    subs = Stream.periodic(const Duration(milliseconds: 300))
+        .listen(changePosition);
+    context.read<VisitedCubit>().getVisited();
     Timer(const Duration(seconds: 3), () {
       context.read<CartBloc>().add(CartLoadedEvent());
     });
+    Timer(
+      const Duration(seconds: 4),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MainScreen(),
+        ),
+      ),
+    );
+
+    super.initState();
   }
 
   @override
   void dispose() {
+    subs!.cancel();
     super.dispose();
+  }
+
+  void changePosition(_) {
+    if (position >= totalBall) {
+      position = -1;
+    }
+    position++;
+    setState(() {});
   }
 
   @override
@@ -50,20 +69,46 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             children: [
               BlocBuilder<CartBloc, CartState>(
                 builder: (context, state) {
-                  return Container(
-                    padding: const EdgeInsets.all(0),
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.contain,
-                        image: AssetImage(AppAssets.colorfullCircles),
+                  return SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: List.generate(
+                        totalBall,
+                        (index) {
+                          bool current = index == position;
+                          return AnimatedContainer(
+                            duration: const Duration(milliseconds: 400),
+                            height: current ? 30 : 10,
+                            width: 5,
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: kPrimaryColor,
+                            ),
+                          );
+                        },
                       ),
                     ),
-                    height: MediaQuery.of(context).size.height / 2,
                   );
+                  // Container(
+                  //   padding: const EdgeInsets.all(0),
+                  //   decoration: const BoxDecoration(
+                  //     image: DecorationImage(
+                  //       fit: BoxFit.contain,
+                  //       image: AssetImage(AppAssets.colorfullCircles),
+                  //     ),
+                  //   ),
+                  //   height: MediaQuery.of(context).size.height / 2,
+                  // );
                 },
               ),
-              const Text('W E L C O M E')
-              // const CircularProgressIndicator()
+              const Text(
+                'WELCOME',
+                style: TextStyle(letterSpacing: 5),
+              )
             ],
           ),
         ),
